@@ -1,0 +1,2881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CBCS Interactive Learning Platform - Batch 1 | Instructional Design by Hilary Homaii</title>
+<style>
+:root{
+  --navy:#10213f;
+  --teal:#13b8b3;
+  --mint:#8ff0d2;
+  --blue:#3f7cff;
+  --lav:#8f6bff;
+  --orange:#ffad42;
+  --coral:#ff5c73;
+  --green:#22c55e;
+  --red:#ef4444;
+  --gray:#64748b;
+  --paper:#ffffff;
+  --soft:#f4f7fb;
+  --ink:#172033;
+  --shadow: 0 18px 50px rgba(16,33,63,.18);
+
+  --fuchsia:#f72585; --punch:#ff477e; --strawberry:#ff4f7b; --hotpink:#ff1493;
+  --purple2:#7b2cbf; --plum:#5a189a; --magenta2:#d100d1; --lilac:#c8a2c8; --orchid:#da70d6;
+  --sky:#70d6ff; --cobalt:#0047ab; --ocean:#0077b6; --navy2:#001f54;
+  --coral2:#ff7f50; --salmon:#fa8072; --pastelYellow:#fff071; --yellowCMYK:#ffff00;
+  --yellowgreen:#bbf90f; --lightKhaki:#f0e68c; --beeYellow:#e9ab17; --saffron:#f4c430;
+  --marigold:#fcb810; --lemonCurry:#cca01d; --fuelYellow:#d19033; --neonYellow:#ccff04; --laserLemon:#feff22; --mimosa:#fff4bc;
+  --moss:#466d1d; --pear:#74b72e; --lime:#aef359; --fern:#5dbb63; --juniper:#3a5311; --sage:#728c69;
+  --emerald:#028a0f; --basil:#32612d; --pistachio:#b2d3c2; --mint2:#99edc3; --seafoam:#3ded97; --shamrock:#03ac13;
+  --radius: 22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--ink);
+  background: radial-gradient(circle at 10% 10%, rgba(143,107,255,.22), transparent 26%),
+              radial-gradient(circle at 85% 8%, rgba(19,184,179,.23), transparent 30%),
+              linear-gradient(135deg,#eef6ff 0%, #fff9f0 47%, #f3efff 100%);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+.bg-orb{
+  position:fixed; border-radius:50%; filter:blur(2px); opacity:.45; z-index:-2;
+  animation: floatOrb 13s ease-in-out infinite alternate;
+}
+.orb1{width:240px;height:240px;background:#8ff0d2;left:-80px;top:150px}
+.orb2{width:300px;height:300px;background:#c8b8ff;right:-110px;top:80px;animation-delay:2s}
+.orb3{width:180px;height:180px;background:#ffd48e;right:10%;bottom:20px;animation-delay:4s}
+@keyframes floatOrb{from{transform:translateY(0) scale(1)}to{transform:translateY(-38px) scale(1.07)}}
+.app-shell{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+.sidebar{
+  position:sticky; top:0; height:100vh; padding:22px;
+  background:rgba(16,33,63,.92);
+  color:#fff; backdrop-filter: blur(14px);
+  box-shadow: 15px 0 35px rgba(16,33,63,.15);
+  overflow:auto;
+}
+.brand{
+  display:flex;gap:12px;align-items:center;margin-bottom:20px;
+}
+.logo{
+  width:50px;height:50px;border-radius:16px;
+  background:linear-gradient(135deg,var(--teal),var(--lav));
+  display:grid;place-items:center;box-shadow:0 12px 30px rgba(143,107,255,.45);
+  font-size:26px; animation:pulseLogo 2.8s infinite;
+}
+@keyframes pulseLogo{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.brand h1{font-size:17px;line-height:1.1;margin:0}
+.brand small{color:#cbd5e1}
+.nav-btn{
+  width:100%; text-align:left; border:0; color:#e9f3ff;
+  padding:13px 14px; margin:7px 0; border-radius:16px;
+  background:rgba(255,255,255,.08); cursor:pointer;
+  display:flex;align-items:center;gap:10px; font-weight:700;
+  transition:.25s ease;
+}
+.nav-btn:hover,.nav-btn.active{background:linear-gradient(135deg,rgba(19,184,179,.95),rgba(143,107,255,.95));transform:translateX(4px)}
+.side-card{
+  margin-top:18px;padding:15px;border-radius:18px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12)
+}
+.side-card label{display:block;font-size:12px;color:#cbd5e1;margin-bottom:6px}
+.side-card input,.side-card select,.side-card textarea{
+  width:100%;border:0;border-radius:12px;padding:10px;margin:4px 0 10px;color:#0f172a
+}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.utility{
+  border:0;border-radius:999px;padding:10px 12px;font-weight:800;cursor:pointer;
+  background:#fff;color:var(--navy);transition:.2s
+}
+.utility:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+main{padding:28px;max-width:1280px;width:100%;margin:0 auto}
+.section{display:none;animation:fadeSlide .45s ease}
+.section.active{display:block}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.hero{
+  min-height:78vh; display:grid; align-items:center;
+  background:linear-gradient(135deg,rgba(255,255,255,.72),rgba(255,255,255,.37));
+  border:1px solid rgba(255,255,255,.75); border-radius:34px; box-shadow:var(--shadow);
+  padding:42px; position:relative;overflow:hidden;
+}
+.hero:before{
+  content:""; position:absolute; inset:-50%;
+  background:conic-gradient(from 120deg, rgba(19,184,179,.14), rgba(143,107,255,.17), rgba(255,173,66,.12), rgba(19,184,179,.14));
+  animation:spin 18s linear infinite; z-index:0;
+}
+.hero > *{position:relative;z-index:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+.kicker{
+  display:inline-flex;gap:8px;align-items:center;background:rgba(16,33,63,.09);
+  color:var(--navy);padding:9px 14px;border-radius:999px;font-weight:900;margin-bottom:12px
+}
+.hero h2{font-size:clamp(38px,6vw,72px);line-height:.95;margin:10px 0;color:var(--navy);letter-spacing:-2px}
+.hero p{font-size:19px;line-height:1.65;max-width:850px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.btn{
+  border:0;border-radius:16px;padding:13px 18px;font-weight:900;cursor:pointer;
+  background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;box-shadow:0 12px 28px rgba(63,124,255,.27);
+  transition:.2s; position:relative; overflow:hidden;
+}
+.btn:hover{transform:translateY(-3px);box-shadow:0 18px 34px rgba(63,124,255,.35)}
+.btn.secondary{background:#fff;color:var(--navy)}
+.btn.warn{background:linear-gradient(135deg,var(--orange),var(--coral))}
+.btn.good{background:linear-gradient(135deg,var(--green),var(--teal))}
+.btn.ghost{background:rgba(16,33,63,.08);color:var(--navy);box-shadow:none}
+.btn.small{padding:8px 11px;border-radius:12px;font-size:13px}
+.grid{display:grid;gap:18px}
+.grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{
+  background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.76);
+  border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;backdrop-filter: blur(10px);
+}
+.module-card{position:relative;overflow:hidden;min-height:170px;transition:.25s}
+.module-card:hover{transform:translateY(-6px) rotateX(2deg);box-shadow:0 22px 55px rgba(16,33,63,.2)}
+.module-card .big-icon{font-size:36px;display:inline-block;padding:12px;border-radius:18px;background:rgba(255,255,255,.72);margin-bottom:8px}
+.badge{
+  display:inline-block;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:900;margin:4px;
+  background:rgba(63,124,255,.12);color:#1746aa
+}
+.badge.green{background:rgba(34,197,94,.14);color:#0f7d3b}
+.badge.orange{background:rgba(255,173,66,.2);color:#995300}
+.badge.red{background:rgba(239,68,68,.14);color:#991b1b}
+.badge.purple{background:rgba(143,107,255,.16);color:#4c1d95}
+.section-title{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:6px 0 18px}
+.section-title h2{font-size:34px;margin:0;color:var(--navy)}
+.progress-wrap{height:12px;border-radius:999px;background:rgba(16,33,63,.08);overflow:hidden}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--lav),var(--orange));transition:.5s}
+.flash-layout{display:grid;grid-template-columns:1fr 330px;gap:18px;align-items:start}
+.flash-scene{perspective:1400px}
+.flashcard{
+  min-height:560px;position:relative;transform-style:preserve-3d;transition:transform .75s cubic-bezier(.2,.8,.2,1);
+}
+.flashcard.flipped{transform:rotateY(180deg)}
+.flashcard{cursor:pointer;}
+.flashcard:hover{filter:saturate(1.05) brightness(1.01);}
+.flashcard .question-card, .flashcard button, .flashcard input, .flashcard textarea, .flashcard select, .flashcard a{cursor:auto;}
+.flashcard .option, .flashcard button{cursor:pointer;}
+.flash-hint{font-size:13px;font-weight:900;color:#10213f;background:rgba(255,255,255,.72);border-radius:999px;padding:7px 10px;display:inline-block;margin-left:8px;}
+
+.flash-face{
+  position:absolute;inset:0;backface-visibility:hidden;
+  background:rgba(255,255,255,.86);border:1px solid rgba(255,255,255,.88);
+  border-radius:30px;box-shadow:var(--shadow);padding:26px;overflow:auto;
+}
+.flash-back{transform:rotateY(180deg)}
+.flash-face h3{font-size:30px;line-height:1.1;margin:6px 0 12px;color:var(--navy)}
+.teach-boxes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0}
+.teach-box{padding:13px;border-radius:16px;border-left:6px solid var(--blue);background:rgba(63,124,255,.08)}
+.teach-box.green{border-left-color:var(--green);background:rgba(34,197,94,.1)}
+.teach-box.purple{border-left-color:var(--lav);background:rgba(143,107,255,.1)}
+.teach-box.orange{border-left-color:var(--orange);background:rgba(255,173,66,.13)}
+.teach-box.red{border-left-color:var(--coral);background:rgba(255,92,115,.1)}
+.teach-box.gray{border-left-color:var(--gray);background:rgba(100,116,139,.1)}
+.teach-box b{display:block;margin-bottom:4px}
+.keyword{font-weight:900;text-decoration-thickness:3px;text-underline-offset:4px}
+.kw-blue{color:#1d4ed8;text-decoration:underline var(--blue)}
+.kw-green{color:#15803d;text-decoration:underline var(--green)}
+.kw-purple{color:#6d28d9;text-decoration:underline var(--lav)}
+.kw-orange{color:#b45309;text-decoration:underline var(--orange)}
+.kw-red{color:#be123c;text-decoration:underline var(--coral)}
+.flash-list{max-height:665px;overflow:auto}
+.flash-pill{
+  width:100%;border:0;border-radius:14px;padding:10px;margin-bottom:8px;cursor:pointer;
+  background:rgba(255,255,255,.76);text-align:left;font-weight:800;color:var(--navy);
+  border-left:5px solid transparent;transition:.2s
+}
+.flash-pill:hover,.flash-pill.active{border-left-color:var(--teal);transform:translateX(3px)}
+.question-card{padding:18px;border-radius:22px;background:#fff;box-shadow:var(--shadow);margin:16px 0}
+.q-stem{font-size:18px;font-weight:850;line-height:1.45;margin-bottom:12px;color:var(--navy)}
+.option{
+  width:100%;display:block;text-align:left;border:2px solid rgba(16,33,63,.08);background:#fff;
+  border-radius:15px;padding:12px 14px;margin:9px 0;cursor:pointer;font-weight:750;transition:.18s;
+}
+.option:hover{transform:translateX(4px);border-color:rgba(19,184,179,.55)}
+.option.correct{border-color:var(--green);background:rgba(34,197,94,.13);animation:correctGlow 1.2s ease}
+.option.incorrect{border-color:var(--red);background:rgba(239,68,68,.12);animation:shake .35s ease}
+@keyframes correctGlow{0%,100%{box-shadow:0 0 0 rgba(34,197,94,0)}45%{box-shadow:0 0 24px rgba(34,197,94,.55)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.feedback{display:none;margin-top:12px;padding:14px;border-radius:16px;background:rgba(16,33,63,.06)}
+.feedback.show{display:block}
+.rationale-list{display:grid;gap:8px;margin-top:12px}
+.rationale-item{padding:10px;border-radius:12px;background:rgba(100,116,139,.08)}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:12px 0}
+.toolbar input,.toolbar select{
+  border:0;border-radius:12px;padding:11px 12px;background:#fff;box-shadow:0 6px 18px rgba(16,33,63,.08)
+}
+.test-shell{background:linear-gradient(135deg,#e8edf7,#f9fafb);border-radius:30px;padding:20px;box-shadow:var(--shadow);border:1px solid #fff}
+.test-top{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;margin-bottom:14px}
+.timer{font-size:24px;font-weight:950;color:var(--navy);background:#fff;padding:12px 16px;border-radius:16px}
+.flag{background:#fff7e6;color:#9a5a00;border:0;border-radius:14px;padding:11px 12px;font-weight:900;cursor:pointer}
+.review-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:8px;margin-top:12px}
+.review-dot{border:0;border-radius:12px;padding:9px;background:#fff;cursor:pointer;font-weight:900}
+.review-dot.answered{background:rgba(34,197,94,.16);color:#166534}
+.review-dot.flagged{outline:3px solid var(--orange)}
+.table-wrap{overflow:auto}
+.smart-table{width:100%;border-collapse:separate;border-spacing:0 9px}
+.smart-table th{text-align:left;font-size:13px;color:#475569;padding:8px}
+.smart-table td{background:#fff;padding:13px;border-top:1px solid rgba(16,33,63,.08);border-bottom:1px solid rgba(16,33,63,.08)}
+.smart-table td:first-child{border-radius:14px 0 0 14px;border-left:1px solid rgba(16,33,63,.08);font-weight:900;color:var(--navy)}
+.smart-table td:last-child{border-radius:0 14px 14px 0;border-right:1px solid rgba(16,33,63,.08)}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:center}
+.flow-step{background:#fff;border-radius:18px;padding:14px;min-height:120px;cursor:pointer;box-shadow:0 8px 24px rgba(16,33,63,.1);transition:.2s}
+.flow-step:hover,.flow-step.active{transform:translateY(-4px);background:linear-gradient(135deg,#fff,#eff6ff);outline:3px solid rgba(19,184,179,.3)}
+.flow-arrow{text-align:center;font-weight:950;color:var(--teal);font-size:28px;align-self:center}
+.drop-zone{min-height:80px;border:2px dashed rgba(16,33,63,.2);border-radius:18px;padding:12px;background:rgba(255,255,255,.6)}
+.drag-chip{display:inline-block;padding:10px 12px;border-radius:999px;background:#fff;margin:6px;box-shadow:0 6px 16px rgba(16,33,63,.1);font-weight:850;cursor:grab}
+textarea.report-input{width:100%;min-height:80px;border:0;border-radius:16px;padding:13px;background:#fff;box-shadow:0 8px 22px rgba(16,33,63,.08);font:inherit;margin-bottom:10px}
+.report-box{white-space:pre-wrap;background:#fff;border-radius:20px;padding:18px;box-shadow:var(--shadow);border:1px solid rgba(16,33,63,.08)}
+.toast{
+  position:fixed;right:24px;bottom:24px;background:var(--navy);color:#fff;padding:14px 18px;border-radius:18px;
+  box-shadow:var(--shadow);display:none;z-index:9999;font-weight:900
+}
+.toast.show{display:block;animation:fadeSlide .3s}
+.print-only{display:none}
+
+/* Hilary color expansion: bright, meaningful, memory-friendly blocks */
+.flashcard{--flashAccent:var(--fuchsia);--flashAccent2:var(--sky)}
+.flash-face{
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.94), rgba(255,255,255,.86)),
+    radial-gradient(circle at 7% 10%, color-mix(in srgb, var(--flashAccent) 36%, transparent), transparent 36%),
+    radial-gradient(circle at 92% 18%, color-mix(in srgb, var(--flashAccent2) 32%, transparent), transparent 38%);
+  border:2px solid color-mix(in srgb, var(--flashAccent) 35%, white);
+}
+.flash-face:before{content:"";position:absolute;left:0;right:0;top:0;height:12px;background:linear-gradient(90deg,var(--flashAccent),var(--flashAccent2));border-radius:30px 30px 0 0}
+.teach-box{border-left:0;border:2px solid rgba(255,255,255,.7);box-shadow:0 10px 24px rgba(16,33,63,.12);position:relative;overflow:hidden;color:#10213f;font-weight:650}
+.teach-box:after{content:"";position:absolute;inset:8px;border-radius:12px;background:rgba(255,255,255,.62);z-index:0;pointer-events:none}
+.teach-box b,.teach-box span,.teach-box div,.teach-box{z-index:1}.teach-box b{position:relative}.teach-box{padding:16px}.teach-box:not(:has(*)){position:relative}
+.teach-box.blue{background:linear-gradient(135deg,var(--sky),var(--ocean));}
+.teach-box.green{background:linear-gradient(135deg,var(--mint2),var(--seafoam));}
+.teach-box.purple{background:linear-gradient(135deg,var(--lilac),var(--orchid));}
+.teach-box.orange{background:linear-gradient(135deg,var(--marigold),var(--coral2));}
+.teach-box.red{background:linear-gradient(135deg,var(--salmon),var(--strawberry));}
+.teach-box.gray{background:linear-gradient(135deg,var(--pistachio),var(--sage));}
+.teach-box.yellow{background:linear-gradient(135deg,var(--mimosa),var(--laserLemon));}
+.kw-gray{color:#334155;text-decoration:underline var(--sage)}
+.feedback.show{background:linear-gradient(135deg, rgba(153,237,195,.95), rgba(112,214,255,.75));border:2px solid rgba(255,255,255,.9);box-shadow:0 12px 28px rgba(16,33,63,.12)}
+.rationale-item{background:rgba(255,255,255,.76);border-left:8px solid var(--sky);box-shadow:0 8px 18px rgba(16,33,63,.08)}
+.rationale-item.good{border-left-color:var(--shamrock);background:linear-gradient(135deg,rgba(153,237,195,.82),rgba(255,255,255,.76))}
+.rationale-item.bad{border-left-color:var(--coral2);background:linear-gradient(135deg,rgba(255,127,80,.22),rgba(255,255,255,.78))}
+#diagrams .card{overflow:visible}.flow{grid-template-columns:repeat(5,minmax(120px,1fr));gap:12px;margin-bottom:14px}.flow-step{color:#10213f;border:2px solid rgba(255,255,255,.9);min-height:132px}.flow-step:nth-child(4n+1){background:linear-gradient(135deg,var(--mimosa),var(--laserLemon))}.flow-step:nth-child(4n+3){background:linear-gradient(135deg,var(--mint2),var(--seafoam))}.flow-step:nth-child(4n+5){background:linear-gradient(135deg,var(--sky),var(--cobalt));color:#fff}.flow-step:nth-child(4n+7){background:linear-gradient(135deg,var(--lilac),var(--hotpink));color:#fff}.flow-step.active{outline:4px solid var(--navy);transform:translateY(-6px) scale(1.02)}
+.smart-table tr:nth-child(4n+2) td{background:linear-gradient(135deg,#fff,var(--mimosa))}.smart-table tr:nth-child(4n+3) td{background:linear-gradient(135deg,#fff,var(--mint2))}.smart-table tr:nth-child(4n+4) td{background:linear-gradient(135deg,#fff,var(--lilac))}.smart-table tr:nth-child(4n+5) td{background:linear-gradient(135deg,#fff,var(--sky))}
+.option.correct{border-color:var(--shamrock);background:linear-gradient(135deg,rgba(153,237,195,.85),rgba(3,172,19,.14));animation:correctGlow 1.5s ease}.option.incorrect{border-color:var(--strawberry);background:linear-gradient(135deg,rgba(250,128,114,.35),rgba(255,255,255,.7));}
+.practice-note{background:linear-gradient(135deg,var(--mimosa),var(--mint2),var(--sky));border-radius:20px;padding:16px;font-weight:850;color:var(--navy);box-shadow:var(--shadow)}
+
+
+/* Readability + full-color flashcard redesign */
+body, p, li, td, th, .card, .question-card, .feedback, .rationale-item, .module-card, .side-card, .smart-table, .report-box, textarea, input, select{
+  color:#10213f;
+}
+.card p,.module-card p,.hero p,.flash-face p,.feedback,.rationale-item,.teach-box,.smart-table td{color:#10213f!important;}
+.badge{color:#10213f;font-weight:950;}
+.flash-face{
+  color:#10213f!important;
+  background:
+    radial-gradient(circle at 12% 14%, rgba(255,255,255,.24), transparent 32%),
+    radial-gradient(circle at 88% 18%, rgba(255,255,255,.22), transparent 36%),
+    linear-gradient(135deg, var(--flashAccent), var(--flashAccent2))!important;
+  border:3px solid rgba(255,255,255,.85)!important;
+  padding:24px!important;
+}
+.flash-face:before{display:none!important;}
+.flash-panel{
+  background:rgba(255,255,255,.92);
+  color:#10213f!important;
+  border:2px solid rgba(255,255,255,.95);
+  border-radius:24px;
+  padding:18px 20px;
+  box-shadow:0 14px 30px rgba(16,33,63,.16);
+  margin-bottom:14px;
+}
+.flash-panel h3{color:#10213f!important;margin-top:8px;}
+.flash-panel p{color:#10213f!important;}
+.teach-boxes{gap:14px;}
+.teach-box{
+  color:#10213f!important;
+  border:2px solid rgba(255,255,255,.9)!important;
+  border-left:0!important;
+  border-radius:18px!important;
+  padding:10px!important;
+  box-shadow:0 12px 26px rgba(16,33,63,.16)!important;
+}
+.teach-box:after{display:none!important;}
+.teach-inner{
+  background:rgba(255,255,255,.88);
+  color:#10213f!important;
+  border-radius:14px;
+  padding:12px 13px;
+  min-height:100%;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.85);
+}
+.teach-inner b{display:block;color:#061733!important;margin-bottom:5px;font-weight:950;}
+.teach-inner span,.teach-inner div{color:#10213f!important;}
+.question-card{color:#10213f!important;background:rgba(255,255,255,.96)!important;}
+.option{color:#10213f!important;background:#ffffff!important;}
+.option.correct{color:#063d1b!important;background:linear-gradient(135deg,rgba(153,237,195,.95),rgba(3,172,19,.18))!important;}
+.option.incorrect{color:#5f0712!important;background:linear-gradient(135deg,rgba(255,127,80,.38),rgba(255,255,255,.82))!important;}
+.feedback.show{
+  color:#10213f!important;
+  background:linear-gradient(135deg, rgba(255,244,188,.96), rgba(153,237,195,.88), rgba(112,214,255,.78))!important;
+}
+.rationale-item{color:#10213f!important;background:rgba(255,255,255,.86)!important;}
+.rationale-item.good{background:linear-gradient(135deg,rgba(153,237,195,.92),rgba(255,255,255,.88))!important;color:#10213f!important;}
+.rationale-item.bad{background:linear-gradient(135deg,rgba(250,128,114,.30),rgba(255,255,255,.9))!important;color:#10213f!important;}
+.flash-pill{color:#10213f!important;background:rgba(255,255,255,.92)!important;}
+
+
+/* Flip correction: front and back rotate independently so the back text is never upside down or mirrored */
+.flashcard{transform:none!important;transition:none!important;}
+.flashcard.flipped{transform:none!important;}
+.flashcard .flash-face{transition:transform .72s cubic-bezier(.2,.8,.2,1), opacity .38s ease, filter .38s ease;transform-style:preserve-3d;}
+.flashcard .flash-front{transform:rotateY(0deg);opacity:1;filter:saturate(1);}
+.flashcard .flash-back{transform:rotateY(180deg);opacity:0;filter:saturate(.85);}
+.flashcard.flipped .flash-front{transform:rotateY(-180deg);opacity:0;filter:saturate(.85);}
+.flashcard.flipped .flash-back{transform:rotateY(0deg);opacity:1;filter:saturate(1);}
+.flash-back .question-card{margin-top:16px;border:2px solid rgba(255,255,255,.95)!important;box-shadow:0 18px 36px rgba(16,33,63,.18)!important;}
+.flash-back .q-stem{font-size:19px;line-height:1.45;color:#061733!important;}
+.feedback .rationale-list{margin-top:12px;}
+.option.correct{animation:correctGlow 1.6s ease-in-out 1, softPulse 1.4s ease-in-out 1!important;}
+.option.incorrect{animation:shake .28s ease-in-out 1!important;}
+@keyframes softPulse{0%{box-shadow:0 0 0 rgba(3,172,19,0)}55%{box-shadow:0 0 0 8px rgba(3,172,19,.16)}100%{box-shadow:0 0 0 rgba(3,172,19,0)}}
+
+
+/* Stronger full flip effect + readable credits */
+.flash-scene{perspective:1600px;}
+.flashcard .flash-face{backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform,opacity;}
+.flashcard.flipped .flash-back{animation:cardArrival .5s ease both;}
+.flashcard:not(.flipped) .flash-front{animation:cardArrival .5s ease both;}
+@keyframes cardArrival{0%{box-shadow:0 8px 18px rgba(16,33,63,.10);transform:translateY(6px) rotateY(var(--entryRot,0deg)) scale(.985)}100%{box-shadow:var(--shadow);}}
+.site-credit{margin-top:28px;padding:22px;border-radius:24px;background:linear-gradient(135deg,rgba(255,255,255,.9),rgba(153,237,195,.45),rgba(112,214,255,.35));border:1px solid rgba(255,255,255,.8);color:#061733;font-weight:800;line-height:1.6;box-shadow:0 18px 45px rgba(16,33,63,.12)}
+.site-credit small{display:block;font-weight:700;color:#10213f;margin-top:6px}
+
+@media(max-width:980px){
+  .app-shell{grid-template-columns:1fr}
+  .sidebar{position:relative;height:auto}
+  main{padding:16px}
+  .flash-layout,.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr}
+  .flow-arrow{transform:rotate(90deg)}
+  .test-top{grid-template-columns:1fr}
+}
+@media print{
+  body{background:#fff;color:#000}
+  .sidebar,.top-actions,.toolbar,.btn,.utility,.nav-btn,.toast,.no-print{display:none!important}
+  .app-shell{display:block}
+  main{max-width:100%;padding:0}
+  .section{display:block!important;page-break-after:always;animation:none}
+  .card,.hero,.flash-face,.question-card,.test-shell,.report-box{box-shadow:none;border:1px solid #ccc;background:#fff}
+  .hero{min-height:auto}
+  .hero:before,.bg-orb{display:none}
+  .flash-layout{display:block}
+  .flashcard{transform:none!important;min-height:auto}
+  .flash-face{position:relative;display:block;transform:none!important;margin-bottom:12px;page-break-inside:avoid}
+  .flash-list{display:none}
+  .option.correct{border-color:#222;background:#eee}
+  .option.incorrect{border-color:#999;background:#f6f6f6}
+  .feedback{display:block!important}
+  .print-only{display:block}
+}
+</style>
+</head>
+<body>
+<div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">✦</div>
+      <div><h1>CBCS Interactive Lab</h1><small>Batch 1: Claims, Coding, Payers & Compliance</small></div>
+    </div>
+    <button class="nav-btn active" onclick="showSection('welcome', this)">🏠 Welcome</button>
+    <button class="nav-btn" onclick="showSection('dashboard', this)">📊 Dashboard</button>
+    <button class="nav-btn" onclick="showSection('flashcards', this)">🃏 Flashcards</button>
+    <button class="nav-btn" onclick="showSection('diagrams', this)">🧭 Diagrams & Tables</button>
+    <button class="nav-btn" onclick="showSection('practice', this)">📝 Practice</button>
+    <button class="nav-btn" onclick="showSection('challenge', this)">⏱ Test Simulation</button>
+    <button class="nav-btn" onclick="showSection('analytics', this)">📈 Analytics</button>
+    <button class="nav-btn" onclick="showSection('reflection', this)">🗣 Reflection</button>
+    <button class="nav-btn" onclick="showSection('report', this)">📋 Final Report</button>
+
+    <div class="side-card">
+      <label>Student name</label>
+      <input id="studentName" placeholder="Type name" oninput="saveState()"/>
+      <label>Batch</label>
+      <select id="batchSelect" onchange="saveState()"><option>Batch 1 - CBCS Concepts</option></select>
+      <div class="progress-wrap"><div id="globalProgress" class="progress-fill"></div></div>
+      <small id="progressText">0% complete</small>
+      <div class="top-actions">
+        <button class="utility" onclick="printAll()">Print/PDF</button>
+        <button class="utility" onclick="toggleMute()" id="muteBtn">Sound: Off</button>
+        <button class="utility" onclick="resetProgress()">Reset</button>
+      </div>
+    </div>
+    <div class="side-card">
+      <b>Color logic</b>
+      <p><span class="badge">Blue payer</span><span class="badge green">Green payment</span><span class="badge purple">Purple coding</span><span class="badge orange">Orange denial</span><span class="badge red">Red warning</span></p>
+    </div>
+  </aside>
+
+  <main>
+    <section id="welcome" class="section active">
+      <div class="hero">
+        <div>
+          <span class="kicker">CBCS Test Prep • Interactive Learning World</span>
+          <h2>Learn the logic behind billing and coding questions.</h2>
+          <p>This platform teaches the concepts behind claim processing, payer rules, coding guidelines, modifiers, reimbursement math, HIPAA, appeals, referrals, Medicare/Medicaid, and compliance. You will use animated flashcards, concept checks, practice questions, a test simulation, timing analytics, and a final copyable report.</p>
+          <div class="cta-row">
+            <button class="btn" onclick="showSection('flashcards')">Start Learning</button>
+            <button class="btn secondary" onclick="showSection('challenge')">Enter Test Simulation</button>
+            <button class="btn ghost" onclick="showSection('diagrams')">Explore Diagrams</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="section">
+      <div class="section-title"><h2>Learning Dashboard</h2><button class="btn small" onclick="showSection('practice')">Start Practice</button></div>
+      <div class="grid cols-3" id="moduleCards"></div>
+    </section>
+
+    <section id="flashcards" class="section">
+      <div class="section-title"><h2>Animated Concept Flashcards</h2><div><span id="flashCounter" class="badge"></span></div></div>
+      <div class="flash-layout">
+        <div>
+          <div class="flash-scene"><div id="flashcard" class="flashcard"></div></div>
+          <div class="toolbar no-print">
+            <button class="btn secondary" onclick="prevFlash()">Back</button>
+            <button class="btn" onclick="flipFlash()">Flip Card</button>
+            <button class="btn secondary" onclick="nextFlash()">Next</button>
+            <button class="btn good" onclick="markUnderstood()">I understand this</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0;color:var(--navy)">Flashcard Map</h3>
+          <div id="flashList" class="flash-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="diagrams" class="section">
+      <div class="section-title"><h2>Interactive Diagrams & Tables</h2><span class="badge purple">Click, reveal, compare</span></div>
+      <div class="card">
+        <h3>Claim Life Cycle Flow</h3>
+        <p>Click each bright step. The explanation box below will take the same color family so students connect the visual pattern to the concept.</p>
+        <div class="flow" id="flow"></div>
+        <div id="flowExplain" class="feedback show">Click a step to study it.</div>
+      </div>
+      <div class="card" style="margin-top:18px">
+        <h3>Payer / Claim Status Comparison Table</h3>
+        <p>Click a row to reveal the trap. This table now sits below the claim cycle so the diagram does not hide behind it.</p>
+        <div class="table-wrap"><table class="smart-table" id="compareTable"></table></div>
+      </div>
+      <div class="card" style="margin-top:18px">
+        <h3>Mini-Game: Sort the Concept</h3>
+        <p>Click each chip to send it to its best category. Correct placements glow green; incorrect placements shake.</p>
+        <div id="sortChips"></div>
+        <div class="grid cols-3">
+          <div class="drop-zone" data-zone="Coding"><b>Purple: Coding / Modifier</b><div></div></div>
+          <div class="drop-zone" data-zone="Payer"><b>Blue: Payer / Insurance</b><div></div></div>
+          <div class="drop-zone" data-zone="Denial"><b>Orange: Denial / Appeal</b><div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="practice" class="section">
+      <div class="section-title"><h2>Practice Mode</h2><span class="badge orange">Immediate rationale</span></div>
+      <div class="practice-note">
+        Practice now uses the full Batch 1 question bank automatically. Students do not choose a smaller set here; they work through every practice question with immediate rationales.
+      </div>
+      <div class="card toolbar">
+        <button class="btn" onclick="startPractice()">Start Full Batch 1 Practice</button>
+        <button class="btn secondary" onclick="reviewMissed()">Review Missed Only</button>
+      </div>
+      <div id="practiceArea"></div>
+    </section>
+
+    <section id="challenge" class="section">
+      <div class="section-title"><h2>Challenge / Test Simulation</h2><span class="badge red">Timed • Mixed Difficulty</span></div>
+      <div class="test-shell">
+        <div class="toolbar" id="challengeSetup">
+          <label><b>Choose test length:</b></label>
+          <select id="challengeCount"><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option></select>
+          <button class="btn warn" onclick="startChallenge()">Start Test Simulation</button>
+        </div>
+        <div id="challengeArea"></div>
+      </div>
+    </section>
+
+    <section id="analytics" class="section">
+      <div class="section-title"><h2>Results & Analytics</h2><button class="btn small" onclick="renderAnalytics()">Refresh Analytics</button></div>
+      <div id="analyticsArea" class="grid cols-2"></div>
+    </section>
+
+    <section id="reflection" class="section">
+      <div class="section-title"><h2>Student Reflection / Feedback</h2><button class="btn small" onclick="generateReport()">Generate Final Report</button></div>
+      <div class="card">
+        <label>Which topics felt easiest?</label><textarea class="report-input" id="fbEasy" oninput="saveState()"></textarea>
+        <label>Which topics felt hardest?</label><textarea class="report-input" id="fbHard" oninput="saveState()"></textarea>
+        <label>Which questions felt confusing?</label><textarea class="report-input" id="fbConfusing" oninput="saveState()"></textarea>
+        <label>Did you feel rushed?</label><textarea class="report-input" id="fbRushed" oninput="saveState()"></textarea>
+        <label>What do you want to review next?</label><textarea class="report-input" id="fbNext" oninput="saveState()"></textarea>
+        <label>Confidence level now</label>
+        <select id="fbConfidence" onchange="saveState()"><option>1 - Not confident yet</option><option>2 - Slightly confident</option><option>3 - Somewhat confident</option><option>4 - Confident</option><option>5 - Very confident</option></select>
+      </div>
+    </section>
+
+    <section id="report" class="section">
+      <div class="section-title"><h2>Final Report</h2><div><button class="btn small" onclick="generateReport()">Generate</button> <button class="btn small good" onclick="copyReport()">Copy Report</button></div></div>
+      <div id="reportBox" class="report-box">Generate the report after completing practice or challenge questions.</div>
+    </section>
+
+  <div class="site-credit">
+    <div><strong>Instructional design by Hilary Homaii.</strong> All rights reserved.</div>
+    <small>Practice concepts are inspired by CBCS/NHA-style test-prep questions and Quizlet-style review sets. Flashcards, rationales, interaction design, and learning structure were created for classroom review and concept mastery.</small>
+    <small>Special thanks to my BRC students and Medical Billing and Coding students for their questions, effort, and feedback. Special thanks to Manuel Pedraja for checking question behavior and giving helpful feedback when something needs correction.</small>
+  </div>
+  </main>
+</div>
+<div id="toast" class="toast"></div>
+
+<script>
+const TOPICS = [
+  {title:'Claims & Payer Rules', icon:'🧾', desc:'Clean claims, denials, resubmissions, aging reports, payer responsibility.'},
+  {title:'Coding Logic', icon:'🧬', desc:'ICD-10-CM, CPT symbols, diagnosis pointers, specificity, Z codes.'},
+  {title:'Modifiers', icon:'✳️', desc:'Global periods, E/M modifiers, bilateral procedures, digit modifiers.'},
+  {title:'Medicare, Medicaid & COB', icon:'🏛️', desc:'Parts of Medicare, Medigap, Medicaid verification, birthday rule, COB.'},
+  {title:'HIPAA & Compliance', icon:'🔐', desc:'Privacy, minimum necessary, psychotherapy notes, subpoenas, fraud reporting.'},
+  {title:'Reimbursement Math', icon:'💵', desc:'Allowed amount, copay, deductible, coinsurance, UCR, write-offs.'}
+];
+
+const FLASH_PALETTE = [
+  ['#ffff00','#aef359'], ['#fcb810','#ff7f50'], ['#f72585','#da70d6'], ['#7b2cbf','#70d6ff'],
+  ['#0047ab','#3ded97'], ['#03ac13','#fff4bc'], ['#bbf90f','#f4c430'], ['#ff477e','#c8a2c8'],
+  ['#028a0f','#99edc3'], ['#d19033','#fff071'], ['#001f54','#70d6ff'], ['#ff1493','#feff22']
+];
+
+const flashcards = [
+ {id:'F1', topic:'Claims & Payer Rules', title:'Clean Claims and Timely Reimbursement', color:'blue',
+  front:'A <span class="keyword kw-blue">clean claim</span> has the information needed for the payer to process it. If a private payer acknowledges clean claims but does not reimburse, the issue is usually escalated through the <span class="keyword kw-blue">state insurance commissioner</span>.',
+  boxes:[
+    ['Definition','A clean claim is complete, accurate, and ready for payer processing.','blue'],
+    ['CBCS clue words','“Private payer,” “clean claims,” “acknowledged,” “not reimbursed.”','blue'],
+    ['Why it matters','Students must separate payer delay complaints from coding errors.','green'],
+    ['Common trap','Do not send private payer timely payment complaints to HHS or CMS by default.','red']
+  ],
+  back:'The state insurance commissioner oversees many private payer reimbursement and timely payment complaints. HHS is tied to federal health programs and HIPAA; CMS is Medicare/Medicaid administration; a clearinghouse transmits claims but does not regulate payer payment behavior.',
+  memory:'Private payer delay = think state insurance office.',
+  check:{stem:'A private insurer acknowledged several clean claims but has not paid within the state-required timeline. Which contact is most appropriate?', options:[
+    ['state','State insurance commissioner office'],['cms','CMS regional Medicare contractor'],['clear','Electronic claims clearinghouse'],['hhs','HHS civil rights complaint office']], correct:'state',
+    rationales:{state:'Correct. State insurance departments commonly handle private payer timely-payment complaints.',cms:'Incorrect. CMS contractors handle Medicare-related processing, not most private payer delays.',clear:'Incorrect. A clearinghouse transmits claims and may reject formatting errors, but it does not enforce payer payment laws.',hhs:'Incorrect. HHS may address HIPAA or federal programs, but this is a private payer reimbursement issue.'}}
+ },
+ {id:'F2', topic:'Coding Logic', title:'ICD-10-CM Specificity and Diagnosis Pointers', color:'purple',
+  front:'ICD-10-CM codes report <span class="keyword kw-purple">why</span> the service was performed. CPT/HCPCS codes report <span class="keyword kw-purple">what</span> was done. A <span class="keyword kw-purple">diagnosis pointer</span> links the diagnosis to the procedure on a claim.',
+  boxes:[['Definition','Diagnosis codes support medical necessity for services.','purple'],['Specificity','Use the highest number of characters needed, including laterality or encounter when required.','purple'],['CBCS clue words','“linked codes,” “medical necessity,” “highest specificity.”','orange'],['Common trap','Do not code signs/symptoms when a confirmed diagnosis exists.','red']],
+  back:'When the diagnosis and procedure do not logically connect, the payer may deny the claim. Example: appendectomy linked to chronic sinusitis is a diagnosis-procedure mismatch. In the absence of a confirmed diagnosis, signs and symptoms may be coded.',
+  memory:'Why + What + Link = diagnosis pointer.',
+  check:{stem:'A payer denies an appendectomy because it was linked to chronic frontal sinusitis. What caused the denial?', options:[
+    ['pointer','The diagnosis pointer linked unrelated codes'],['place','The place of service reduced payment'],['pos','The claim lacked patient demographics'],['mue','The service exceeded unit limits']], correct:'pointer',
+    rationales:{pointer:'Correct. The diagnosis does not support the procedure, so the link is medically inconsistent.',place:'Incorrect. Place of service affects reimbursement level, not the diagnosis-procedure relationship.',pos:'Incorrect. Missing demographics usually causes rejection or invalid status before adjudication.',mue:'Incorrect. MUE concerns medically unlikely units, not mismatched diagnoses.'}}
+ },
+ {id:'F3', topic:'Coding Logic', title:'CPT Symbols: Star, Plus, Lightning Bolt', color:'purple',
+  front:'CPT symbols are visual coding clues. The <span class="keyword kw-purple">star</span> relates to telemedicine services, the <span class="keyword kw-purple">plus sign</span> marks add-on codes, and the <span class="keyword kw-purple">lightning bolt</span> flags products pending FDA approval.',
+  boxes:[['Star','Telemedicine service indicator.','purple'],['Plus','Add-on code; reported with a primary code.','purple'],['Lightning bolt','Product pending FDA approval.','orange'],['Common trap','Do not confuse add-on codes with modifiers.','red']],
+  back:'Add-on codes cannot stand alone. They describe additional work tied to a primary service. CPT guidelines before each section may also contain unlisted code guidance and section-specific instructions.',
+  memory:'Star = screen. Plus = add. Lightning = pending.',
+  check:{stem:'Which CPT symbol identifies an add-on code that must be reported with a primary procedure?', options:[
+    ['plus','Plus sign'],['star','Star symbol'],['bolt','Lightning bolt'],['circle','Bullet or circle symbol']], correct:'plus',
+    rationales:{plus:'Correct. The plus sign identifies CPT add-on codes.',star:'Incorrect. The star symbol is associated with telemedicine services.',bolt:'Incorrect. The lightning bolt identifies products pending FDA approval.',circle:'Incorrect. Other CPT symbols have different meanings and do not identify add-on codes.'}}
+ },
+ {id:'F4', topic:'Modifiers', title:'Modifier -25: Separate E/M on Same Day', color:'purple',
+  front:'Modifier <span class="keyword kw-purple">-25</span> is attached to an E/M code when a <span class="keyword kw-purple">significant, separately identifiable</span> E/M service occurs on the same day as another procedure or service.',
+  boxes:[['Definition','Same-day E/M is above and beyond the usual work of the procedure.','purple'],['Example','URI evaluation plus influenza vaccine during same encounter.','green'],['Where it goes','Attach -25 to the E/M code, not the vaccine/procedure code.','orange'],['Common trap','Do not use -25 just because two services happened. The E/M must be separate.','red']],
+  back:'Modifier -25 protects legitimate E/M reimbursement when the provider evaluated a separate problem. It is not for global-period unrelated visits; that is modifier -24.',
+  memory:'25 = E/M survives same-day procedure.',
+  check:{stem:'A patient is evaluated for bronchitis and also receives a scheduled vaccine during the same visit. Which modifier is most likely added to the E/M code?', options:[
+    ['25','-25'],['24','-24'],['50','-50'],['58','-58']], correct:'25',
+    rationales:{25:'Correct. The E/M service is separate from the vaccine administration.',24:'Incorrect. Modifier -24 is for unrelated E/M during a postoperative period.',50:'Incorrect. Modifier -50 is for bilateral procedures.',58:'Incorrect. Modifier -58 is for staged, related, or more extensive procedures during a global period.'}}
+ },
+ {id:'F5', topic:'Modifiers', title:'Global Period Modifiers: -24 and -58', color:'purple',
+  front:'During a postoperative global period, modifier <span class="keyword kw-purple">-24</span> reports an unrelated E/M service. Modifier <span class="keyword kw-purple">-58</span> reports a staged, planned, related, or more extensive procedure.',
+  boxes:[['-24','Unrelated E/M during postoperative period.','purple'],['-58','Staged/related/more extensive procedure during global period.','purple'],['Example -24','Pneumonia visit after knee replacement surgery.','green'],['Example -58','Mastectomy after malignant biopsy finding.','green']],
+  back:'Do not use -25 for global-period unrelated postoperative E/M. Do not use -58 for unrelated conditions. Read the story: unrelated problem = -24; planned or more extensive related procedure = -58.',
+  memory:'24 = unrelated visit. 58 = staged or greater related procedure.',
+  check:{stem:'Two weeks after knee replacement, the patient is seen for pneumonia during the global period. Which modifier supports the E/M claim?', options:[
+    ['24','-24'],['25','-25'],['58','-58'],['52','-52']], correct:'24',
+    rationales:{24:'Correct. Pneumonia is unrelated to the knee surgery and occurs during the postoperative period.',25:'Incorrect. -25 is for separate E/M on the same day as another procedure, not postoperative unrelated E/M.',58:'Incorrect. -58 is for staged or related procedures during the global period.',52:'Incorrect. -52 reports reduced services.'}}
+ },
+ {id:'F6', topic:'Modifiers', title:'Other High-Yield Modifiers', color:'purple',
+  front:'Some CBCS modifier questions are simple if you identify the clue: <span class="keyword kw-purple">-50 bilateral</span>, <span class="keyword kw-purple">-22 unusual work</span>, <span class="keyword kw-purple">-32 mandated service</span>, <span class="keyword kw-purple">-47 surgeon anesthesia</span>, <span class="keyword kw-purple">-52 reduced service</span>, and digit modifiers like <span class="keyword kw-purple">F1</span>.',
+  boxes:[['-50','Bilateral procedure.','purple'],['-22','Increased/prolonged work; usually needs documentation.','orange'],['-32','Mandated service, such as payer-required testing.','blue'],['F1','Left hand, second digit/index finger.','purple']],
+  back:'Modifier -47 indicates anesthesia by surgeon. Modifier -52 means a service was partially reduced or eliminated. For -22, an operative report often supports unusual procedural services.',
+  memory:'The modifier is the story’s tiny legal footnote.',
+  check:{stem:'A payer requires blood testing after a work-related injury. Which modifier best supports a mandated service?', options:[
+    ['32','-32'],['22','-22'],['47','-47'],['50','-50']], correct:'32',
+    rationales:{32:'Correct. Modifier -32 is used for mandated services.',22:'Incorrect. -22 is unusual or increased procedural service.',47:'Incorrect. -47 indicates anesthesia by the surgeon.',50:'Incorrect. -50 indicates a bilateral procedure.'}}
+ },
+ {id:'F7', topic:'Medicare, Medicaid & COB', title:'Coordination of Benefits and Birthday Rule', color:'blue',
+  front:'<span class="keyword kw-blue">Coordination of benefits</span> determines which payer is primary or secondary and prevents payment above 100% of allowed expenses. For dependent children, the <span class="keyword kw-blue">birthday rule</span> uses month and day, not year.',
+  boxes:[['COB','Defines primary and secondary coverage.','blue'],['Birthday rule','Parent whose birthday comes first in the calendar year is primary.','blue'],['Same birthday','Policy active the longest is primary.','orange'],['Divorce/custody','Custodial parent often becomes the primary rule focus.','red']],
+  back:'COB questions often hide the answer inside dates, custody, remarriage, or active-policy duration. The year of birth usually does not matter for birthday rule questions.',
+  memory:'Birthday rule: month/day only.',
+  check:{stem:'Both parents insure a child. The father was born October 1 and the mother October 2. Which policy is primary under the birthday rule?', options:[
+    ['father','Father, because October 1 comes first'],['mother','Mother, because she is listed second'],['older','Older parent, because age controls priority'],['secondary','Neither, because both plans must split equally']], correct:'father',
+    rationales:{father:'Correct. The birthday rule uses month and day, so October 1 comes before October 2.',mother:'Incorrect. Listing order does not determine primary coverage.',older:'Incorrect. Year of birth is not used in the birthday rule.',secondary:'Incorrect. COB determines primary and secondary responsibility.'}}
+ },
+ {id:'F8', topic:'Medicare, Medicaid & COB', title:'Medicare, Medicaid, Medigap, and TRICARE', color:'blue',
+  front:'Medicare has parts. <span class="keyword kw-blue">Part C</span> is Medicare Advantage managed by approved private payers. <span class="keyword kw-blue">Medigap</span> is also offered by private third-party payers. Medicaid eligibility should be verified at each visit.',
+  boxes:[['Medicare primary clues','Age 65+, disability, ESRD in certain cases.','blue'],['Part C','Medicare Advantage through Medicare-approved private plans.','blue'],['Medigap','Supplemental coverage sold by private payers.','green'],['Medicaid','Eligibility can change; verify each visit.','orange']],
+  back:'TRICARE is a federal government health insurance program for eligible military-related beneficiaries. MEVS can provide dates of Medicaid coverage. NCDs help Medicare determine whether items or services are covered.',
+  memory:'C = Choice/Advantage private plan. Gap = private supplement.',
+  check:{stem:'Which Medicare option is managed by Medicare-approved private third-party payers?', options:[
+    ['partc','Medicare Part C'],['parta','Medicare Part A'],['medicaid','Medicaid fee-for-service'],['tricare','TRICARE Standard']], correct:'partc',
+    rationales:{partc:'Correct. Medicare Part C is Medicare Advantage, managed by approved private plans.',parta:'Incorrect. Part A is hospital insurance.',medicaid:'Incorrect. Medicaid is a joint federal-state program, not Medicare Part C.',tricare:'Incorrect. TRICARE is a federal military-related health program.'}}
+ },
+ {id:'F9', topic:'Claims & Payer Rules', title:'Claim Status: Rejected, Denied, Invalid, Suspended', color:'orange',
+  front:'Claim words matter. A <span class="keyword kw-orange">rejected</span> claim often fails before payer adjudication. A <span class="keyword kw-orange">denied</span> claim was processed but not paid. An <span class="keyword kw-orange">invalid</span> claim has errors such as a transposed ID. A <span class="keyword kw-orange">suspended</span> claim is held pending action.',
+  boxes:[['Rejected','Returned before adjudication, often by clearinghouse edits.','orange'],['Denied','Payer processed but refused payment.','orange'],['Invalid','Incorrect or missing data prevents processing.','red'],['Suspended','Held while payer resolves an issue, such as recoupment.','blue']],
+  back:'Missing demographics from a clearinghouse report usually means correct and resubmit. Denials need review of reason codes, medical necessity, coding, or payer policy.',
+  memory:'Rejected = bounced. Denied = judged no. Suspended = held.',
+  check:{stem:'A claim is returned because the member ID digits were transposed. Which status best fits?', options:[
+    ['invalid','Invalid'],['denied','Denied'],['paid','Paid with adjustment'],['suspended','Suspended for recoupment']], correct:'invalid',
+    rationales:{invalid:'Correct. A transposed member ID makes the claim invalid for processing.',denied:'Incorrect. Denial usually follows adjudication.',paid:'Incorrect. The claim has not been processed for payment.',suspended:'Incorrect. Suspension means the claim is held pending resolution, not simply wrong data.'}}
+ },
+ {id:'F10', topic:'Claims & Payer Rules', title:'Aging Reports, A/R, and Patient Account Records', color:'green',
+  front:'An <span class="keyword kw-green">accounts receivable aging report</span> organizes outstanding balances by date. It helps identify delinquent claims and unpaid patient or payer balances.',
+  boxes:[['A/R','Money owed to the practice.','green'],['Aging report','Outstanding balances grouped by age/date.','green'],['First step','Verify the age/status of a delinquent account.','orange'],['Patient account record','Outpatient financial record of services provided.','gray']],
+  back:'Insurance aging reports show claims outstanding from third-party payers. Outstanding patient balances appear in accounts receivable. Running monthly aging reports helps follow up before deadlines are missed.',
+  memory:'Aging = how long the money has been waiting.',
+  check:{stem:'What should an accounts receivable aging report show?', options:[
+    ['balances','Outstanding balances organized by date'],['schedule','Upcoming appointments by provider'],['codes','Procedure codes grouped by chapter'],['privacy','Patient authorizations by expiration']], correct:'balances',
+    rationales:{balances:'Correct. Aging reports organize unpaid balances by how long they have been outstanding.',schedule:'Incorrect. That is scheduling data, not A/R aging.',codes:'Incorrect. Coding reports are different from financial aging reports.',privacy:'Incorrect. Authorizations are compliance records, not A/R aging.'}}
+ },
+ {id:'F11', topic:'HIPAA & Compliance', title:'HIPAA, Privacy, and Minimum Necessary', color:'gray',
+  front:'HIPAA protects PHI. Covered entities and business associates include health plans, clearinghouses, providers who transmit electronic transactions, and billing services. Use <span class="keyword kw-red">minimum necessary</span> when disclosing records.',
+  boxes:[['Covered entities','Clearinghouses, health plans, and many providers.','gray'],['Adult confidentiality','Do not disclose adult patient information to parents without consent.','red'],['Psychotherapy notes','Specially restricted access.','red'],['Security','Encryption protects electronic PHI.','green']],
+  back:'When a subpoena is valid, send only the medical information related to requested dates/services. Notice of Privacy Practices acknowledgment means the patient received/accepted the office privacy procedures, not that all disclosure is allowed.',
+  memory:'HIPAA asks: who needs what, and how little is enough?',
+  check:{stem:'A subpoena requests records for specific dates of service. After confirming authorization, what should be sent?', options:[
+    ['specific','Only records related to the requested dates'],['full','The entire chart for all encounters'],['summary','A verbal summary instead of records'],['family','A copy to the patient’s parents']], correct:'specific',
+    rationales:{specific:'Correct. Minimum necessary means sending only the requested relevant information.',full:'Incorrect. Sending the full chart may disclose more PHI than necessary.',summary:'Incorrect. The subpoena requests documentation, not a verbal summary.',family:'Incorrect. Adult patient records cannot be sent to parents without proper authorization.'}}
+ },
+ {id:'F12', topic:'Reimbursement Math', title:'Copay, Coinsurance, Deductible, UCR, and Write-Offs', color:'green',
+  front:'CBCS math is payer logic. <span class="keyword kw-green">Copay</span> is fixed. <span class="keyword kw-green">Coinsurance</span> is a percentage. <span class="keyword kw-green">Deductible</span> is paid before insurance starts. <span class="keyword kw-green">UCR/allowed amount</span> limits reimbursement.',
+  boxes:[['Copay','Fixed patient amount, such as $20.','green'],['Coinsurance','Percentage of allowed amount, such as 20%.','green'],['Write-off','Provider writes off billed minus allowed if agreement requires it.','orange'],['Nonparticipating/no assignment','Patient may owe coinsurance plus balance above allowed/UCR.','red']],
+  back:'If charge is $60 and copay is $20, insurance check is $40 when the payer covers the rest. If Medicare allowed is $85 and deductible is unmet, patient may be billed the allowed amount, not the higher office fee.',
+  memory:'Always calculate from allowed amount unless the question tells you otherwise.',
+  check:{stem:'An EOB shows $60 billed and a required $20 copayment. What insurance payment should be posted if the remainder is covered?', options:[
+    ['40','$40'],['20','$20'],['60','$60'],['80','$80']], correct:'40',
+    rationales:{40:'Correct. The payer covers the billed amount minus the patient copayment: $60 - $20 = $40.',20:'Incorrect. $20 is the patient copayment, not the insurance payment.',60:'Incorrect. The payer does not pay the patient copay portion.',80:'Incorrect. This adds the copay instead of subtracting it.'}}
+ },
+ {id:'F13', topic:'Referrals & Managed Care', title:'HMO, PCP Gatekeeper, and Referral Types', color:'blue',
+  front:'In an <span class="keyword kw-blue">HMO</span>, the primary care provider often functions as a gatekeeper. Some specialty visits require referral before the patient sees an in-network specialist.',
+  boxes:[['HMO','Usually requires PCP referral for specialist care.','blue'],['Tertiary referral','Specialist-to-specialist referral for highly specialized care.','purple'],['Direct referral','Provider sends patient directly to another provider.','blue'],['Self-referral','Patient seeks care without provider referral.','red']],
+  back:'If an endocrinologist refers a patient to infectious disease, the clue is specialist-to-specialist. That is tertiary care referral logic. If a patient must see the PCP first for endocrinology, that is HMO gatekeeper logic.',
+  memory:'PCP gate = HMO. Specialist to specialist = tertiary.',
+  check:{stem:'A patient treated by an endocrinologist is sent to an infectious disease specialist. What referral type best fits?', options:[
+    ['tertiary','Tertiary care referral'],['self','Self-referral'],['formal','Formal referral from PCP only'],['direct','Direct access without provider involvement']], correct:'tertiary',
+    rationales:{tertiary:'Correct. This is specialist-to-specialist referral logic.',self:'Incorrect. The patient did not initiate the referral alone.',formal:'Incorrect. A formal referral can be documented, but the key concept here is specialist-to-specialist tertiary referral.',direct:'Incorrect. Direct access means no gatekeeping referral is needed.'}}
+ },
+ {id:'F14', topic:'Documentation & Medical Records', title:'SOAP, Guarantor, and Required Details', color:'gray',
+  front:'Documentation tells coders what can be billed. SOAP: <span class="keyword kw-gray">Subjective</span> includes what the patient reports, such as pain level. Guarantor information supports the financial record.',
+  boxes:[['Subjective','Patient-reported symptoms and pain.','gray'],['Objective','Measurable findings, vitals, exam results.','gray'],['Assessment','Diagnosis or clinical impression.','gray'],['Plan','Treatment, follow-up, prescriptions.','gray']],
+  back:'A biopsy code may require details such as benign vs malignant status. Wound repairs may be grouped by anatomic site and complexity. Operative reports support modifiers like -22.',
+  memory:'Patient says = Subjective. Provider sees/measures = Objective.',
+  check:{stem:'Where does a provider document the patient’s reported pain level in a SOAP note?', options:[
+    ['subj','Subjective'],['obj','Objective'],['assess','Assessment'],['plan','Plan']], correct:'subj',
+    rationales:{subj:'Correct. Reported pain is patient-stated information, so it belongs in Subjective.',obj:'Incorrect. Objective contains measurable findings.',assess:'Incorrect. Assessment contains diagnosis or clinical impression.',plan:'Incorrect. Plan contains treatment and follow-up.'}}
+ },
+ {id:'F15', topic:'Coding Logic', title:'Wound Repair Grouping: Site, Length, and Complexity', color:'purple',
+  front:'Wound repair coding is not one code per wound. Repairs are grouped by <span class="keyword kw-purple">anatomic site</span>, <span class="keyword kw-purple">length</span>, and <span class="keyword kw-purple">complexity</span>.',
+  boxes:[['Site family','Group wounds by CPT anatomic grouping, not by every tiny cut.','purple'],['Complexity','Simple, intermediate, and complex repairs are not interchangeable.','orange'],['Length','Lengths in the same site/complexity group are added.','green'],['Trap','Coding each wound separately can overbill or miscode.','red']],
+  back:'If a provider repairs multiple wounds on the face and trunk, the specialist checks CPT integumentary rules: group by site and complexity, then sequence correctly. The test hides this inside realistic documentation.',
+  memory:'Repair code = site + complexity + total length within that group.',
+  check:{stem:'A note lists several repaired wounds on the face and trunk. What should be checked before coding each repair separately?', options:[['group','Whether wounds should be grouped by site and complexity'],['single','Whether only the longest wound can be billed'],['global','Whether all wound repairs require modifier -24'],['medigap','Whether Medigap changes the CPT code']], correct:'group', rationales:{group:'Correct. CPT repair coding groups wounds by anatomic site and complexity when appropriate.',single:'Incorrect. Length matters, but only coding the longest wound ignores CPT grouping rules.',global:'Incorrect. Modifier -24 is unrelated postoperative E/M, not wound grouping.',medigap:'Incorrect. Medigap affects payment, not CPT wound repair selection.'}}
+ },
+ {id:'F16', topic:'Coding Logic', title:'Procedure Words: Exenteration, Anastomosis, Excision, and Mohs', color:'purple',
+  front:'Some questions test medical procedure vocabulary. <span class="keyword kw-purple">Exenteration</span> removes the eye and surrounding orbital contents. <span class="keyword kw-purple">Anastomosis</span> creates a connection between structures.',
+  boxes:[['Exenteration','Removal of eye, adnexa, and bony/orbital structures.','purple'],['Colostomy','An anastomosis-type opening involving the colon through the abdominal wall.','green'],['Excisional biopsy','The entire lesion is removed.','orange'],['Mohs','Provider acts as both surgeon and pathologist.','blue']],
+  back:'CBCS questions may use surgical vocabulary to see whether the student understands what procedure was actually performed. Incisional biopsy samples part of a lesion; excisional biopsy removes the whole lesion.',
+  memory:'Incision = into part. Excision = out whole. Mohs = surgeon + pathologist.',
+  check:{stem:'The provider selected an incisional biopsy code, but the entire lesion was removed. What should be verified?', options:[['excision','Whether an excisional procedure was performed'],['referral','Whether a tertiary referral was required'],['privacy','Whether psychotherapy notes were released'],['payer','Whether the payer is capitated']], correct:'excision', rationales:{excision:'Correct. Removing the entire lesion points to excisional biopsy/procedure logic.',referral:'Incorrect. Referral type does not determine biopsy code selection.',privacy:'Incorrect. Psychotherapy notes are a HIPAA topic, not a biopsy coding detail.',payer:'Incorrect. Capitation is payment model, not the procedure performed.'}}
+ },
+ {id:'F17', topic:'Claims & Payer Rules', title:'Attachments: Proving Medical Necessity and Unusual Services', color:'orange',
+  front:'Some claims need supporting documentation. If a claim needs proof of <span class="keyword kw-orange">medical necessity</span> or modifier <span class="keyword kw-orange">-22</span>, the attachment often matters.',
+  boxes:[['Medical necessity','Send medical record documentation that supports why the service was needed.','orange'],['Modifier -22','Unusual procedural service; operative report supports extra work.','purple'],['Resubmission','Correct missing data or add required attachment, then resubmit.','green'],['Trap','Do not appeal when the issue is simply missing attachment data.','red']],
+  back:'A missing attachment can trigger resubmission. A denial for lack of medical necessity needs evidence from the record. Modifier -22 requires documentation of increased complexity or time.',
+  memory:'Necessity is not argued; it is documented.',
+  check:{stem:'A claim needs support because the service was more extensive than usual with modifier -22. What should be sent?', options:[['op','Operative report supporting the added work'],['card','Only a photocopy of the insurance card'],['copay','A receipt for the patient copayment'],['npi','A blank provider enrollment form']], correct:'op', rationales:{op:'Correct. Modifier -22 should be supported by operative documentation.',card:'Incorrect. The insurance card does not prove unusual procedural work.',copay:'Incorrect. Copay receipts do not support the coded service.',npi:'Incorrect. Provider enrollment forms do not justify the procedure.'}}
+ },
+ {id:'F18', topic:'Documentation & Medical Records', title:'Financial Record: Guarantor and Patient Account', color:'gray',
+  front:'The financial record needs the person responsible for payment: the <span class="keyword kw-gray">guarantor</span>. Patient account records track outpatient services and balances.',
+  boxes:[['Guarantor','Person responsible for the bill; name, address, and phone can be required.','gray'],['Patient account record','Outpatient financial report of services and charges.','blue'],['A/R','Outstanding patient or payer balances appear in accounts receivable.','green'],['First step','For delinquent claims, verify the account age before action.','orange']],
+  back:'Do not confuse clinical documentation with financial records. A/R aging tells how long money has been outstanding; the patient account record shows financial activity for outpatient services.',
+  memory:'Guarantor = who pays. A/R = what is still owed.',
+  check:{stem:'Which information belongs in establishing the patient financial record?', options:[['phone','Guarantor contact information'],['pain','Reported pain severity only'],['mohs','Pathologist tissue interpretation only'],['symbol','CPT telemedicine symbol only']], correct:'phone', rationales:{phone:'Correct. Guarantor information supports billing and financial responsibility.',pain:'Incorrect. Pain level belongs in the clinical note.',mohs:'Incorrect. That relates to procedure documentation.',symbol:'Incorrect. CPT symbols are coding guidance, not guarantor data.'}}
+ },
+ {id:'F19', topic:'Coding Logic', title:'NCCI and MUE Edits: Bundling and Units', color:'purple',
+  front:'Before claim submission, edits catch coding problems. <span class="keyword kw-purple">NCCI</span> helps identify bundled services. <span class="keyword kw-purple">MUE</span> catches medically unlikely units.',
+  boxes:[['NCCI','Checks code pairs and bundling issues.','purple'],['MUE','Checks whether reported units are medically unlikely.','orange'],['Surgical tray','NCCI can guide whether supplies/materials may be separately reported.','blue'],['Trap','A denied appendectomy billed with two units points to unit edits.','red']],
+  back:'NCCI is about code combinations and bundling. MUE is about units. Modifiers may sometimes communicate distinct procedures, but they must be supported by documentation.',
+  memory:'NCCI = code pair. MUE = unit count.',
+  check:{stem:'An appendectomy claim was submitted with two units and denied. What edit should have been reviewed?', options:[['mue','Medically Unlikely Edit'],['ncd','National Coverage Determination'],['cob','Coordination of Benefits'],['abn','Advance Beneficiary Notice only']], correct:'mue', rationales:{mue:'Correct. MUEs address unlikely units for a service.',ncd:'Incorrect. NCD addresses Medicare coverage, not excessive units.',cob:'Incorrect. COB determines payer order.',abn:'Incorrect. ABN warns Medicare patients about likely noncoverage; it is not the unit edit.'}}
+ },
+ {id:'F20', topic:'Referrals & Managed Care', title:'Capitated HMO and Flat-Rate Payment', color:'blue',
+  front:'A <span class="keyword kw-blue">capitated HMO</span> pays the provider a flat rate per patient or period, not based on each individual encounter charge.',
+  boxes:[['Capitation','Flat payment model, often per member per month.','green'],['HMO','Managed care model with networks and gatekeeping.','blue'],['Encounter trap','A sinus infection visit may not generate separate fee-for-service payment.','orange'],['Referral link','HMO patients may need PCP referral before specialty care.','purple']],
+  back:'Capitation changes reimbursement logic. The student must separate payment method from coding, referral rules, and claim status.',
+  memory:'Capitation = flat rate, not each visit separately.',
+  check:{stem:'A patient with a capitated HMO is seen for a sinus infection. What payment idea best fits?', options:[['flat','Payment is based on a flat contracted rate'],['ucr','Payment is always the full provider charge'],['mue','Payment depends on medically unlikely units'],['cob','Payment is split equally between parents']], correct:'flat', rationales:{flat:'Correct. Capitated HMO payment is based on a flat rate arrangement.',ucr:'Incorrect. Full charge payment is not the capitation concept.',mue:'Incorrect. MUE addresses unit edits, not capitation.',cob:'Incorrect. COB determines primary/secondary coverage.'}}
+ }
+];
+
+
+// Upgraded higher-order concept checks for the back of each flashcard.
+// Each option is intentionally similar in length, randomized by the existing renderer, and scored by option ID.
+const upgradedConceptChecks = {
+ F1:{stem:'A payer accepts clean claims electronically, acknowledges receipt, and still sends no payment for months. What action shows the best payer-rule reasoning?',options:[['state','Report the pattern to the state insurance commissioner office'],['clear','Ask the clearinghouse to force the payer to issue payment'],['hhs','Submit a privacy complaint through the HHS OCR portal'],['code','Change the procedure codes and resend every claim']],correct:'state',rationales:{state:'Correct. Clean private-payer claims that are acknowledged but unpaid point to state-level timely-payment oversight.',clear:'Incorrect. The clearinghouse can transmit or reject claim files, but it does not enforce private payer payment timelines.',hhs:'Incorrect. HHS OCR is mainly tied to privacy/civil rights issues, not routine private payer reimbursement delays.',code:'Incorrect. Changing accurate codes would create a billing integrity problem and does not address payer nonpayment.'}},
+ F2:{stem:'A procedure is clinically reasonable, but the ICD-10-CM code linked on the claim does not support that service. What is the most defensible correction?',options:[['pointer','Correct the diagnosis pointer or diagnosis link before resubmission'],['charge','Increase the charge amount to match the payer allowance'],['symbol','Add a CPT telemedicine symbol to the procedure code'],['appeal','Appeal without reviewing the diagnosis-procedure relationship']],correct:'pointer',rationales:{pointer:'Correct. The diagnosis pointer must connect the diagnosis to the service and support medical necessity.',charge:'Incorrect. The charge amount does not fix an unrelated or unsupported diagnosis link.',symbol:'Incorrect. CPT symbols do not repair medical necessity or diagnosis linkage problems.',appeal:'Incorrect. An appeal without fixing the linkage issue would likely repeat the same denial problem.'}},
+ F3:{stem:'A coder sees a procedure listed with a plus sign and no primary code on the claim. What should the specialist recognize?',options:[['primary','An add-on code usually requires a related primary procedure code'],['tele','A telemedicine service must be billed without any modifier'],['fda','A product pending FDA approval is ready for routine payment'],['alone','The code can stand alone because the symbol replaces guidelines']],correct:'primary',rationales:{primary:'Correct. A plus sign identifies an add-on code, which depends on a primary procedure.',tele:'Incorrect. The plus sign does not identify telemedicine services.',fda:'Incorrect. A lightning bolt relates to pending FDA approval, not the plus sign.',alone:'Incorrect. Symbols do not replace CPT guidelines or make add-on codes independent.'}},
+ F4:{stem:'A patient is evaluated for a new respiratory complaint and also receives a planned injection during the same visit. What makes modifier -25 appropriate?',options:[['separate','The E/M service is significant and separately identifiable'],['routine','The injection was scheduled before the patient arrived'],['bilat','The service was performed on both sides of the body'],['global','The encounter occurred during an unrelated global period']],correct:'separate',rationales:{separate:'Correct. Modifier -25 supports a distinct E/M service on the same date as another procedure or service.',routine:'Incorrect. A scheduled injection alone does not prove that a separate E/M service occurred.',bilat:'Incorrect. Bilateral service logic belongs with modifier -50, not -25.',global:'Incorrect. Unrelated E/M during a postoperative global period points to modifier -24.'}},
+ F5:{stem:'A patient in a postoperative period is treated for a condition unrelated to the surgery. Which reasoning separates -24 from -58?',options:[['unrelated','Use -24 when the E/M problem is unrelated to the surgery'],['planned','Use -24 when a planned related procedure follows the surgery'],['reduced','Use -58 when the provider performs a reduced service'],['same','Use -58 when an E/M occurs with a same-day vaccine']],correct:'unrelated',rationales:{unrelated:'Correct. Modifier -24 is for an unrelated E/M service during a postoperative global period.',planned:'Incorrect. A planned, staged, or more extensive related procedure points to modifier -58.',reduced:'Incorrect. Reduced service is modifier -52, not -58.',same:'Incorrect. A separately identifiable same-day E/M with another service points to modifier -25.'}},
+ F6:{stem:'A payer asks for documentation because a procedure was unusually prolonged and modifier -22 was reported. What should the specialist send?',options:[['op','The operative report supporting the increased procedural work'],['card','A copy of the insurance card showing active coverage dates'],['eob','The prior remittance advice showing the allowed amount'],['note','A patient reminder note confirming the appointment time']],correct:'op',rationales:{op:'Correct. Modifier -22 needs documentation that supports unusually increased procedural work.',card:'Incorrect. Coverage verification does not prove increased procedural complexity.',eob:'Incorrect. A remittance advice explains payment but does not justify modifier -22.',note:'Incorrect. Appointment reminders do not document operative complexity.'}},
+ F7:{stem:'Two parents cover a child, and both birthdays fall on the same month and day. What decides the primary plan next?',options:[['active','The policy that has been active for the longer period'],['older','The parent who is older based on the year of birth'],['mother','The mother’s policy because maternal coverage is primary'],['equal','Both payers split primary payment responsibility equally']],correct:'active',rationales:{active:'Correct. When birthday month and day match, the plan active longer is commonly primary.',older:'Incorrect. Birthday rule normally ignores the year of birth.',mother:'Incorrect. Maternal coverage is not automatically primary under the birthday rule.',equal:'Incorrect. COB establishes an order instead of making both plans equally primary.'}},
+ F8:{stem:'A patient says Medicaid was active last month, but today’s visit has not been checked. What should the specialist do before assuming coverage?',options:[['verify','Verify Medicaid eligibility for the current visit date'],['bill','Bill Medicaid because prior-month coverage remains valid'],['medigap','Treat the plan as Medigap and bill Medicare first'],['tricare','Submit to TRICARE because Medicaid is federal insurance']],correct:'verify',rationales:{verify:'Correct. Medicaid eligibility can change, so eligibility should be verified for each visit.',bill:'Incorrect. Prior-month coverage does not guarantee current eligibility.',medigap:'Incorrect. Medigap is private supplemental Medicare coverage, not Medicaid.',tricare:'Incorrect. TRICARE is a federal program for eligible military populations, not a Medicaid substitute.'}},
+ F9:{stem:'A claim never reaches payer adjudication because a required demographic field is missing. Which label and action best fit?',options:[['reject','Rejected; correct the missing information and resubmit'],['deny','Denied; appeal because the payer refused medical necessity'],['suspend','Suspended; wait until another provider returns payment'],['paid','Paid; post the contractual adjustment only']],correct:'reject',rationales:{reject:'Correct. A missing required field usually causes rejection before adjudication, so correction and resubmission are needed.',deny:'Incorrect. Denial occurs after payer review and often requires analysis or appeal.',suspend:'Incorrect. Suspended means held for a pending issue, not simply missing demographics.',paid:'Incorrect. No payment posting occurs when a claim has not been accepted for processing.'}},
+ F10:{stem:'A manager asks which report shows unpaid balances grouped by how long they have been outstanding. Which report best answers that request?',options:[['aging','Accounts receivable aging report organized by date ranges'],['soap','SOAP note summary organized by subjective complaints'],['claim','CMS-1500 form organized by diagnosis pointers'],['privacy','Notice of Privacy Practices acknowledgment log']],correct:'aging',rationales:{aging:'Correct. A/R aging reports organize outstanding balances by age/date.',soap:'Incorrect. SOAP notes organize clinical documentation, not unpaid balances.',claim:'Incorrect. CMS-1500 submits claim information but is not the aging report.',privacy:'Incorrect. Privacy acknowledgments do not track receivables.'}},
+ F11:{stem:'An adult patient’s parent asks for test results, but the patient has not authorized release. What is the safest privacy response?',options:[['deny','Do not disclose the adult patient’s information without proper authorization'],['share','Share the results because parents remain involved in family care'],['all','Release the full record because the request sounds urgent'],['post','Post the results in a shared staff area for review']],correct:'deny',rationales:{deny:'Correct. Adult patient information generally requires proper authorization before disclosure to a parent.',share:'Incorrect. Family involvement does not automatically authorize disclosure.',all:'Incorrect. Urgency does not remove minimum necessary and authorization requirements by itself.',post:'Incorrect. Public or shared posting would increase privacy risk.'}},
+ F12:{stem:'A nonparticipating provider does not accept assignment, and the charge exceeds the payer’s UCR amount. What may become patient responsibility?',options:[['balance','Coinsurance plus the difference between charge and UCR'],['payer','Only the payer’s entire contractual write-off amount'],['zero','Nothing, because nonparticipating providers cannot bill patients'],['copay','Only a fixed copayment regardless of the UCR amount']],correct:'balance',rationales:{balance:'Correct. Without assignment, the patient may owe coinsurance plus the amount above the payer allowance/UCR.',payer:'Incorrect. A write-off applies when contract rules require it, not automatically for nonassignment.',zero:'Incorrect. Nonparticipating providers may have different patient-billing rules.',copay:'Incorrect. A copay alone does not address UCR or nonassignment balance logic.'}},
+ F13:{stem:'A patient must see the PCP before visiting an in-network specialist. Which plan logic is being tested?',options:[['gate','HMO gatekeeper referral control through the primary care provider'],['direct','Direct access without primary care referral requirements'],['tertiary','Specialist-to-specialist referral after specialty evaluation'],['self','Self-referral without network or gatekeeper restrictions']],correct:'gate',rationales:{gate:'Correct. HMO plans commonly use a PCP gatekeeper and referral requirements.',direct:'Incorrect. Direct access means the patient does not need that PCP referral step.',tertiary:'Incorrect. Tertiary referral is specialist-to-specialist, not PCP gatekeeping.',self:'Incorrect. Self-referral means the patient initiates care without referral control.'}},
+ F14:{stem:'A provider documents pain severity exactly as reported by the patient. Where does that detail belong in SOAP logic?',options:[['subj','Subjective because it reflects the patient’s reported experience'],['obj','Objective because all pain scores are laboratory findings'],['assess','Assessment because pain automatically proves the diagnosis'],['plan','Plan because reported pain is the treatment strategy']],correct:'subj',rationales:{subj:'Correct. Patient-reported pain level belongs in the subjective section.',obj:'Incorrect. Objective information is observed or measured by the clinician, not simply reported by the patient.',assess:'Incorrect. Assessment is the provider’s diagnostic interpretation.',plan:'Incorrect. Plan identifies treatment, follow-up, or next steps.'}},
+ F15:{stem:'Multiple wound repairs are listed separately even though CPT guidelines require grouping. What should the specialist check first?',options:[['group','Anatomic site, repair complexity, and total repair length'],['payer','Whether the payer prefers every wound on a separate claim'],['copay','Whether the patient paid the copayment before surgery'],['status','Whether the claim status is already marked as suspended']],correct:'group',rationales:{group:'Correct. Wound repair coding depends on grouping by site, complexity, and length.',payer:'Incorrect. Payer preference does not override CPT repair grouping rules.',copay:'Incorrect. Copayment status does not determine wound repair coding.',status:'Incorrect. Claim status does not replace correct code selection.'}},
+ F16:{stem:'A note says the entire lesion was removed, but the selected code describes only an incisional biopsy. What should the specialist clarify?',options:[['excision','Whether an excisional procedure was actually performed'],['exenter','Whether the eye and bony orbital structures were removed'],['anast','Whether two intestinal segments were surgically connected'],['mohs','Whether the surgeon also served as the pathologist']],correct:'excision',rationales:{excision:'Correct. Removing the entire lesion suggests excision rather than incisional biopsy.',exenter:'Incorrect. Exenteration is removal of the eye, adnexa, and bony structures.',anast:'Incorrect. Anastomosis concerns surgical connection between structures.',mohs:'Incorrect. Mohs involves surgeon and pathologist roles, but that is not the lesion-removal distinction here.'}},
+ F17:{stem:'A denial says medical necessity was not supported. Which attachment best strengthens the appeal?',options:[['record','Medical record documentation that supports the ordered service'],['card','A copy of the patient’s insurance card front and back'],['blank','A blank appeal form without clinical details attached'],['sched','The office schedule showing the appointment time']],correct:'record',rationales:{record:'Correct. Medical necessity is supported by relevant clinical documentation.',card:'Incorrect. Insurance cards verify coverage but not clinical necessity.',blank:'Incorrect. A blank form does not prove why the service was needed.',sched:'Incorrect. Scheduling data does not establish medical necessity.'}},
+ F18:{stem:'A practice creates a financial record for a minor patient. Which information is most directly tied to the guarantor role?',options:[['guar','Name, address, and phone number for the responsible party'],['dx','Confirmed diagnosis code and seventh-character extension'],['cpt','Primary CPT code and modifier sequence only'],['era','Payer claim adjustment reason code from the ERA']],correct:'guar',rationales:{guar:'Correct. The guarantor is the financially responsible person, so contact details are required.',dx:'Incorrect. Diagnosis coding supports the claim but does not identify the guarantor.',cpt:'Incorrect. CPT coding reports services, not financial responsibility.',era:'Incorrect. ERA adjustment codes explain payment decisions after adjudication.'}},
+ F19:{stem:'A claim reports two units for a service that is rarely payable more than once. Which edit should have been reviewed?',options:[['mue','Medically Unlikely Edit for unit limits on a service'],['ncd','National Coverage Determination for Medicare coverage rules'],['cob','Coordination of benefits rule for primary payer order'],['hipaa','HIPAA privacy rule for patient authorization limits']],correct:'mue',rationales:{mue:'Correct. MUEs identify unit limits that may make multiple units unlikely for a code.',ncd:'Incorrect. NCDs address Medicare coverage, not basic unit frequency limits.',cob:'Incorrect. COB determines payer order, not service unit limits.',hipaa:'Incorrect. HIPAA privacy rules do not decide claim unit edits.'}},
+ F20:{stem:'A capitated HMO patient is seen for a routine sinus infection visit. What payment idea should the specialist expect?',options:[['flat','The provider payment is based on a flat contracted rate'],['charge','The payer always reimburses the full billed provider charge'],['cob','Both parents’ policies divide the claim equally'],['mue','Payment depends mainly on medically unlikely unit edits']],correct:'flat',rationales:{flat:'Correct. Capitation uses a flat payment arrangement rather than fee-for-service payment for each encounter.',charge:'Incorrect. Capitated arrangements do not simply pay full billed charges.',cob:'Incorrect. COB is about primary and secondary payer order.',mue:'Incorrect. MUEs concern code unit limits, not capitated payment structure.'}}
+};
+flashcards.forEach(card=>{ if(upgradedConceptChecks[card.id]) card.check = upgradedConceptChecks[card.id]; });
+
+const QUESTIONS = [
+ {
+  "id": "Q1",
+  "topic": "Claims & Payer Rules",
+  "difficulty": "Moderate",
+  "related": [
+   "F1"
+  ],
+  "stem": "A private payer has acknowledged multiple clean claims but has not reimbursed the provider for a year. Which entity should receive the complaint?",
+  "options": [
+   [
+    "a",
+    "State insurance commissioner office"
+   ],
+   [
+    "b",
+    "Federal Insurance Office division"
+   ],
+   [
+    "c",
+    "Bureau of Health Workforce office"
+   ],
+   [
+    "d",
+    "Electronic claims clearinghouse"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Private payer timely-reimbursement complaints are handled through the state insurance commissioner or insurance department.",
+   "b": "Incorrect. The Federal Insurance Office does not usually resolve provider complaints about private health payer reimbursement.",
+   "c": "Incorrect. This office focuses on workforce programs, not private payer payment enforcement.",
+   "d": "Incorrect. A clearinghouse transmits and may reject claims, but it does not force a payer to reimburse."
+  },
+  "trap": "Clean private-payer claims plus no reimbursement points to state insurance oversight."
+ },
+ {
+  "id": "Q2",
+  "topic": "Coding Logic",
+  "difficulty": "Easy",
+  "related": [
+   "F2"
+  ],
+  "stem": "Which code is an example of an ICD-10-CM diagnostic category code?",
+  "options": [
+   [
+    "a",
+    "I10"
+   ],
+   [
+    "b",
+    "99213"
+   ],
+   [
+    "c",
+    "J3490"
+   ],
+   [
+    "d",
+    "A0428"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. I10 is an ICD-10-CM diagnostic category/code for essential hypertension.",
+   "b": "Incorrect. 99213 is a CPT E/M procedure code, not an ICD-10-CM diagnosis code.",
+   "c": "Incorrect. J3490 is a HCPCS drug code, not the diagnosis category example requested.",
+   "d": "Incorrect. A0428 is a HCPCS ambulance code, not an ICD-10-CM diagnosis code."
+  },
+  "trap": "Diagnosis codes explain the condition; CPT/HCPCS codes explain services or supplies."
+ },
+ {
+  "id": "Q3",
+  "topic": "Coding Logic",
+  "difficulty": "Easy",
+  "related": [
+   "F3"
+  ],
+  "stem": "In the CPT manual, the star symbol is used to identify which type of service?",
+  "options": [
+   [
+    "a",
+    "Telemedicine service"
+   ],
+   [
+    "b",
+    "Add-on procedure code"
+   ],
+   [
+    "c",
+    "FDA pending product"
+   ],
+   [
+    "d",
+    "Revised code entry"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. The CPT star symbol is associated with telemedicine services.",
+   "b": "Incorrect. Add-on codes are identified by the plus sign, not the star symbol.",
+   "c": "Incorrect. A lightning bolt is associated with pending FDA approval.",
+   "d": "Incorrect. Revised codes use a different CPT symbol and are not the star symbol."
+  },
+  "trap": "CPT symbols look small, but they carry coding instructions."
+ },
+ {
+  "id": "Q4",
+  "topic": "Claims & Payer Rules",
+  "difficulty": "Easy",
+  "related": [
+   "F9"
+  ],
+  "stem": "Which outcome is an advantage of submitting claims electronically?",
+  "options": [
+   [
+    "a",
+    "Claims are processed faster"
+   ],
+   [
+    "b",
+    "Claims never need edits"
+   ],
+   [
+    "c",
+    "Claims bypass all payers"
+   ],
+   [
+    "d",
+    "Claims remove patient balances"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Electronic submission helps expedite claim transmission and processing.",
+   "b": "Incorrect. Electronic claims can still be rejected for missing, invalid, or inconsistent information.",
+   "c": "Incorrect. Electronic claims still go to payers for adjudication and payment decisions.",
+   "d": "Incorrect. Electronic submission does not eliminate copays, deductibles, or coinsurance."
+  },
+  "trap": "Electronic does not mean automatic payment; it means faster, trackable transmission."
+ },
+ {
+  "id": "Q5",
+  "topic": "Documentation & Medical Records",
+  "difficulty": "Moderate",
+  "related": [
+   "F18"
+  ],
+  "stem": "When should the billing and coding specialist begin collecting information needed to process the insurance claim?",
+  "options": [
+   [
+    "a",
+    "When the patient schedules the appointment"
+   ],
+   [
+    "b",
+    "After the payer denies the submitted claim"
+   ],
+   [
+    "c",
+    "Only after the provider signs the note"
+   ],
+   [
+    "d",
+    "When the account reaches collections"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Insurance and demographic collection begins when the patient contacts the office and schedules care.",
+   "b": "Incorrect. Waiting until denial creates avoidable delays and correction work.",
+   "c": "Incorrect. Coding waits for documentation, but registration data starts before the visit.",
+   "d": "Incorrect. Collections is far too late to begin claim-information collection."
+  },
+  "trap": "Front-end information prevents back-end claim problems."
+ },
+ {
+  "id": "Q6",
+  "topic": "Modifiers",
+  "difficulty": "Moderate",
+  "related": [
+   "F6"
+  ],
+  "stem": "Which scenario most clearly requires a modifier to describe the service more precisely?",
+  "options": [
+   [
+    "a",
+    "Splinting the fourth digit on the left foot"
+   ],
+   [
+    "b",
+    "Coding a routine office visit without a procedure"
+   ],
+   [
+    "c",
+    "Entering a diagnosis code for hypertension"
+   ],
+   [
+    "d",
+    "Posting a copayment from an EOB"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Digit and laterality details can require modifiers to identify the exact site.",
+   "b": "Incorrect. A routine E/M code does not automatically require a modifier.",
+   "c": "Incorrect. Diagnosis coding alone does not require a CPT modifier.",
+   "d": "Incorrect. Payment posting is not a procedural coding situation requiring a modifier."
+  },
+  "trap": "Modifiers clarify circumstances such as digit, side, bilateral service, or unusual work."
+ },
+ {
+  "id": "Q7",
+  "topic": "Coding Logic",
+  "difficulty": "Hard",
+  "related": [
+   "F15"
+  ],
+  "stem": "A provider individually coded several wound repairs on the face and trunk. What CPT repair concept should the specialist apply?",
+  "options": [
+   [
+    "a",
+    "Group wounds by anatomic site and complexity"
+   ],
+   [
+    "b",
+    "Code every wound with a separate base code"
+   ],
+   [
+    "c",
+    "Report only the smallest repaired wound"
+   ],
+   [
+    "d",
+    "Attach modifier -50 to every repair code"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Repairs are grouped by CPT anatomic site and complexity, then lengths are considered appropriately.",
+   "b": "Incorrect. Individually coding every repair may overstate services and ignore CPT grouping rules.",
+   "c": "Incorrect. CPT repair coding does not simply keep only the smallest wound.",
+   "d": "Incorrect. Modifier -50 is for bilateral procedures, not general wound grouping."
+  },
+  "trap": "Wound repair questions hide the rule inside multiple body sites and repair complexities."
+ },
+ {
+  "id": "Q8",
+  "topic": "Coding Logic",
+  "difficulty": "Easy",
+  "related": [
+   "F16"
+  ],
+  "stem": "Which term describes removal of the eye, adnexa, and surrounding bony orbital structures?",
+  "options": [
+   [
+    "a",
+    "Exenteration"
+   ],
+   [
+    "b",
+    "Anastomosis"
+   ],
+   [
+    "c",
+    "Colostomy"
+   ],
+   [
+    "d",
+    "Arthrodesis"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Exenteration describes removal of the eye and surrounding orbital contents/structures.",
+   "b": "Incorrect. Anastomosis means surgically connecting two structures.",
+   "c": "Incorrect. Colostomy creates an opening involving the colon through the abdominal wall.",
+   "d": "Incorrect. Arthrodesis refers to surgical joint fusion."
+  },
+  "trap": "Some CBCS questions are vocabulary-driven; know the procedure language."
+ },
+ {
+  "id": "Q9",
+  "topic": "Claims & Payer Rules",
+  "difficulty": "Moderate",
+  "related": [
+   "F9"
+  ],
+  "stem": "A payer paid the wrong provider and will reimburse once the incorrect payment is recouped. Which claim status best describes this claim?",
+  "options": [
+   [
+    "a",
+    "Suspended"
+   ],
+   [
+    "b",
+    "Rejected"
+   ],
+   [
+    "c",
+    "Invalid"
+   ],
+   [
+    "d",
+    "Adjudicated"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. The claim is held while the payer resolves recoupment from the improperly paid provider.",
+   "b": "Incorrect. Rejection usually means the claim did not pass front-end processing.",
+   "c": "Incorrect. Invalid means data are incorrect, such as a transposed member ID.",
+   "d": "Incorrect. Adjudication is a claim life-cycle stage, not this held-payment status."
+  },
+  "trap": "Suspended means the claim is held pending resolution of another issue."
+ },
+ {
+  "id": "Q10",
+  "topic": "Claims & Payer Rules",
+  "difficulty": "Moderate",
+  "related": [
+   "F17"
+  ],
+  "stem": "For which reason should a claim be resubmitted instead of immediately appealed?",
+  "options": [
+   [
+    "a",
+    "The claim requires an attachment for medical necessity"
+   ],
+   [
+    "b",
+    "The payer upheld denial after full review"
+   ],
+   [
+    "c",
+    "The provider disagrees with the fee schedule"
+   ],
+   [
+    "d",
+    "The patient refuses to answer a privacy form"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. If required documentation is missing, add the attachment and resubmit the corrected claim.",
+   "b": "Incorrect. A denial upheld after review may require appeal or further documentation, not simple resubmission.",
+   "c": "Incorrect. Fee schedule disagreement is not corrected by resubmitting the same claim.",
+   "d": "Incorrect. That issue does not describe a claim resubmission requirement."
+  },
+  "trap": "Missing support is corrected; unsupported denial is appealed."
+ },
+ {
+  "id": "Q11",
+  "topic": "Documentation & Medical Records",
+  "difficulty": "Easy",
+  "related": [
+   "F10"
+  ],
+  "stem": "What should an accounts receivable aging report include?",
+  "options": [
+   [
+    "a",
+    "Outstanding balances organized by date"
+   ],
+   [
+    "b",
+    "Patient symptoms organized by body system"
+   ],
+   [
+    "c",
+    "CPT symbols organized by manual section"
+   ],
+   [
+    "d",
+    "Provider schedules organized by weekday"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. An A/R aging report groups unpaid balances by how long they have been outstanding.",
+   "b": "Incorrect. Symptoms belong in clinical documentation, not A/R aging.",
+   "c": "Incorrect. CPT symbols are coding guidance, not receivables reporting.",
+   "d": "Incorrect. Scheduling information is not the purpose of an A/R aging report."
+  },
+  "trap": "Aging means unpaid money over time."
+ },
+ {
+  "id": "Q12",
+  "topic": "Documentation & Medical Records",
+  "difficulty": "Easy",
+  "related": [
+   "F18"
+  ],
+  "stem": "Which guarantor information is required when establishing a patient financial record?",
+  "options": [
+   [
+    "a",
+    "Phone number"
+   ],
+   [
+    "b",
+    "CPT symbol list"
+   ],
+   [
+    "c",
+    "Procedure modifier"
+   ],
+   [
+    "d",
+    "Payer CARC code"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Guarantor contact information supports the patient financial record.",
+   "b": "Incorrect. CPT symbols are coding tools, not guarantor demographic data.",
+   "c": "Incorrect. Modifiers describe services, not guarantor information.",
+   "d": "Incorrect. CARCs explain claim adjustments, not guarantor setup."
+  },
+  "trap": "The guarantor is tied to financial responsibility and billing contact information."
+ },
+ {
+  "id": "Q13",
+  "topic": "HIPAA & Compliance",
+  "difficulty": "Moderate",
+  "related": [
+   "F11"
+  ],
+  "stem": "Which action helps protect patient health information on office workstations?",
+  "options": [
+   [
+    "a",
+    "Using data encryption software"
+   ],
+   [
+    "b",
+    "Sharing one login for speed"
+   ],
+   [
+    "c",
+    "Posting passwords near desks"
+   ],
+   [
+    "d",
+    "Leaving claims screens unlocked"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Encryption helps protect electronic PHI if systems or devices are accessed improperly.",
+   "b": "Incorrect. Shared logins weaken accountability and create privacy risk.",
+   "c": "Incorrect. Visible passwords expose systems and PHI to unauthorized access.",
+   "d": "Incorrect. Unlocked screens expose PHI and violate basic privacy safeguards."
+  },
+  "trap": "Privacy protection includes technology safeguards, not just careful behavior."
+ },
+ {
+  "id": "Q14",
+  "topic": "Claims & Payer Rules",
+  "difficulty": "Moderate",
+  "related": [
+   "F17"
+  ],
+  "stem": "A denial states lack of medical necessity. What should be included with the appeal letter?",
+  "options": [
+   [
+    "a",
+    "Medical record documentation"
+   ],
+   [
+    "b",
+    "Blank CMS-1500 forms only"
+   ],
+   [
+    "c",
+    "Patient birthday rule worksheet"
+   ],
+   [
+    "d",
+    "Office furniture inventory"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. The appeal should include documentation supporting the necessity of the service.",
+   "b": "Incorrect. Blank forms do not show why the service was medically necessary.",
+   "c": "Incorrect. COB rules do not prove medical necessity.",
+   "d": "Incorrect. Office inventory has no relationship to the denial reason."
+  },
+  "trap": "Medical necessity must be supported by the record."
+ },
+ {
+  "id": "Q15",
+  "topic": "Medicare, Medicaid & COB",
+  "difficulty": "Moderate",
+  "related": [
+   "F7"
+  ],
+  "stem": "A child is covered by both parents. Father’s birthday is October 1 and mother’s birthday is October 2. Which plan is primary?",
+  "options": [
+   [
+    "a",
+    "Father’s policy is primary because his birthday falls first"
+   ],
+   [
+    "b",
+    "Mother’s policy is primary because she is the mother"
+   ],
+   [
+    "c",
+    "Older parent’s policy is always primary"
+   ],
+   [
+    "d",
+    "Both policies are equally primary"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Under the birthday rule, the parent whose month/day comes earlier in the calendar year is primary.",
+   "b": "Incorrect. The birthday rule does not automatically make maternal coverage primary.",
+   "c": "Incorrect. The year of birth is usually ignored under the birthday rule.",
+   "d": "Incorrect. COB rules determine a primary and secondary order."
+  },
+  "trap": "Birthday rule uses month and day, not parent gender or year of birth."
+ },
+ {
+  "id": "Q16",
+  "topic": "Claims & Payer Rules",
+  "difficulty": "Moderate",
+  "related": [
+   "F20"
+  ],
+  "stem": "A worker breaks an arm at work, is casted for six weeks, and is cleared to return after healing. Which workers’ compensation category applies?",
+  "options": [
+   [
+    "a",
+    "Temporary disability"
+   ],
+   [
+    "b",
+    "Permanent total disability"
+   ],
+   [
+    "c",
+    "Preventive occupational care"
+   ],
+   [
+    "d",
+    "Dependent survivor benefit"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. The patient is unable to work for a limited period and is expected to return.",
+   "b": "Incorrect. The patient is expected to recover and return to work.",
+   "c": "Incorrect. The patient sustained a work-related injury, not preventive screening only.",
+   "d": "Incorrect. Survivor benefits apply after a work-related death, not a temporary fracture."
+  },
+  "trap": "Temporary means work restriction is limited and recovery is expected."
+ },
+ {
+  "id": "Q17",
+  "topic": "Documentation & Medical Records",
+  "difficulty": "Easy",
+  "related": [
+   "F18"
+  ],
+  "stem": "Which information is required on a patient account record?",
+  "options": [
+   [
+    "a",
+    "Name and address of guarantor"
+   ],
+   [
+    "b",
+    "Complete CPT appendix index"
+   ],
+   [
+    "c",
+    "Every provider personal note"
+   ],
+   [
+    "d",
+    "Unrelated family diagnosis list"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Guarantor identification and contact information support financial responsibility.",
+   "b": "Incorrect. CPT index material does not belong as patient account information.",
+   "c": "Incorrect. The account record focuses on financial data, not every personal note.",
+   "d": "Incorrect. Unrelated family diagnoses are not required account data."
+  },
+  "trap": "Patient account setup requires financial-responsibility information."
+ },
+ {
+  "id": "Q18",
+  "topic": "Documentation & Medical Records",
+  "difficulty": "Moderate",
+  "related": [
+   "F10"
+  ],
+  "stem": "A specialist is reviewing a delinquent claim. What action should be taken first?",
+  "options": [
+   [
+    "a",
+    "Verify the age of the account"
+   ],
+   [
+    "b",
+    "Send the full chart to the payer"
+   ],
+   [
+    "c",
+    "Delete the charge from the account"
+   ],
+   [
+    "d",
+    "Assign a diagnosis pointer randomly"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. The first step is to check how old the balance/claim is to guide follow-up.",
+   "b": "Incorrect. Full-chart release may be unnecessary and could violate minimum necessary principles.",
+   "c": "Incorrect. Removing charges without review is not appropriate follow-up.",
+   "d": "Incorrect. Diagnosis pointers must be accurate, not guessed."
+  },
+  "trap": "Delinquent claim follow-up starts with the age of the account."
+ },
+ {
+  "id": "Q19",
+  "topic": "Coding Logic",
+  "difficulty": "Moderate",
+  "related": [
+   "F2"
+  ],
+  "stem": "A patient diagnosed with Bell’s palsy has facial drooping and inability to close the left eye. Which ICD-10-CM code should be reported?",
+  "options": [
+   [
+    "a",
+    "G51.0"
+   ],
+   [
+    "b",
+    "I10"
+   ],
+   [
+    "c",
+    "J32.1"
+   ],
+   [
+    "d",
+    "Z23"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. G51.0 is the ICD-10-CM code for Bell’s palsy.",
+   "b": "Incorrect. I10 reports essential hypertension, not Bell’s palsy.",
+   "c": "Incorrect. J32.1 reports chronic frontal sinusitis, not Bell’s palsy.",
+   "d": "Incorrect. Z23 is used for immunization encounters, not Bell’s palsy."
+  },
+  "trap": "When the diagnosis is confirmed, code the diagnosis rather than individual symptoms."
+ },
+ {
+  "id": "Q20",
+  "topic": "Modifiers",
+  "difficulty": "Hard",
+  "related": [
+   "F5"
+  ],
+  "stem": "A malignant biopsy leads to a more extensive mastectomy during the biopsy global period. Which modifier supports the mastectomy?",
+  "options": [
+   [
+    "a",
+    "-58"
+   ],
+   [
+    "b",
+    "-24"
+   ],
+   [
+    "c",
+    "-25"
+   ],
+   [
+    "d",
+    "-50"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Modifier -58 is used for a staged, planned, related, or more extensive procedure during a global period.",
+   "b": "Incorrect. Modifier -24 is for unrelated E/M during the postoperative period.",
+   "c": "Incorrect. Modifier -25 is for a separately identifiable E/M on the same date as another service.",
+   "d": "Incorrect. Modifier -50 identifies bilateral procedures."
+  },
+  "trap": "More extensive related procedure during a global period points to -58."
+ },
+ {
+  "id": "Q21",
+  "topic": "Claims & Payer Rules",
+  "difficulty": "Moderate",
+  "related": [
+   "F9"
+  ],
+  "stem": "A clearinghouse report shows a claim rejected for missing demographic information. What should the specialist do?",
+  "options": [
+   [
+    "a",
+    "Resubmit an updated claim"
+   ],
+   [
+    "b",
+    "Appeal the payer adjudication"
+   ],
+   [
+    "c",
+    "Bill the patient immediately"
+   ],
+   [
+    "d",
+    "Report fraud to HHS hotline"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Correct the missing demographic information and resubmit the claim.",
+   "b": "Incorrect. A rejection occurs before adjudication; the claim needs correction first.",
+   "c": "Incorrect. The claim has not been properly processed, so patient billing is premature.",
+   "d": "Incorrect. Missing demographic data is a claim correction issue, not fraud by itself."
+  },
+  "trap": "Clearinghouse rejection means fix the claim file and send it again."
+ },
+ {
+  "id": "Q22",
+  "topic": "Reimbursement Math",
+  "difficulty": "Hard",
+  "related": [
+   "F12"
+  ],
+  "stem": "A Medicare remittance advice shows payment lower than the contracted amount. Which issue could explain the reduced payment?",
+  "options": [
+   [
+    "a",
+    "Incorrect place of service was reported"
+   ],
+   [
+    "b",
+    "Patient demographics were missing"
+   ],
+   [
+    "c",
+    "Coordination of benefits was updated"
+   ],
+   [
+    "d",
+    "Claim was for a workplace injury"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Place of service can change reimbursement because facility and nonfacility payment differ.",
+   "b": "Incorrect. Missing demographics usually rejects or invalidates a claim before payment.",
+   "c": "Incorrect. COB may affect payer order, but the clue asks reduced procedure payment from Medicare.",
+   "d": "Incorrect. Workers’ compensation changes payer responsibility, not a Medicare contracted reduction clue alone."
+  },
+  "trap": "Place of service can reduce payment even when the code itself is payable."
+ },
+ {
+  "id": "Q23",
+  "topic": "Medicare, Medicaid & COB",
+  "difficulty": "Easy",
+  "related": [
+   "F8"
+  ],
+  "stem": "What information should the Medicaid eligibility verification system provide?",
+  "options": [
+   [
+    "a",
+    "Dates of coverage"
+   ],
+   [
+    "b",
+    "CPT modifier definition list"
+   ],
+   [
+    "c",
+    "Provider coding productivity"
+   ],
+   [
+    "d",
+    "Full psychotherapy notes"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. MEVS can verify whether Medicaid coverage is active for specific dates.",
+   "b": "Incorrect. MEVS verifies eligibility; it does not teach CPT modifier meanings.",
+   "c": "Incorrect. Productivity is an office metric, not Medicaid eligibility data.",
+   "d": "Incorrect. Psychotherapy notes are protected records, not MEVS eligibility output."
+  },
+  "trap": "Eligibility systems answer coverage status and dates."
+ },
+ {
+  "id": "Q24",
+  "topic": "HIPAA & Compliance",
+  "difficulty": "Moderate",
+  "related": [
+   "F19"
+  ],
+  "stem": "What is the purpose of an internal review in a provider’s office?",
+  "options": [
+   [
+    "a",
+    "Verify that medical and billing records match"
+   ],
+   [
+    "b",
+    "Replace the payer’s adjudication system"
+   ],
+   [
+    "c",
+    "Guarantee every claim is paid"
+   ],
+   [
+    "d",
+    "Remove all patient responsibility"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Internal review checks consistency between documentation and billing.",
+   "b": "Incorrect. Internal review does not take over payer claim processing.",
+   "c": "Incorrect. Internal review reduces errors but cannot guarantee payer payment.",
+   "d": "Incorrect. Patient responsibility depends on benefits and payer adjudication."
+  },
+  "trap": "Internal review protects accuracy and compliance before problems become denials or audits."
+ },
+ {
+  "id": "Q25",
+  "topic": "Claims & Payer Rules",
+  "difficulty": "Moderate",
+  "related": [
+   "F9"
+  ],
+  "stem": "A claim is returned because the insurance member ID number was transposed. What status best fits?",
+  "options": [
+   [
+    "a",
+    "Invalid"
+   ],
+   [
+    "b",
+    "Paid"
+   ],
+   [
+    "c",
+    "Capitated"
+   ],
+   [
+    "d",
+    "Allowed"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Incorrect member identification data makes the claim invalid until corrected.",
+   "b": "Incorrect. A claim with transposed ID digits will not be paid as submitted.",
+   "c": "Incorrect. Capitation is a payment model, not a claim status for bad ID data.",
+   "d": "Incorrect. Allowed amount refers to payment calculation, not returned claim status."
+  },
+  "trap": "Incorrect claim data often creates invalid or rejected status."
+ },
+ {
+  "id": "Q26",
+  "topic": "Modifiers",
+  "difficulty": "Moderate",
+  "related": [
+   "F4"
+  ],
+  "stem": "A patient is evaluated for an upper respiratory infection and receives an influenza vaccine during the same visit. Which modifier goes on the E/M code?",
+  "options": [
+   [
+    "a",
+    "-25"
+   ],
+   [
+    "b",
+    "-24"
+   ],
+   [
+    "c",
+    "-47"
+   ],
+   [
+    "d",
+    "-52"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Modifier -25 identifies a significant, separately identifiable E/M service on the same date as another service.",
+   "b": "Incorrect. Modifier -24 applies to unrelated E/M during a postoperative period.",
+   "c": "Incorrect. Modifier -47 describes anesthesia by the surgeon.",
+   "d": "Incorrect. Modifier -52 describes reduced services, not same-day E/M logic."
+  },
+  "trap": "Modifier -25 attaches to the E/M code when the E/M is separate."
+ },
+ {
+  "id": "Q27",
+  "topic": "Coding Logic",
+  "difficulty": "Moderate",
+  "related": [
+   "F2"
+  ],
+  "stem": "Which ICD-10-CM principle is valid in an outpatient setting?",
+  "options": [
+   [
+    "a",
+    "Code signs and symptoms when no definite diagnosis exists"
+   ],
+   [
+    "b",
+    "Code uncertain diagnoses as confirmed conditions"
+   ],
+   [
+    "c",
+    "Skip all symptoms when no diagnosis is listed"
+   ],
+   [
+    "d",
+    "Use CPT codes to replace diagnoses"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. In the absence of a definite diagnosis, report the documented signs and symptoms.",
+   "b": "Incorrect. Outpatient coding does not report uncertain diagnoses as confirmed.",
+   "c": "Incorrect. Symptoms may be the reportable reason for the encounter.",
+   "d": "Incorrect. CPT reports services; ICD-10-CM reports diagnoses or symptoms."
+  },
+  "trap": "No confirmed diagnosis means symptoms may become the coded reason."
+ },
+ {
+  "id": "Q28",
+  "topic": "HIPAA & Compliance",
+  "difficulty": "Easy",
+  "related": [
+   "F11"
+  ],
+  "stem": "Which entities are required to follow HIPAA rules and regulations?",
+  "options": [
+   [
+    "a",
+    "Clearinghouses, health insurers, and billing services"
+   ],
+   [
+    "b",
+    "Only patients and their family members"
+   ],
+   [
+    "c",
+    "Only retail stores outside healthcare"
+   ],
+   [
+    "d",
+    "Only newspaper publishers and libraries"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Healthcare clearinghouses, health plans, and business associates such as billing services can be subject to HIPAA.",
+   "b": "Incorrect. HIPAA regulates covered entities and business associates, not only patients.",
+   "c": "Incorrect. Nonhealth retail stores generally are not covered entities based solely on retail activity.",
+   "d": "Incorrect. These are not healthcare covered entities by default."
+  },
+  "trap": "HIPAA applies to covered entities and certain business associates."
+ },
+ {
+  "id": "Q29",
+  "topic": "Coding Logic",
+  "difficulty": "Easy",
+  "related": [
+   "F3"
+  ],
+  "stem": "In the CPT manual, what does a lightning bolt symbol indicate?",
+  "options": [
+   [
+    "a",
+    "A product pending FDA approval"
+   ],
+   [
+    "b",
+    "A telemedicine service indicator"
+   ],
+   [
+    "c",
+    "An add-on procedure code"
+   ],
+   [
+    "d",
+    "A deleted diagnosis code"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. The lightning bolt symbol identifies products pending FDA approval.",
+   "b": "Incorrect. The star symbol is associated with telemedicine services.",
+   "c": "Incorrect. Add-on codes are identified by the plus sign.",
+   "d": "Incorrect. CPT symbols do not mark ICD-10-CM deleted diagnosis codes this way."
+  },
+  "trap": "CPT symbols are tested as quick recognition items."
+ },
+ {
+  "id": "Q30",
+  "topic": "Modifiers",
+  "difficulty": "Easy",
+  "related": [
+   "F6"
+  ],
+  "stem": "Modifier -50 should be added when reporting which type of procedure?",
+  "options": [
+   [
+    "a",
+    "Bilateral procedure"
+   ],
+   [
+    "b",
+    "Reduced service"
+   ],
+   [
+    "c",
+    "Unrelated postoperative E/M"
+   ],
+   [
+    "d",
+    "Mandated service"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Modifier -50 identifies a procedure performed on both sides.",
+   "b": "Incorrect. Reduced service is modifier -52.",
+   "c": "Incorrect. Unrelated postoperative E/M is modifier -24.",
+   "d": "Incorrect. Mandated services are reported with modifier -32."
+  },
+  "trap": "Bilateral means both sides; think -50."
+ },
+ {
+  "id": "Q31",
+  "topic": "Reimbursement Math",
+  "difficulty": "Easy",
+  "related": [
+   "F12"
+  ],
+  "stem": "An EOB lists $60 billed and a $20 patient copayment. What insurance payment should be posted?",
+  "options": [
+   [
+    "a",
+    "$40"
+   ],
+   [
+    "b",
+    "$20"
+   ],
+   [
+    "c",
+    "$60"
+   ],
+   [
+    "d",
+    "$80"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. The insurance payment is $60 minus the $20 copayment, which equals $40.",
+   "b": "Incorrect. $20 is the patient copayment, not the payer check amount.",
+   "c": "Incorrect. The payer does not pay the portion assigned to the patient.",
+   "d": "Incorrect. Adding the copay to the billed amount reverses the calculation."
+  },
+  "trap": "Separate payer payment from patient responsibility."
+ },
+ {
+  "id": "Q32",
+  "topic": "Coding Logic",
+  "difficulty": "Hard",
+  "related": [
+   "F2"
+  ],
+  "stem": "A claim for CPT 44950 appendectomy is denied because the diagnosis was J32.1 chronic frontal sinusitis. What caused the denial?",
+  "options": [
+   [
+    "a",
+    "Incorrectly linked diagnosis and procedure codes"
+   ],
+   [
+    "b",
+    "Missing guarantor phone information only"
+   ],
+   [
+    "c",
+    "Bilateral procedure modifier omitted"
+   ],
+   [
+    "d",
+    "Medicaid coverage dates expired"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. The diagnosis does not support the procedure, so the diagnosis pointer/link is medically inconsistent.",
+   "b": "Incorrect. Missing guarantor information is not the clue in this denial.",
+   "c": "Incorrect. Appendectomy and sinusitis mismatch is not a bilateral modifier issue.",
+   "d": "Incorrect. The denial clue is medical necessity/linkage, not eligibility dates."
+  },
+  "trap": "The diagnosis pointer must support the CPT service."
+ },
+ {
+  "id": "Q33",
+  "topic": "Claims & Payer Rules",
+  "difficulty": "Hard",
+  "related": [
+   "F8"
+  ],
+  "stem": "TRICARE denies emergency department services by a nonparticipating on-call provider. What action is needed to process an appeal?",
+  "options": [
+   [
+    "a",
+    "Contact the patient for assistance"
+   ],
+   [
+    "b",
+    "Change the diagnosis to match payment"
+   ],
+   [
+    "c",
+    "Bill Medicare Part C immediately"
+   ],
+   [
+    "d",
+    "Void the encounter documentation"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. TRICARE appeal processing may require patient assistance when the provider is nonparticipating.",
+   "b": "Incorrect. Changing valid diagnosis information for payment is inappropriate.",
+   "c": "Incorrect. TRICARE is not replaced by Medicare Part C in this scenario.",
+   "d": "Incorrect. Documentation should not be voided to resolve a payer appeal issue."
+  },
+  "trap": "Nonparticipating TRICARE scenarios may require patient involvement for appeal processing."
+ },
+ {
+  "id": "Q34",
+  "topic": "Claims & Payer Rules",
+  "difficulty": "Easy",
+  "related": [
+   "F9"
+  ],
+  "stem": "What is the third stage in a standard claim life cycle?",
+  "options": [
+   [
+    "a",
+    "Adjudication"
+   ],
+   [
+    "b",
+    "Collection lawsuit"
+   ],
+   [
+    "c",
+    "Patient discharge"
+   ],
+   [
+    "d",
+    "Chart destruction"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. After claim creation/submission steps, payer adjudication is the review stage.",
+   "b": "Incorrect. Collections is not the third normal stage of claim processing.",
+   "c": "Incorrect. Patient discharge is clinical workflow, not the claim life-cycle stage asked.",
+   "d": "Incorrect. Chart destruction is record retention, not claim processing."
+  },
+  "trap": "Adjudication is the payer’s decision-making stage."
+ },
+ {
+  "id": "Q35",
+  "topic": "Coding Logic",
+  "difficulty": "Moderate",
+  "related": [
+   "F3"
+  ],
+  "stem": "Why should the billing and coding specialist follow CPT manual guidelines?",
+  "options": [
+   [
+    "a",
+    "They define items needed to code accurately"
+   ],
+   [
+    "b",
+    "They replace provider documentation entirely"
+   ],
+   [
+    "c",
+    "They guarantee payment for every claim"
+   ],
+   [
+    "d",
+    "They remove all payer-specific edits"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. CPT guidelines explain rules and details needed for accurate code selection.",
+   "b": "Incorrect. Guidelines support coding but do not replace the medical record.",
+   "c": "Incorrect. Accurate coding supports claims but does not guarantee payer payment.",
+   "d": "Incorrect. Payers may still apply edits and medical necessity rules."
+  },
+  "trap": "CPT guidelines are instructions, not decoration."
+ },
+ {
+  "id": "Q36",
+  "topic": "Claims & Payer Rules",
+  "difficulty": "Moderate",
+  "related": [
+   "F9"
+  ],
+  "stem": "Which form is used to improve efficiency and standardization of provider claim submission under HIPAA transaction standards?",
+  "options": [
+   [
+    "a",
+    "CMS-1500 claim form"
+   ],
+   [
+    "b",
+    "Notice of Privacy Practices"
+   ],
+   [
+    "c",
+    "SOAP progress note"
+   ],
+   [
+    "d",
+    "A/R aging summary"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. The CMS-1500 is used for professional outpatient/provider claim submission.",
+   "b": "Incorrect. The NPP explains PHI policies; it is not a claim submission form.",
+   "c": "Incorrect. SOAP notes document care; they are not claim forms.",
+   "d": "Incorrect. Aging reports track outstanding balances, not initial claim submission."
+  },
+  "trap": "CMS-1500 is the professional claim form students must recognize."
+ },
+ {
+  "id": "Q37",
+  "topic": "Medicare, Medicaid & COB",
+  "difficulty": "Easy",
+  "related": [
+   "F7"
+  ],
+  "stem": "Which policy provision determines which insurance coverage is primary or secondary?",
+  "options": [
+   [
+    "a",
+    "Coordination of benefits"
+   ],
+   [
+    "b",
+    "Assignment of benefits"
+   ],
+   [
+    "c",
+    "Medical necessity"
+   ],
+   [
+    "d",
+    "Advance beneficiary notice"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. COB establishes payer order and prevents benefits from exceeding allowed expenses.",
+   "b": "Incorrect. Assignment of benefits authorizes payment to the provider.",
+   "c": "Incorrect. Medical necessity supports why a service is needed, not payer order.",
+   "d": "Incorrect. ABN warns Medicare patients about likely noncoverage."
+  },
+  "trap": "Primary versus secondary payer is coordination of benefits."
+ },
+ {
+  "id": "Q38",
+  "topic": "Modifiers",
+  "difficulty": "Moderate",
+  "related": [
+   "F6"
+  ],
+  "stem": "A workers’ compensation payer requires blood work after a work-related injury. Which modifier applies to the mandated service?",
+  "options": [
+   [
+    "a",
+    "-32"
+   ],
+   [
+    "b",
+    "-22"
+   ],
+   [
+    "c",
+    "-47"
+   ],
+   [
+    "d",
+    "-58"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Modifier -32 identifies a mandated service.",
+   "b": "Incorrect. Modifier -22 indicates increased procedural services.",
+   "c": "Incorrect. Modifier -47 indicates anesthesia by the surgeon.",
+   "d": "Incorrect. Modifier -58 describes staged or more extensive procedures during a global period."
+  },
+  "trap": "Required by payer or law points to mandated service modifier -32."
+ },
+ {
+  "id": "Q39",
+  "topic": "Medicare, Medicaid & COB",
+  "difficulty": "Easy",
+  "related": [
+   "F8"
+  ],
+  "stem": "Medigap coverage is offered to Medicare beneficiaries by which payer type?",
+  "options": [
+   [
+    "a",
+    "Private third-party payers"
+   ],
+   [
+    "b",
+    "Only state Medicaid offices"
+   ],
+   [
+    "c",
+    "Only military treatment facilities"
+   ],
+   [
+    "d",
+    "Only workers’ compensation boards"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Medigap policies are private supplemental plans for Medicare beneficiaries.",
+   "b": "Incorrect. Medicaid is separate from private Medigap coverage.",
+   "c": "Incorrect. TRICARE relates to military populations, not Medigap.",
+   "d": "Incorrect. Workers’ compensation is for work-related injuries, not Medicare supplements."
+  },
+  "trap": "Medi-gap fills Medicare gaps through private insurers."
+ },
+ {
+  "id": "Q40",
+  "topic": "HIPAA & Compliance",
+  "difficulty": "Moderate",
+  "related": [
+   "F11"
+  ],
+  "stem": "Which statement is correct about release of patient information?",
+  "options": [
+   [
+    "a",
+    "Patient access to psychotherapy notes is restricted"
+   ],
+   [
+    "b",
+    "Parents may access any adult child record"
+   ],
+   [
+    "c",
+    "Full records are always sent for subpoenas"
+   ],
+   [
+    "d",
+    "PHI may be posted for staff convenience"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Psychotherapy notes receive special protection and are not treated like ordinary record access.",
+   "b": "Incorrect. Adult patient records generally require authorization before parent disclosure.",
+   "c": "Incorrect. Only authorized and relevant requested information should be disclosed.",
+   "d": "Incorrect. Posting PHI for convenience creates privacy risk."
+  },
+  "trap": "Psychotherapy notes are a special HIPAA privacy category."
+ },
+ {
+  "id": "Q41",
+  "topic": "Medicare, Medicaid & COB",
+  "difficulty": "Easy",
+  "related": [
+   "F8"
+  ],
+  "stem": "Which statement is true regarding Medicaid eligibility?",
+  "options": [
+   [
+    "a",
+    "Eligibility is verified at each visit"
+   ],
+   [
+    "b",
+    "Eligibility never changes after approval"
+   ],
+   [
+    "c",
+    "Eligibility is replaced by Medigap"
+   ],
+   [
+    "d",
+    "Eligibility removes all documentation"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Medicaid eligibility can change, so verification should occur each visit/date of service.",
+   "b": "Incorrect. Medicaid coverage can change based on eligibility status.",
+   "c": "Incorrect. Medigap is private Medicare supplemental coverage, not Medicaid.",
+   "d": "Incorrect. Coverage does not eliminate documentation and billing requirements."
+  },
+  "trap": "Medicaid coverage must be checked for the date of service."
+ },
+ {
+  "id": "Q42",
+  "topic": "Modifiers",
+  "difficulty": "Moderate",
+  "related": [
+   "F6"
+  ],
+  "stem": "Which modifier indicates the patient received general anesthesia from the surgeon?",
+  "options": [
+   [
+    "a",
+    "-47"
+   ],
+   [
+    "b",
+    "-50"
+   ],
+   [
+    "c",
+    "-25"
+   ],
+   [
+    "d",
+    "-32"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Modifier -47 indicates anesthesia by the surgeon.",
+   "b": "Incorrect. Modifier -50 indicates a bilateral procedure.",
+   "c": "Incorrect. Modifier -25 indicates a separately identifiable E/M service.",
+   "d": "Incorrect. Modifier -32 identifies a mandated service."
+  },
+  "trap": "Anesthesia by surgeon is a very specific modifier clue."
+ },
+ {
+  "id": "Q43",
+  "topic": "Coding Logic",
+  "difficulty": "Moderate",
+  "related": [
+   "F2"
+  ],
+  "stem": "An established patient is seen in the office for an upper respiratory infection. Which E/M code is commonly used for this encounter level?",
+  "options": [
+   [
+    "a",
+    "99213"
+   ],
+   [
+    "b",
+    "99204"
+   ],
+   [
+    "c",
+    "49585"
+   ],
+   [
+    "d",
+    "G51.0"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. 99213 is an established patient office/outpatient E/M code often tested for routine established visits.",
+   "b": "Incorrect. 99204 is a new patient office/outpatient E/M code with higher requirements.",
+   "c": "Incorrect. 49585 is a hernia repair code, not office E/M.",
+   "d": "Incorrect. G51.0 is an ICD-10-CM diagnosis code for Bell’s palsy."
+  },
+  "trap": "Know code families: 9921x established office visits; 9920x new office visits."
+ },
+ {
+  "id": "Q44",
+  "topic": "HIPAA & Compliance",
+  "difficulty": "Easy",
+  "related": [
+   "F19"
+  ],
+  "stem": "A billing and coding specialist observes a colleague performing an unethical act. What should the specialist do?",
+  "options": [
+   [
+    "a",
+    "Report the incident to a supervisor"
+   ],
+   [
+    "b",
+    "Ignore it unless payment is affected"
+   ],
+   [
+    "c",
+    "Post details in a public forum"
+   ],
+   [
+    "d",
+    "Change claim data to compensate"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Unethical workplace behavior should be reported through appropriate supervisory channels.",
+   "b": "Incorrect. Ethics and compliance are responsibilities even before payment impact is seen.",
+   "c": "Incorrect. Public posting may violate privacy and workplace policy.",
+   "d": "Incorrect. Altering claim data creates further compliance problems."
+  },
+  "trap": "Ethical concerns should be escalated, not hidden or publicly exposed."
+ },
+ {
+  "id": "Q45",
+  "topic": "Coding Logic",
+  "difficulty": "Easy",
+  "related": [
+   "F16"
+  ],
+  "stem": "An operative note states the surgeon performed a CABG. What does CABG mean?",
+  "options": [
+   [
+    "a",
+    "Coronary artery bypass graft"
+   ],
+   [
+    "b",
+    "Complete abdominal bowel graft"
+   ],
+   [
+    "c",
+    "Clinical artery billing group"
+   ],
+   [
+    "d",
+    "Central airway breathing guide"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. CABG stands for coronary artery bypass graft.",
+   "b": "Incorrect. CABG is a cardiac bypass procedure, not abdominal bowel terminology.",
+   "c": "Incorrect. CABG is not an administrative billing group.",
+   "d": "Incorrect. CABG is not an airway or respiratory guide."
+  },
+  "trap": "Abbreviations in operative notes can drive code selection."
+ },
+ {
+  "id": "Q46",
+  "topic": "Reimbursement Math",
+  "difficulty": "Hard",
+  "related": [
+   "F12"
+  ],
+  "stem": "A nonparticipating provider does not accept assignment. Charge is $135, UCR is $120, and coinsurance is 20%. What is the patient responsibility?",
+  "options": [
+   [
+    "a",
+    "$39"
+   ],
+   [
+    "b",
+    "$24"
+   ],
+   [
+    "c",
+    "$120"
+   ],
+   [
+    "d",
+    "$135"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Coinsurance is 20% of $120 = $24, plus $15 above UCR, totaling $39.",
+   "b": "Incorrect. $24 is only the coinsurance and misses the balance above UCR.",
+   "c": "Incorrect. $120 is the UCR amount, not the final patient responsibility.",
+   "d": "Incorrect. The patient does not owe the entire charge based on the given payer responsibility logic."
+  },
+  "trap": "Nonparticipating/no assignment can add balance above UCR to coinsurance."
+ },
+ {
+  "id": "Q47",
+  "topic": "HIPAA & Compliance",
+  "difficulty": "Hard",
+  "related": [
+   "F19"
+  ],
+  "stem": "A patient leaves postdated checks dated three, four, and five months in the future. What should the office do before depositing them?",
+  "options": [
+   [
+    "a",
+    "Notify the patient 3 to 10 days before each deposit"
+   ],
+   [
+    "b",
+    "Deposit all checks on the same day"
+   ],
+   [
+    "c",
+    "Destroy the checks without notice"
+   ],
+   [
+    "d",
+    "Send the balance directly to collections"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Federal collection rules require notice before depositing postdated checks within the required window.",
+   "b": "Incorrect. Depositing early ignores the postdated arrangement and required notice.",
+   "c": "Incorrect. Destroying checks does not follow the payment agreement or collection rule.",
+   "d": "Incorrect. The patient arranged payment; the office must follow the postdated-check rules."
+  },
+  "trap": "Postdated checks require careful collection-law handling."
+ },
+ {
+  "id": "Q48",
+  "topic": "Coding Logic",
+  "difficulty": "Moderate",
+  "related": [
+   "F16"
+  ],
+  "stem": "A patient has intestinal resection with an anastomosis through the abdominal wall. Which term is a type of anastomosis/opening?",
+  "options": [
+   [
+    "a",
+    "Colostomy"
+   ],
+   [
+    "b",
+    "Exenteration"
+   ],
+   [
+    "c",
+    "Arthroplasty"
+   ],
+   [
+    "d",
+    "Thoracentesis"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. A colostomy creates an opening involving the colon through the abdominal wall.",
+   "b": "Incorrect. Exenteration removes orbital contents, not colon connection/opening.",
+   "c": "Incorrect. Arthroplasty is joint reconstruction or replacement.",
+   "d": "Incorrect. Thoracentesis removes fluid from the pleural space."
+  },
+  "trap": "Procedure vocabulary matters: -ostomy means surgically created opening."
+ },
+ {
+  "id": "Q49",
+  "topic": "Claims & Payer Rules",
+  "difficulty": "Hard",
+  "related": [
+   "F17"
+  ],
+  "stem": "An appeal for partial payment due to an incorrect procedure code begins with reviewing the claim adjustment reason code. Which appeal step is this?",
+  "options": [
+   [
+    "a",
+    "Identification"
+   ],
+   [
+    "b",
+    "Arbitration"
+   ],
+   [
+    "c",
+    "Payment posting"
+   ],
+   [
+    "d",
+    "Eligibility capture"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Identifying the denial or adjustment reason is the first step in deciding the appeal path.",
+   "b": "Incorrect. Arbitration is not the first routine step in reviewing the CARC.",
+   "c": "Incorrect. Payment posting records the result; it does not identify the appeal reason.",
+   "d": "Incorrect. Eligibility capture verifies coverage, not the appeal adjustment reason."
+  },
+  "trap": "Appeals start by identifying the reason, not by arguing blindly."
+ },
+ {
+  "id": "Q50",
+  "topic": "HIPAA & Compliance",
+  "difficulty": "Moderate",
+  "related": [
+   "F19"
+  ],
+  "stem": "Which item belongs in a provider practice compliance program?",
+  "options": [
+   [
+    "a",
+    "Internal monitoring and auditing"
+   ],
+   [
+    "b",
+    "Ignoring repeated coding denials"
+   ],
+   [
+    "c",
+    "Removing written policies"
+   ],
+   [
+    "d",
+    "Sharing passwords across staff"
+   ]
+  ],
+  "correct": "a",
+  "rationales": {
+   "a": "Correct. Monitoring and auditing are core parts of an effective compliance program.",
+   "b": "Incorrect. Ignoring denial patterns creates compliance and revenue risk.",
+   "c": "Incorrect. Compliance programs require clear policies and procedures.",
+   "d": "Incorrect. Shared passwords weaken compliance and PHI security."
+  },
+  "trap": "Compliance programs require ongoing internal checks, not one-time training only."
+ }
+];
+
+const flowSteps = [
+ ['Registration','Collect demographics, insurance card, guarantor, and eligibility data before the visit.'],
+ ['Documentation','Provider documentation supports diagnosis, procedure, and medical necessity.'],
+ ['Coding','ICD-10-CM explains why; CPT/HCPCS explains what; pointers link them.'],
+ ['Submission','Clean electronic claims move faster; clearinghouse errors must be corrected.'],
+ ['Adjudication','Payer reviews coverage, coding, COB, edits, and patient responsibility.']
+];
+
+const compareRows = [
+ ['Rejected','Returned before adjudication','Fix missing/invalid data and resubmit'],
+ ['Denied','Processed but not paid','Review reason code and appeal if supported'],
+ ['Invalid','Claim data is incorrect','Correct member ID/demographics'],
+ ['Suspended','Held pending action','Monitor payer issue or recoupment'],
+ ['Aging report','Unpaid balances over time','Prioritize follow-up by date']
+];
+
+const sortItems = [
+ ['Modifier -25','Coding'],['Diagnosis pointer','Coding'],['Birthday rule','Payer'],['Medigap','Payer'],['Medical necessity appeal','Denial'],['CARC review','Denial'],['Modifier -50','Coding'],['HMO referral','Payer'],['Clearinghouse rejection','Denial']
+];
+
+let state = {
+  currentSection:'welcome', currentFlash:0, flipped:false, sound:true,
+  understood:{}, practiceSet:[], challengeSet:[], practiceAnswers:{}, challengeAnswers:{},
+  qTimes:{}, qStart:null, activeQuestion:null, flags:{}, challengeStart:null, report:'',
+  reflections:{}
+};
+
+function $(id){return document.getElementById(id)}
+function shuffle(arr){return [...arr].sort(()=>Math.random()-.5)}
+function safeOptions(q){ if(!q._shuffled){ q._shuffled = shuffle(q.options); } return q._shuffled; }
+function showToast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
+function play(type){
+  if(!state.sound) return;
+  const ctx = new (window.AudioContext||window.webkitAudioContext)();
+  const o=ctx.createOscillator(), g=ctx.createGain();
+  o.connect(g); g.connect(ctx.destination);
+  const map={correct:660, wrong:160, click:340, flip:420, done:880};
+  o.frequency.value=map[type]||300; o.type= type==='wrong'?'sawtooth':'sine';
+  g.gain.setValueAtTime(.001, ctx.currentTime);
+  g.gain.exponentialRampToValueAtTime(.08, ctx.currentTime+.03);
+  g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+.22);
+  o.start(); o.stop(ctx.currentTime+.24);
+}
+function saveState(){
+  ['studentName','fbEasy','fbHard','fbConfusing','fbRushed','fbNext','fbConfidence'].forEach(id=>{
+    const el=$(id); if(el) state.reflections[id]=el.value;
+  });
+  localStorage.setItem('cbcsBatch1State', JSON.stringify(state));
+  updateProgress();
+}
+function loadState(){
+  const raw=localStorage.getItem('cbcsBatch1State');
+  if(raw){ try{ state={...state,...JSON.parse(raw)} } catch(e){}}
+  setTimeout(()=>{
+    Object.entries(state.reflections||{}).forEach(([id,val])=>{ if($(id)) $(id).value=val; });
+    renderAll();
+    updateProgress();
+  },0);
+}
+function showSection(id, btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  $(id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  const nav=[...document.querySelectorAll('.nav-btn')].find(b=>b.getAttribute('onclick')?.includes("'"+id+"'"));
+  if(nav) nav.classList.add('active');
+  state.currentSection=id; play('click'); saveState();
+  if(id==='analytics') renderAnalytics();
+  if(id==='report') generateReport();
+}
+function toggleMute(){state.sound=!state.sound;$('muteBtn').textContent='Sound: '+(state.sound?'On':'Off');saveState(); if(state.sound) play('done')}
+function printAll(){generateReport(); window.print();}
+function resetProgress(){
+ if(confirm('Are you sure? This will erase your current progress.')){
+   localStorage.removeItem('cbcsBatch1State'); location.reload();
+ }
+}
+function updateProgress(){
+ const total=flashcards.length + Object.keys(state.practiceAnswers||{}).length + Object.keys(state.challengeAnswers||{}).length;
+ const understood=Object.keys(state.understood||{}).length;
+ const max=flashcards.length + Math.max(20,Object.keys(state.practiceAnswers||{}).length + Object.keys(state.challengeAnswers||{}).length);
+ const pct=Math.min(100, Math.round((understood + Object.keys(state.practiceAnswers||{}).length + Object.keys(state.challengeAnswers||{}).length)/max*100));
+ $('globalProgress').style.width=pct+'%'; $('progressText').textContent=pct+'% complete';
+}
+function renderDashboard(){
+ $('moduleCards').innerHTML = TOPICS.map((m,i)=>`<div class="module-card card" onclick="filterTopic('${m.title}')"><div class="big-icon">${m.icon}</div><h3>${m.title}</h3><p>${m.desc}</p><span class="badge ${i%2?'purple':'green'}">${countTopicAnswered(m.title)} answered</span></div>`).join('');
+}
+function countTopicAnswered(topic){
+ return [...Object.keys(state.practiceAnswers||{}),...Object.keys(state.challengeAnswers||{})].filter(id=>{
+   const q=QUESTIONS.find(x=>x.id===id); return q && q.topic===topic;
+ }).length;
+}
+function filterTopic(topic){
+ showSection('practice'); startPractice(QUESTIONS.filter(q=>q.topic===topic).length || 10, topic);
+}
+function renderFlashList(){
+ $('flashList').innerHTML=flashcards.map((f,i)=>`<button class="flash-pill ${i===state.currentFlash?'active':''}" onclick="goFlash(${i})">${state.understood[f.id]?'✅':'◇'} ${f.id}: ${f.title}</button>`).join('');
+}
+function renderFlash(){
+ const f=flashcards[state.currentFlash];
+ const card=$('flashcard');
+ const pal=FLASH_PALETTE[state.currentFlash % FLASH_PALETTE.length];
+ card.style.setProperty('--flashAccent', pal[0]);
+ card.style.setProperty('--flashAccent2', pal[1]);
+ card.className='flashcard'+(state.flipped?' flipped':'');
+ card.setAttribute('role','button');
+ card.setAttribute('tabindex','0');
+ card.setAttribute('aria-label','Click to flip this flashcard');
+ card.onclick=function(e){
+   if(e.target.closest('button, input, textarea, select, a, .question-card, .flash-pill')) return;
+   flipFlash();
+ };
+ card.onkeydown=function(e){
+   if(e.key==='Enter' || e.key===' '){ e.preventDefault(); flipFlash(); }
+ };
+ const boxes=f.boxes.map(b=>`<div class="teach-box ${b[2]}"><div class="teach-inner"><b>${b[0]}</b><span>${b[1]}</span></div></div>`).join('');
+ card.innerHTML = `
+ <div class="flash-face flash-front">
+   <div class="flash-panel">
+     <span class="badge ${f.color==='purple'?'purple':f.color==='orange'?'orange':f.color==='green'?'green':''}">${f.topic}</span>
+     <h3>${f.title}</h3>
+     <p style="font-size:18px;line-height:1.65">${f.front}</p>
+   </div>
+   <div class="teach-boxes">${boxes}</div>
+   <div class="teach-box green"><div class="teach-inner"><b>Why this matters on CBCS</b><span>The exam often hides the concept inside a realistic billing scenario. Read for the rule, not just the vocabulary.</span></div></div>
+ </div>
+ <div class="flash-face flash-back">
+   <div class="flash-panel">
+     <span class="badge purple">Deeper Side</span>
+     <h3>${f.title}</h3>
+     <p style="font-size:17px;line-height:1.62">${f.back}</p>
+   </div>
+   <div class="teach-box orange"><div class="teach-inner"><b>Memory clue</b><span>${f.memory}</span></div></div>
+   <div id="conceptCheck"></div>
+ </div>`;
+ $('flashCounter').textContent = `${state.currentFlash+1} / ${flashcards.length}`;
+ renderConceptCheck(f);
+ renderFlashList();
+ saveState();
+}
+function renderConceptCheck(f){
+ const q={...f.check, id:'C_'+f.id, topic:f.topic, related:[f.id]};
+ const el=$('conceptCheck');
+ if(!el) return;
+ el.innerHTML = `<div class="question-card"><div class="q-stem">Concept Check: ${q.stem}</div>${shuffle(q.options).map(o=>`<button class="option" onclick="answerConcept(this,'${o[0]}','${q.correct}','${f.id}')">${o[1]}</button>`).join('')}<div class="feedback" id="feed_${f.id}"></div></div>`;
+}
+function answerConcept(btn, selected, correct, fid){
+ const q=flashcards.find(f=>f.id===fid).check;
+ const parent=btn.parentElement;
+ parent.querySelectorAll('.option').forEach(b=>{
+   const txt=b.textContent.trim();
+   const opt=q.options.find(o=>o[1]===txt);
+   if(opt && opt[0]===correct) b.classList.add('correct');
+ });
+ if(selected!==correct) btn.classList.add('incorrect');
+ play(selected===correct?'correct':'wrong');
+ const feed=$('feed_'+fid);
+ feed.classList.add('show');
+ feed.innerHTML=`<b>${selected===correct?'Correct.':'Not quite.'}</b><div class="rationale-list">${q.options.map(o=>`<div class="rationale-item ${o[0]===q.correct?'good':'bad'}"><b>${o[1]}:</b> ${q.rationales[o[0]]}</div>`).join('')}</div>`;
+}
+function flipFlash(){state.flipped=!state.flipped; play('flip'); renderFlash();}
+function nextFlash(){state.currentFlash=(state.currentFlash+1)%flashcards.length; state.flipped=false; renderFlash();}
+function prevFlash(){state.currentFlash=(state.currentFlash-1+flashcards.length)%flashcards.length; state.flipped=false; renderFlash();}
+function goFlash(i){state.currentFlash=i;state.flipped=false;showSection('flashcards');renderFlash();}
+function markUnderstood(){state.understood[flashcards[state.currentFlash].id]=true; showToast('Flashcard marked understood.'); nextFlash();}
+function renderDiagrams(){
+ const flow=$('flow');
+ flow.innerHTML=flowSteps.map((s,i)=>`<div class="flow-step" onclick="explainFlow(${i}, this)"><b>${i+1}. ${s[0]}</b><p>Click to reveal</p></div>${i<flowSteps.length-1?'<div class="flow-arrow">→</div>':''}`).join('');
+ $('compareTable').innerHTML='<tr><th>Term</th><th>Meaning</th><th>Best action / trap</th></tr>'+compareRows.map((r,i)=>`<tr onclick="showToast('${r[0]}: ${r[2]}')"><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+ $('sortChips').innerHTML=sortItems.map((it,i)=>`<span class="drag-chip" onclick="sortChip(this,'${it[1]}')">${it[0]}</span>`).join('');
+}
+function explainFlow(i, el){
+ document.querySelectorAll('.flow-step').forEach(x=>x.classList.remove('active')); el.classList.add('active');
+ const pal=FLASH_PALETTE[i % FLASH_PALETTE.length];
+ const box=$('flowExplain');
+ box.style.background=`linear-gradient(135deg, ${pal[0]}55, ${pal[1]}88), rgba(255,255,255,.72)`;
+ box.style.border='2px solid rgba(255,255,255,.9)';
+ box.innerHTML=`<b>${flowSteps[i][0]}</b><br>${flowSteps[i][1]}`; play('click');
+}
+function sortChip(chip, zone){
+ const zones=document.querySelectorAll('.drop-zone');
+ const target=[...zones].find(z=>z.dataset.zone===zone).querySelector('div');
+ target.appendChild(chip); chip.classList.add('correct'); play('correct');
+}
+function startPractice(count=null, topic=null){
+ let pool=topic?QUESTIONS.filter(q=>q.topic===topic):QUESTIONS;
+ state.practiceSet=shuffle(pool).map(q=>q.id);
+ renderPractice(); saveState();
+ showToast(`Full practice loaded: ${state.practiceSet.length} questions.`);
+}
+function reviewMissed(){
+ const missed=Object.entries(state.practiceAnswers).filter(([id,a])=>!a.correct).map(([id])=>id);
+ if(!missed.length){showToast('No missed practice questions yet.'); return;}
+ state.practiceSet=missed; renderPractice();
+}
+function renderPractice(){
+ const area=$('practiceArea');
+ if(!state.practiceSet.length){area.innerHTML='<div class="card"><b>No practice loaded yet.</b> Click Start Full Batch 1 Practice to load every question in this batch.</div>';return;}
+ area.innerHTML=state.practiceSet.map((id,idx)=>{
+   const q=QUESTIONS.find(x=>x.id===id); return renderQuestion(q, 'practice', idx+1, true);
+ }).join('');
+}
+function renderQuestion(q, mode, num, showImmediate){
+ const saved=(mode==='practice'?state.practiceAnswers:state.challengeAnswers)[q.id];
+ const opts=safeOptions(q).map(o=>{
+   let cls='option';
+   if(saved){
+     if(o[0]===q.correct) cls+=' correct';
+     else if(o[0]===saved.selected) cls+=' incorrect';
+   }
+   return `<button class="${cls}" onclick="answerQuestion('${mode}','${q.id}','${o[0]}', this, ${showImmediate})">${o[1]}</button>`;
+ }).join('');
+ const feedback = saved && showImmediate ? rationaleHTML(q, saved.selected) : '';
+ return `<div class="question-card" id="${mode}_${q.id}"><span class="badge">${q.topic}</span><span class="badge ${q.difficulty==='Hard'?'red':q.difficulty==='Moderate'?'orange':'green'}">${q.difficulty}</span><div class="q-stem">${num}. ${q.stem}</div>${opts}<div class="feedback ${feedback?'show':''}" id="feed_${mode}_${q.id}">${feedback}</div><div class="toolbar"><button class="btn small secondary" onclick="goFlashById('${q.related[0]}')">Review ${q.related.join(', ')}</button></div></div>`;
+}
+function goFlashById(fid){const i=flashcards.findIndex(f=>f.id===fid); if(i>=0) goFlash(i);}
+function answerQuestion(mode,id,selected,btn,showImmediate){
+ const q=QUESTIONS.find(x=>x.id===id);
+ const bank = mode==='practice'?state.practiceAnswers:state.challengeAnswers;
+ const previous=bank[id]?.selected;
+ const correct=selected===q.correct;
+ bank[id]={selected, correct, changed: previous && previous!==selected, time:(state.qTimes[id]||0), topic:q.topic, difficulty:q.difficulty};
+ const parent=btn.parentElement;
+ parent.querySelectorAll('.option').forEach(b=>b.classList.remove('correct','incorrect'));
+ parent.querySelectorAll('.option').forEach(b=>{
+   const text=b.textContent.trim(); const opt=q.options.find(o=>o[1]===text);
+   if(opt?.[0]===q.correct) b.classList.add('correct');
+ });
+ if(!correct) btn.classList.add('incorrect');
+ if(showImmediate || mode==='practice'){
+   const feed=$(`feed_${mode}_${id}`); feed.classList.add('show'); feed.innerHTML=rationaleHTML(q, selected);
+ }
+ play(correct?'correct':'wrong'); saveState(); if(mode==='challenge') renderChallengeNav();
+}
+function rationaleHTML(q, selected){
+ return `<b>${selected===q.correct?'Correct.':'Not quite.'}</b> <span>${q.trap}</span><div class="rationale-list">${q.options.map(o=>`<div class="rationale-item ${o[0]===q.correct?'good':'bad'}"><b>${o[1]}:</b> ${q.rationales[o[0]]}</div>`).join('')}</div><p><b>Review:</b> ${q.related.join(', ')}</p>`;
+}
+let challengeIndex=0, timerInterval=null;
+function startChallenge(){
+ const n=parseInt($('challengeCount').value,10);
+ state.challengeSet=shuffle(QUESTIONS).slice(0, Math.min(n, QUESTIONS.length)).map(q=>q.id);
+ state.challengeAnswers={}; state.flags={}; state.challengeStart=Date.now(); challengeIndex=0;
+ if(timerInterval) clearInterval(timerInterval);
+ timerInterval=setInterval(updateTimer,1000);
+ renderChallenge(); saveState(); play('done');
+}
+function updateTimer(){
+ const elapsed=Math.floor((Date.now()-(state.challengeStart||Date.now()))/1000);
+ const m=String(Math.floor(elapsed/60)).padStart(2,'0'), s=String(elapsed%60).padStart(2,'0');
+ const t=$('testTimer'); if(t) t.textContent=`${m}:${s}`;
+}
+function renderChallenge(){
+ const area=$('challengeArea');
+ if(!state.challengeSet.length){area.innerHTML='<div class="card"><b>No test started yet.</b> Choose a length and start the simulation.</div>';return;}
+ const id=state.challengeSet[challengeIndex]; const q=QUESTIONS.find(x=>x.id===id);
+ area.innerHTML=`<div class="test-top"><div><b>Question ${challengeIndex+1} of ${state.challengeSet.length}</b><div class="progress-wrap"><div class="progress-fill" style="width:${((challengeIndex+1)/state.challengeSet.length)*100}%"></div></div></div><div class="timer" id="testTimer">00:00</div><button class="flag" onclick="toggleFlag('${id}')">${state.flags[id]?'⚑ Flagged':'⚐ Flag'}</button></div>
+ ${renderQuestion(q,'challenge',challengeIndex+1,false)}
+ <div class="toolbar"><button class="btn secondary" onclick="prevChallenge()">Back</button><button class="btn" onclick="nextChallenge()">Next</button><button class="btn warn" onclick="submitChallenge()">Submit Test</button></div>
+ <div class="card"><b>Answer Review Panel</b><div id="challengeNav" class="review-grid"></div></div>`;
+ updateTimer(); renderChallengeNav();
+}
+function renderChallengeNav(){
+ const nav=$('challengeNav'); if(!nav) return;
+ nav.innerHTML=state.challengeSet.map((id,i)=>`<button class="review-dot ${state.challengeAnswers[id]?'answered':''} ${state.flags[id]?'flagged':''}" onclick="challengeIndex=${i};renderChallenge()">${i+1}</button>`).join('');
+}
+function nextChallenge(){challengeIndex=Math.min(challengeIndex+1,state.challengeSet.length-1);renderChallenge();}
+function prevChallenge(){challengeIndex=Math.max(challengeIndex-1,0);renderChallenge();}
+function toggleFlag(id){state.flags[id]=!state.flags[id];saveState();renderChallenge();}
+function submitChallenge(){
+ if(timerInterval) clearInterval(timerInterval);
+ renderAnalytics();
+ generateReport();
+ showSection('analytics');
+ play('done');
+}
+function computeStats(){
+ const allAns={...state.practiceAnswers, ...state.challengeAnswers};
+ const attempted=Object.keys(allAns).length;
+ const correct=Object.values(allAns).filter(a=>a.correct).length;
+ const topicMap={}; const diffMap={};
+ Object.entries(allAns).forEach(([id,a])=>{
+   topicMap[a.topic]=topicMap[a.topic]||{total:0,correct:0}; topicMap[a.topic].total++; if(a.correct) topicMap[a.topic].correct++;
+   diffMap[a.difficulty]=diffMap[a.difficulty]||{total:0,correct:0}; diffMap[a.difficulty].total++; if(a.correct) diffMap[a.difficulty].correct++;
+ });
+ return {attempted, correct, pct:attempted?Math.round(correct/attempted*100):0, topicMap, diffMap};
+}
+function renderAnalytics(){
+ const s=computeStats();
+ const topicRows=Object.entries(s.topicMap).sort((a,b)=>(a[1].correct/a[1].total)-(b[1].correct/b[1].total)).map(([t,v])=>`<tr><td>${t}</td><td>${v.correct}/${v.total}</td><td>${Math.round(v.correct/v.total*100)}%</td></tr>`).join('');
+ const diffRows=Object.entries(s.diffMap).map(([t,v])=>`<tr><td>${t}</td><td>${v.correct}/${v.total}</td><td>${Math.round(v.correct/v.total*100)}%</td></tr>`).join('');
+ const weak=Object.entries(s.topicMap).filter(([t,v])=>v.correct/v.total<.75).map(([t])=>t);
+ const strong=Object.entries(s.topicMap).filter(([t,v])=>v.correct/v.total>=.75).map(([t])=>t);
+ $('analyticsArea').innerHTML=`
+ <div class="card"><h3>Score Snapshot</h3><p style="font-size:42px;font-weight:950;color:var(--navy);margin:0">${s.pct}%</p><p>${s.correct} correct out of ${s.attempted} answered.</p><span class="badge ${s.pct>=75?'green':s.pct>=60?'orange':'red'}">${s.pct>=75?'Ready for mixed review':'Needs targeted review'}</span></div>
+ <div class="card"><h3>Interpretation</h3><p>${s.attempted?analyticsText(s,weak,strong):'Answer practice or challenge questions to generate analytics.'}</p></div>
+ <div class="card table-wrap"><h3>Topic Performance</h3><table class="smart-table"><tr><th>Topic</th><th>Score</th><th>Percent</th></tr>${topicRows||'<tr><td>No data</td><td>-</td><td>-</td></tr>'}</table></div>
+ <div class="card table-wrap"><h3>Difficulty Breakdown</h3><table class="smart-table"><tr><th>Difficulty</th><th>Score</th><th>Percent</th></tr>${diffRows||'<tr><td>No data</td><td>-</td><td>-</td></tr>'}</table></div>`;
+}
+function analyticsText(s, weak, strong){
+ let msg=[];
+ if(strong.length) msg.push(`Strong areas: ${strong.join(', ')}.`);
+ if(weak.length) msg.push(`Needs review: ${weak.join(', ')}. Return to related flashcards and redo missed questions.`);
+ if(s.pct<60) msg.push('The score suggests the student is still confusing core rules. Slow down and read for the payer/coding clue before choosing.');
+ else if(s.pct<75) msg.push('The score is developing. The next step is targeted review of weak topics and harder mixed scenarios.');
+ else msg.push('The score is strong. Continue mixed timed practice to improve speed and accuracy.');
+ return msg.join(' ');
+}
+function generateReport(){
+ const s=computeStats();
+ const name=$('studentName')?.value || 'Student';
+ const weak=Object.entries(s.topicMap).filter(([t,v])=>v.correct/v.total<.75).map(([t])=>t);
+ const strong=Object.entries(s.topicMap).filter(([t,v])=>v.correct/v.total>=.75).map(([t])=>t);
+ const related=[...new Set(QUESTIONS.filter(q=>weak.includes(q.topic)).flatMap(q=>q.related))];
+ const elapsed=state.challengeStart?Math.floor((Date.now()-state.challengeStart)/1000):0;
+ const reflections = [
+   `Easiest topics: ${$('fbEasy')?.value || ''}`,
+   `Hardest topics: ${$('fbHard')?.value || ''}`,
+   `Confusing questions: ${$('fbConfusing')?.value || ''}`,
+   `Felt rushed: ${$('fbRushed')?.value || ''}`,
+   `Review next: ${$('fbNext')?.value || ''}`,
+   `Confidence: ${$('fbConfidence')?.value || ''}`
+ ].join('\n');
+ const report=`Student Name: ${name}
+Date: ${new Date().toLocaleString()}
+Batch: Batch 1 - CBCS Claims, Coding, Payers, Modifiers, Compliance
+
+Score:
+${s.correct}/${s.attempted} answered correctly (${s.pct}%)
+
+Timing:
+Challenge elapsed time currently recorded: ${elapsed?Math.floor(elapsed/60)+' min '+(elapsed%60)+' sec':'No completed challenge timer recorded'}
+
+Strong Topics:
+${strong.length?strong.join(', '):'Not enough data yet'}
+
+Needs Review:
+${weak.length?weak.join(', '):'No weak topic identified yet, or not enough data'}
+
+Recommended Flashcards:
+${related.length?related.join(', '):'Complete more questions to generate targeted flashcards'}
+
+Instructor Notes:
+${analyticsText(s, weak, strong)}
+
+Student Reflection:
+${reflections}
+
+Recommended Next Steps:
+1. Review the listed flashcards.
+2. Redo missed practice questions.
+3. Take a shorter timed challenge.
+4. Watch for traps: payer hierarchy, modifier placement, diagnosis-procedure linkage, and patient responsibility math.`;
+ state.report=report; $('reportBox').textContent=report; saveState(); return report;
+}
+function copyReport(){
+ const report=generateReport();
+ navigator.clipboard.writeText(report).then(()=>showToast('Report copied. Paste into Excel, Word, or LMS.'));
+}
+function renderAll(){
+ renderDashboard(); renderFlash(); renderDiagrams(); renderPractice(); renderChallenge(); renderAnalytics();
+ if(state.report) $('reportBox').textContent=state.report;
+ $('muteBtn').textContent='Sound: '+(state.sound?'On':'Off');
+}
+loadState();
+</script>
+</body>
+</html>
