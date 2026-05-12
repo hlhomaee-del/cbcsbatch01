@@ -407,56 +407,133 @@ body, p, li, td, th, .card, .question-card, .feedback, .rationale-item, .module-
 .student-print-header .student-name-line{font-size:18px;color:#061733}
 .student-print-header .student-name-value{color:#0b2e73}
 .student-print-header .batch-line{font-size:13px;color:#18366f;margin-top:3px;font-weight:800}
+.section.active{min-height:calc(100vh - 140px)}
 .site-credit.professional-footer{
   text-align:left;
-  padding:30px 34px;
-  background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(239,246,255,.95),rgba(240,253,250,.88));
+  padding:34px;
+  background:linear-gradient(135deg,rgba(255,255,255,.97),rgba(239,246,255,.96),rgba(240,253,250,.9));
   border-top:5px solid #1d4ed8;
+  border-radius:26px 26px 0 0;
 }
+.full-credit{
+  margin-top:210px;
+  box-shadow:0 -10px 34px rgba(16,33,63,.08);
+}
+.compact-credit{
+  margin-top:125vh;
+  padding:14px 18px!important;
+  font-size:10px;
+  line-height:1.35;
+  opacity:.92;
+  transform:scale(.96);
+  transform-origin:center bottom;
+}
+/* On non-welcome pages, the credit/footer sits far below the activity area so it behaves like true small-print footer content. */
+body:not([data-section="welcome"]) main{padding-bottom:60vh;}
+body[data-section="welcome"] .compact-credit{display:none!important}
 .site-credit .credit-main{
   color:#061733;
   font-size:1rem;
   text-align:center;
-  margin-bottom:16px;
+  margin-bottom:18px;
 }
+.compact-credit .credit-main{font-size:10.5px;margin-bottom:6px}
 .site-credit .source-note{
   display:block;
   max-width:980px;
-  margin:0 auto 26px;
-  padding:14px 18px;
+  margin:0 auto 46px;
+  padding:15px 20px;
   border-radius:18px;
-  background:linear-gradient(135deg,#dbeafe,#e0f2fe);
+  background:linear-gradient(135deg,#dbeafe,#e0f2fe,#cffafe);
   color:#0b2e73!important;
   font-style:normal!important;
   font-weight:850!important;
   text-align:center;
-  border:1px solid rgba(37,99,235,.18);
+  border:1px solid rgba(37,99,235,.20);
+}
+.compact-credit .source-note{
+  max-width:980px;
+  margin:0 auto 12px;
+  padding:9px 12px;
+  border-radius:12px;
+  font-size:10px;
 }
 .site-credit .appreciation-note{
   display:block;
   max-width:980px;
-  margin:26px auto 0;
-  padding:16px 20px;
-  border-radius:18px;
+  margin:64px auto 0;
+  padding:18px 22px;
+  border-radius:20px;
   background:linear-gradient(135deg,#fff7ed,#fef3c7,#dcfce7);
   color:#6b3f00!important;
   font-style:italic;
   font-weight:750;
   text-align:center;
   line-height:1.75;
+  border:1px solid rgba(245,158,11,.24);
+}
+.compact-credit .appreciation-note{
+  max-width:980px;
+  margin:18px auto 0;
+  padding:10px 12px;
+  border-radius:14px;
+  font-size:11.5px;
 }
 .site-credit .manuel-note{
   display:block;
   max-width:980px;
   margin:18px auto 0;
-  padding-top:16px;
-  border-top:1px dashed rgba(16,33,63,.22);
-  color:#18366f!important;
+  padding:14px 18px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#f5f3ff,#fae8ff,#fce7f3);
+  color:#4c1d95!important;
   font-style:italic;
-  font-weight:700;
+  font-weight:750;
   text-align:center;
   line-height:1.7;
+  border:1px solid rgba(124,58,237,.18);
 }
+.compact-credit .manuel-note{
+  max-width:980px;
+  margin:10px auto 0;
+  padding:9px 12px;
+  border-radius:14px;
+  font-size:11.5px;
+}
+
+
+/* Payer claim status cloud feedback */
+.status-card{position:relative;overflow:visible;}
+.status-cloud{
+  position:absolute;
+  z-index:30;
+  right:24px;
+  top:86px;
+  width:min(430px, calc(100% - 48px));
+  padding:22px 22px 18px;
+  border-radius:38px 38px 42px 24px;
+  color:#08224d;
+  background:
+    radial-gradient(circle at 14% 12%, rgba(255,255,255,.98) 0 22%, transparent 23%),
+    radial-gradient(circle at 42% 0%, rgba(255,255,255,.92) 0 25%, transparent 26%),
+    radial-gradient(circle at 72% 13%, rgba(255,255,255,.86) 0 24%, transparent 25%),
+    linear-gradient(135deg,#dbeafe 0%,#e0f2fe 34%,#cffafe 62%,#ede9fe 100%);
+  border:2px solid rgba(255,255,255,.92);
+  box-shadow:0 24px 48px rgba(6,23,51,.22), inset 0 2px 0 rgba(255,255,255,.95), inset 0 -18px 30px rgba(37,99,235,.08);
+  animation:cloudIn .36s cubic-bezier(.2,.9,.2,1) both;
+}
+.status-cloud:before,.status-cloud:after{content:"";position:absolute;background:inherit;border:2px solid rgba(255,255,255,.88);box-shadow:0 12px 26px rgba(6,23,51,.12);z-index:-1;}
+.status-cloud:before{width:92px;height:62px;border-radius:50%;left:28px;top:-26px;}
+.status-cloud:after{width:132px;height:78px;border-radius:50%;right:70px;top:-34px;}
+.status-cloud .cloud-close{position:absolute;right:12px;top:10px;border:0;background:rgba(255,255,255,.78);color:#0b2e73;border-radius:999px;width:30px;height:30px;font-weight:950;cursor:pointer;box-shadow:0 6px 14px rgba(16,33,63,.12)}
+.status-cloud h4{margin:6px 36px 8px 0;font-size:22px;color:#061733;}
+.status-cloud .cloud-tag{display:inline-block;margin:2px 6px 10px 0;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.75);font-size:12px;font-weight:950;color:#0b2e73;}
+.status-cloud p{font-size:14.5px;line-height:1.52;margin:8px 0;color:#08224d;font-weight:700;}
+.status-cloud ul{margin:8px 0 0 18px;padding:0;}
+.status-cloud li{margin:6px 0;font-size:14px;line-height:1.4;color:#08224d;font-weight:650;}
+.status-row-active{outline:3px solid rgba(37,99,235,.45);box-shadow:inset 0 0 0 999px rgba(219,234,254,.35);}
+@keyframes cloudIn{0%{opacity:0;transform:translateY(18px) scale(.92) rotate(-1deg)}100%{opacity:1;transform:translateY(0) scale(1) rotate(0)}}
+@media(max-width:900px){.status-cloud{position:relative;right:auto;top:auto;width:auto;margin:24px 0 0}}
 
 
 /* Completion/progress readability fix */
@@ -524,9 +601,65 @@ body, p, li, td, th, .card, .question-card, .feedback, .rationale-item, .module-
   .feedback{display:block!important}
   .print-only{display:block}
 }
+
+
+/* More visible, student-noticeable flashcard flip motion */
+.flash-scene{
+  perspective:1800px!important;
+}
+.flashcard{
+  transform-style:preserve-3d!important;
+}
+.flashcard .flash-face{
+  transform-origin:center center!important;
+  transition:transform .82s cubic-bezier(.18,.85,.22,1), opacity .34s ease, filter .34s ease, box-shadow .34s ease!important;
+}
+.flashcard .flash-front{
+  transform:rotateY(0deg) translateZ(2px)!important;
+  opacity:1!important;
+  pointer-events:auto;
+}
+.flashcard .flash-back{
+  transform:rotateY(180deg) translateZ(2px)!important;
+  opacity:0!important;
+  pointer-events:none;
+}
+.flashcard.flipped .flash-front{
+  transform:rotateY(-180deg) translateZ(2px)!important;
+  opacity:0!important;
+  pointer-events:none;
+}
+.flashcard.flipped .flash-back{
+  transform:rotateY(0deg) translateZ(2px)!important;
+  opacity:1!important;
+  pointer-events:auto;
+}
+.flashcard.flip-motion .flash-face{
+  box-shadow:0 24px 70px rgba(16,33,63,.30), 0 0 0 5px rgba(255,255,255,.55)!important;
+}
+.flashcard.flip-motion::after{
+  content:"";
+  position:absolute;
+  inset:-9px;
+  border-radius:36px;
+  pointer-events:none;
+  background:linear-gradient(115deg, transparent 18%, rgba(255,255,255,.65) 47%, transparent 72%);
+  animation:flipSheen .82s ease both;
+  z-index:5;
+}
+@keyframes flipSheen{
+  0%{opacity:0;transform:translateX(-28%) skewX(-10deg)}
+  35%{opacity:.75;transform:translateX(0) skewX(-10deg)}
+  100%{opacity:0;transform:translateX(28%) skewX(-10deg)}
+}
+@media (prefers-reduced-motion: reduce){
+  .flashcard .flash-face{transition:opacity .2s ease!important;}
+  .flashcard.flip-motion::after{animation:none!important;display:none!important;}
+}
+
 </style>
 </head>
-<body>
+<body data-section="welcome">
 <div class="bg-orb orb1"></div><div class="bg-orb orb2"></div><div class="bg-orb orb3"></div>
 <div class="app-shell">
   <aside class="sidebar">
@@ -584,6 +717,12 @@ body, p, li, td, th, .card, .question-card, .feedback, .rationale-item, .module-
           </div>
         </div>
       </div>
+      <footer class="site-credit professional-footer full-credit">
+        <div class="credit-main"><strong>Instructional design by Hilary Homaii.</strong> All rights reserved.</div>
+        <div class="source-note">Practice concepts adapted for instructional data, classroom review, question-behavior feedback, and concept-mastery development from CBCS/NHA-style question patterns and Quizlet-style review resources. Flashcards, rationales, interaction design, and learning structure were created to support applied reasoning in medical billing and coding.</div>
+        <div class="appreciation-note">With sincere appreciation to my BEOC Spring 2026 Billing and Coding students, who consistently inspire me through their curiosity, persistence, thoughtful questions, and commitment to learning. Their engagement continues to shape and strengthen this course experience.</div>
+        <div class="manuel-note">Special thanks to Manuel Pedraja for carefully reviewing question functionality and offering constructive feedback that supports accuracy, clarity, and a stronger learning experience for the class.</div>
+      </footer>
     </section>
 
     <section id="dashboard" class="section">
@@ -618,10 +757,11 @@ body, p, li, td, th, .card, .question-card, .feedback, .rationale-item, .module-
         <div class="flow" id="flow"></div>
         <div id="flowExplain" class="feedback show">Click a step to study it.</div>
       </div>
-      <div class="card" style="margin-top:18px">
+      <div class="card status-card" id="statusCard" style="margin-top:18px">
         <h3>Payer / Claim Status Comparison Table</h3>
-        <p>Click a row to reveal the trap. This table now sits below the claim cycle so the diagram does not hide behind it.</p>
+        <p>Click a row to reveal a raised cloud with examples, likely problems, and the next action. The cloud changes when you choose another status.</p>
         <div class="table-wrap"><table class="smart-table" id="compareTable"></table></div>
+        <div id="statusCloud" class="status-cloud" style="display:none"></div>
       </div>
       <div class="card" style="margin-top:18px">
         <h3>Mini-Game: Sort the Concept</h3>
@@ -682,10 +822,10 @@ body, p, li, td, th, .card, .question-card, .feedback, .rationale-item, .module-
       <div id="reportBox" class="report-box">Generate the report after completing practice or challenge questions.</div>
     </section>
 
-  <footer class="site-credit professional-footer">
+  <footer class="site-credit professional-footer compact-credit">
     <div class="credit-main"><strong>Instructional design by Hilary Homaii.</strong> All rights reserved.</div>
-    <div class="source-note">Practice concepts adapted for instructional data, classroom review, and concept-mastery development from CBCS/NHA-style question patterns and Quizlet-style review resources. Flashcards, rationales, interaction design, and learning structure were created to support applied reasoning in medical billing and coding.</div>
-    <div class="appreciation-note">With sincere appreciation to my BEOC Spring 2026 Billing and Coding students, who consistently inspire me through their curiosity, persistence, thoughtful questions, and commitment to learning. Their engagement continues to shape and strengthen this course experience.</div>
+    <div class="source-note">Practice concepts adapted for instructional data, classroom review, question-behavior feedback, and concept-mastery development from CBCS/NHA-style question patterns and Quizlet-style review resources.</div>
+    <div class="appreciation-note">With sincere appreciation to my BEOC Spring 2026 Billing and Coding students, whose curiosity, persistence, and thoughtful questions continue to inspire and strengthen this learning experience.</div>
     <div class="manuel-note">Special thanks to Manuel Pedraja for carefully reviewing question functionality and offering constructive feedback that supports accuracy, clarity, and a stronger learning experience for the class.</div>
   </footer>
   </main>
@@ -2680,6 +2820,14 @@ const compareRows = [
  ['Aging report','Unpaid balances over time','Prioritize follow-up by date']
 ];
 
+const statusCloudDetails = {
+  Rejected:{tag:'Before adjudication', problem:'The claim did not pass front-end checks, so it may never reach full payer review.', example:'Example: missing demographic data, invalid member ID format, or clearinghouse edit failure.', action:'Correct the missing or invalid data, then resubmit the claim as a clean claim.', watch:'Do not appeal a rejected claim first; fix the defect first.'},
+  Denied:{tag:'Processed but unpaid', problem:'The payer reviewed the claim and decided not to pay based on policy, coding, coverage, or medical necessity.', example:'Example: CPT appendectomy linked to an unrelated sinusitis diagnosis, or documentation does not support medical necessity.', action:'Review the reason code, documentation, coding link, and payer rule; appeal only when the record supports payment.', watch:'A denial is not the same as a clearinghouse rejection.'},
+  Invalid:{tag:'Incorrect claim data', problem:'A key claim field is wrong, making the claim unreliable for processing.', example:'Example: transposed member ID digits, wrong date of birth, or incorrect subscriber information.', action:'Verify the source document, correct the field, and resubmit the claim.', watch:'Invalid status usually points to data accuracy, not payer refusal.'},
+  Suspended:{tag:'Held or pending', problem:'The payer is holding the claim while another issue is resolved.', example:'Example: payment went to the wrong provider and must be recouped before the correct payment is released.', action:'Monitor the payer issue, document follow-up, and confirm when the hold is cleared.', watch:'Suspended does not mean permanently denied.'},
+  'Aging report':{tag:'Follow-up priority', problem:'Unpaid balances are sitting too long and need organized follow-up.', example:'Example: claims grouped into 0–30, 31–60, 61–90, and 90+ day buckets.', action:'Start by verifying account age/status, then prioritize payer follow-up before timely filing or appeal windows are missed.', watch:'Aging reports are financial follow-up tools, not code books.'}
+};
+
 const sortItems = [
  ['Modifier -25','Coding'],['Diagnosis pointer','Coding'],['Birthday rule','Payer'],['Medigap','Payer'],['Medical necessity appeal','Denial'],['CARC review','Denial'],['Modifier -50','Coding'],['HMO referral','Payer'],['Clearinghouse rejection','Denial']
 ];
@@ -2731,6 +2879,7 @@ function loadState(){
   },0);
 }
 function showSection(id, btn){
+  document.body.setAttribute('data-section', id);
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   $(id).classList.add('active');
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
@@ -2830,7 +2979,17 @@ function answerConcept(btn, selected, correct, fid){
  feed.classList.add('show');
  feed.innerHTML=`<b>${selected===correct?'Correct.':'Not quite.'}</b><div class="rationale-list">${q.options.map(o=>`<div class="rationale-item ${o[0]===q.correct?'good':'bad'}"><b>${o[1]}:</b> ${q.rationales[o[0]]}</div>`).join('')}</div>`;
 }
-function flipFlash(){state.flipped=!state.flipped; play('flip'); renderFlash();}
+function flipFlash(){
+ state.flipped=!state.flipped;
+ play('flip');
+ const card=$('flashcard');
+ if(card){
+   card.classList.toggle('flipped', state.flipped);
+   card.classList.add('flip-motion');
+   setTimeout(()=>card.classList.remove('flip-motion'), 820);
+ }
+ saveState();
+}
 function nextFlash(){state.currentFlash=(state.currentFlash+1)%flashcards.length; state.flipped=false; renderFlash();}
 function prevFlash(){state.currentFlash=(state.currentFlash-1+flashcards.length)%flashcards.length; state.flipped=false; renderFlash();}
 function goFlash(i){state.currentFlash=i;state.flipped=false;showSection('flashcards');renderFlash();}
@@ -2838,9 +2997,37 @@ function markUnderstood(){state.understood[flashcards[state.currentFlash].id]=tr
 function renderDiagrams(){
  const flow=$('flow');
  flow.innerHTML=flowSteps.map((s,i)=>`<div class="flow-step" onclick="explainFlow(${i}, this)"><b>${i+1}. ${s[0]}</b><p>Click to reveal</p></div>${i<flowSteps.length-1?'<div class="flow-arrow">→</div>':''}`).join('');
- $('compareTable').innerHTML='<tr><th>Term</th><th>Meaning</th><th>Best action / trap</th></tr>'+compareRows.map((r,i)=>`<tr onclick="showToast('${r[0]}: ${r[2]}')"><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+ $('compareTable').innerHTML='<tr><th>Term</th><th>Meaning</th><th>Best action / trap</th></tr>'+compareRows.map((r,i)=>`<tr onclick="showStatusCloud('${r[0]}', this)"><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
  $('sortChips').innerHTML=sortItems.map((it,i)=>`<span class="drag-chip" onclick="sortChip(this,'${it[1]}')">${it[0]}</span>`).join('');
 }
+function showStatusCloud(term, row){
+ const cloud=$('statusCloud');
+ if(!cloud) return;
+ document.querySelectorAll('#compareTable tr').forEach(r=>r.classList.remove('status-row-active'));
+ if(row) row.classList.add('status-row-active');
+ const d=statusCloudDetails[term] || {tag:'Claim logic',problem:'Review the term and connect it to the claim stage.',example:'Use the documentation and payer response to decide the best next action.',action:'Choose the action that fixes the actual barrier to payment.',watch:'Do not treat all unpaid claims the same way.'};
+ const colors={Rejected:['#fed7aa','#ffedd5','#fff7ed'],Denied:['#fecdd3','#ffe4e6','#fff1f2'],Invalid:['#ddd6fe','#ede9fe','#f5f3ff'],Suspended:['#dbeafe','#e0f2fe','#cffafe'],'Aging report':['#bbf7d0','#dcfce7','#fef9c3']};
+ const c=colors[term] || ['#dbeafe','#e0f2fe','#cffafe'];
+ cloud.style.background=`radial-gradient(circle at 14% 12%, rgba(255,255,255,.98) 0 22%, transparent 23%),radial-gradient(circle at 42% 0%, rgba(255,255,255,.92) 0 25%, transparent 26%),radial-gradient(circle at 72% 13%, rgba(255,255,255,.86) 0 24%, transparent 25%),linear-gradient(135deg,${c[0]} 0%,${c[1]} 45%,${c[2]} 100%)`;
+ if(row && window.innerWidth>900){
+   const card=$('statusCard');
+   const top=Math.max(76, row.offsetTop - 18);
+   cloud.style.top=top+'px';
+ }
+ cloud.innerHTML=`<button class="cloud-close" onclick="closeStatusCloud(event)" aria-label="Close status explanation">×</button>
+ <span class="cloud-tag">${d.tag}</span><h4>${term}</h4>
+ <p><b>Problem:</b> ${d.problem}</p>
+ <ul><li><b>Example:</b> ${d.example}</li><li><b>Next action:</b> ${d.action}</li><li><b>Watch for:</b> ${d.watch}</li></ul>`;
+ cloud.style.display='block';
+ play('click');
+}
+function closeStatusCloud(e){
+ if(e) e.stopPropagation();
+ const cloud=$('statusCloud');
+ if(cloud) cloud.style.display='none';
+ document.querySelectorAll('#compareTable tr').forEach(r=>r.classList.remove('status-row-active'));
+}
+
 function explainFlow(i, el){
  document.querySelectorAll('.flow-step').forEach(x=>x.classList.remove('active')); el.classList.add('active');
  const pal=FLASH_PALETTE[i % FLASH_PALETTE.length];
