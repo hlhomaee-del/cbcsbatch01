@@ -202,6 +202,14 @@ main{padding:28px;max-width:1280px;width:100%;margin:0 auto}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 .feedback{display:none;margin-top:12px;padding:14px;border-radius:16px;background:rgba(16,33,63,.06)}
 .feedback.show{display:block}
+
+.modifier-exhibit{margin:14px 0;border-radius:18px;overflow:hidden;border:2px solid rgba(63,124,255,.22);box-shadow:0 10px 24px rgba(16,33,63,.10);background:#fff}
+.modifier-exhibit .exhibit-title{background:linear-gradient(135deg,#3f7cff,#8f6bff,#ff4fb7);color:#fff;padding:10px 14px;font-weight:900;letter-spacing:.02em}
+.modifier-exhibit table{width:100%;border-collapse:collapse;font-size:.95rem}
+.modifier-exhibit th{background:#eef5ff;color:#10213f;text-align:left;padding:10px;border-bottom:1px solid rgba(16,33,63,.12)}
+.modifier-exhibit td{padding:10px;border-bottom:1px solid rgba(16,33,63,.08);color:#10213f}
+.modifier-exhibit tr:last-child td{border-bottom:0}
+.modifier-exhibit .mod-code{font-weight:950;color:#4c1d95;white-space:nowrap}
 .rationale-list{display:grid;gap:8px;margin-top:12px}
 .rationale-item{padding:10px;border-radius:12px;background:rgba(100,116,139,.08)}
 .toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:12px 0}
@@ -2065,7 +2073,7 @@ const QUESTIONS = [
   "related": [
    "F6"
   ],
-  "stem": "A workers’ compensation payer requires blood work after a work-related injury. Which modifier applies to the mandated service?",
+  "stem": "Complete the question by referencing the coding exhibit. An employer’s workers’ compensation payer requires bloodwork for an employee who experienced a work-related injury. Which modifier should the billing and coding specialist use?<div class='modifier-exhibit'><div class='exhibit-title'>Coding Exhibit: Modifier Descriptions</div><table><thead><tr><th>Modifier</th><th>Description</th></tr></thead><tbody><tr><td class='mod-code'>-26</td><td>Professional component</td></tr><tr><td class='mod-code'>-32</td><td>Mandated services</td></tr><tr><td class='mod-code'>-52</td><td>Reduced services</td></tr><tr><td class='mod-code'>-58</td><td>Staged or related procedure by the same physician or qualified health care professional during the postoperative period</td></tr></tbody></table></div>",
   "options": [
    [
     "a",
@@ -2073,25 +2081,25 @@ const QUESTIONS = [
    ],
    [
     "b",
-    "-22"
+    "-52"
    ],
    [
     "c",
-    "-47"
+    "-58"
    ],
    [
     "d",
-    "-58"
+    "-26"
    ]
   ],
   "correct": "a",
   "rationales": {
-   "a": "Correct. Modifier -32 identifies a mandated service.",
-   "b": "Incorrect. Modifier -22 indicates increased procedural services.",
-   "c": "Incorrect. Modifier -47 indicates anesthesia by the surgeon.",
-   "d": "Incorrect. Modifier -58 describes staged or more extensive procedures during a global period."
+   "a": "Correct. Modifier -32 is used when a service is required by a payer, employer, agency, or other authority.",
+   "b": "Incorrect. Modifier -52 is used when a service is reduced, not when the payer mandates the service.",
+   "c": "Incorrect. Modifier -58 is used for staged, related, or more extensive procedures during a postoperative period.",
+   "d": "Incorrect. Modifier -26 reports only the professional component of a service, not mandated testing."
   },
-  "trap": "Required by payer or law points to mandated service modifier -32."
+  "trap": "The decisive clue is payer-required bloodwork. Required by a payer or agency means mandated service, which points to modifier -32."
  },
  {
   "id": "Q39",
