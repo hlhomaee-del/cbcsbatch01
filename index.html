@@ -363,6 +363,139 @@ body, p, li, td, th, .card, .question-card, .feedback, .rationale-item, .module-
 .site-credit small{display:block;max-width:980px;margin:8px auto 0;font-weight:600;color:#18366f;font-size:.95rem}
 .site-credit em{font-style:italic}
 
+
+
+/* Footer separation, source note color, appreciation spacing, and readable sidebar color logic */
+.color-logic-card{
+  background:linear-gradient(135deg,rgba(15,35,75,.94),rgba(22,51,96,.92));
+  border:1px solid rgba(255,255,255,.20);
+}
+.color-logic-card .logic-title{
+  color:#ffffff!important;
+  font-weight:950;
+  letter-spacing:.2px;
+  display:block;
+  margin-bottom:10px;
+}
+.logic-pills{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px}
+.logic-pill{
+  display:block;
+  border-radius:999px;
+  padding:9px 11px;
+  font-size:12px;
+  font-weight:950;
+  color:#061733!important;
+  border:1px solid rgba(255,255,255,.88);
+  box-shadow:0 7px 16px rgba(0,0,0,.12);
+}
+.logic-pill.blue{background:#dbeafe!important;border-left:7px solid #2563eb;color:#0b2e73!important;}
+.logic-pill.green{background:#dcfce7!important;border-left:7px solid #16a34a;color:#064e3b!important;}
+.logic-pill.purple{background:#ede9fe!important;border-left:7px solid #7c3aed;color:#3b0764!important;}
+.logic-pill.orange{background:#ffedd5!important;border-left:7px solid #f97316;color:#7c2d12!important;}
+.logic-pill.red{background:#ffe4e6!important;border-left:7px solid #e11d48;color:#7f1d1d!important;}
+.student-print-header{
+  display:block;
+  margin:0 0 18px;
+  padding:14px 18px;
+  border-radius:18px;
+  background:linear-gradient(135deg,rgba(219,234,254,.92),rgba(224,242,254,.82));
+  border:1px solid rgba(37,99,235,.18);
+  color:#0b2e73;
+  font-weight:950;
+  box-shadow:0 10px 24px rgba(16,33,63,.08);
+}
+.student-print-header .student-name-line{font-size:18px;color:#061733}
+.student-print-header .student-name-value{color:#0b2e73}
+.student-print-header .batch-line{font-size:13px;color:#18366f;margin-top:3px;font-weight:800}
+.site-credit.professional-footer{
+  text-align:left;
+  padding:30px 34px;
+  background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(239,246,255,.95),rgba(240,253,250,.88));
+  border-top:5px solid #1d4ed8;
+}
+.site-credit .credit-main{
+  color:#061733;
+  font-size:1rem;
+  text-align:center;
+  margin-bottom:16px;
+}
+.site-credit .source-note{
+  display:block;
+  max-width:980px;
+  margin:0 auto 26px;
+  padding:14px 18px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#dbeafe,#e0f2fe);
+  color:#0b2e73!important;
+  font-style:normal!important;
+  font-weight:850!important;
+  text-align:center;
+  border:1px solid rgba(37,99,235,.18);
+}
+.site-credit .appreciation-note{
+  display:block;
+  max-width:980px;
+  margin:26px auto 0;
+  padding:16px 20px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#fff7ed,#fef3c7,#dcfce7);
+  color:#6b3f00!important;
+  font-style:italic;
+  font-weight:750;
+  text-align:center;
+  line-height:1.75;
+}
+.site-credit .manuel-note{
+  display:block;
+  max-width:980px;
+  margin:18px auto 0;
+  padding-top:16px;
+  border-top:1px dashed rgba(16,33,63,.22);
+  color:#18366f!important;
+  font-style:italic;
+  font-weight:700;
+  text-align:center;
+  line-height:1.7;
+}
+
+
+/* Completion/progress readability fix */
+#progressText{
+  display:inline-block;
+  color:#ffffff!important;
+  font-weight:950;
+  letter-spacing:.2px;
+  margin-top:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.16);
+  text-shadow:0 1px 2px rgba(0,0,0,.35);
+}
+.module-card .badge, .section-title .badge, .review-dot.answered{
+  color:#ffffff!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.28);
+}
+.module-card .badge.green, .badge.green{
+  background:linear-gradient(135deg,#16a34a,#059669)!important;
+  color:#ffffff!important;
+}
+.module-card .badge.purple, .badge.purple{
+  background:linear-gradient(135deg,#7c3aed,#c026d3)!important;
+  color:#ffffff!important;
+}
+.badge.orange{
+  background:linear-gradient(135deg,#f97316,#f59e0b)!important;
+  color:#ffffff!important;
+}
+.badge.red{
+  background:linear-gradient(135deg,#e11d48,#fb7185)!important;
+  color:#ffffff!important;
+}
+.badge:not(.green):not(.purple):not(.orange):not(.red){
+  background:linear-gradient(135deg,#2563eb,#0ea5e9)!important;
+  color:#ffffff!important;
+}
+
 @media(max-width:980px){
   .app-shell{grid-template-columns:1fr}
   .sidebar{position:relative;height:auto}
@@ -377,6 +510,7 @@ body, p, li, td, th, .card, .question-card, .feedback, .rationale-item, .module-
   .sidebar,.top-actions,.toolbar,.btn,.utility,.nav-btn,.toast,.no-print{display:none!important}
   .app-shell{display:block}
   main{max-width:100%;padding:0}
+  .student-print-header{display:block!important;border:2px solid #111;background:#f3f7ff!important;color:#000!important;margin-bottom:16px;page-break-after:avoid}
   .section{display:block!important;page-break-after:always;animation:none}
   .card,.hero,.flash-face,.question-card,.test-shell,.report-box{box-shadow:none;border:1px solid #ccc;background:#fff}
   .hero{min-height:auto}
@@ -411,10 +545,10 @@ body, p, li, td, th, .card, .question-card, .feedback, .rationale-item, .module-
     <button class="nav-btn" onclick="showSection('report', this)">📋 Final Report</button>
 
     <div class="side-card">
-      <label>Student name</label>
-      <input id="studentName" placeholder="Type name" oninput="saveState()"/>
-      <label>Batch</label>
-      <select id="batchSelect" onchange="saveState()"><option>Batch 1 - CBCS Concepts</option></select>
+      <label>Name for report/PDF</label>
+      <input id="studentName" placeholder="Type your name" oninput="saveState()"/>
+      <label>Current lab</label>
+      <div class="logic-pill blue" style="border-radius:12px;margin-bottom:10px">Batch 1 - CBCS Concepts</div>
       <div class="progress-wrap"><div id="globalProgress" class="progress-fill"></div></div>
       <small id="progressText">0% complete</small>
       <div class="top-actions">
@@ -423,13 +557,20 @@ body, p, li, td, th, .card, .question-card, .feedback, .rationale-item, .module-
         <button class="utility" onclick="resetProgress()">Reset</button>
       </div>
     </div>
-    <div class="side-card">
-      <b>Color logic</b>
-      <p><span class="badge">Blue payer</span><span class="badge green">Green payment</span><span class="badge purple">Purple coding</span><span class="badge orange">Orange denial</span><span class="badge red">Red warning</span></p>
+    <div class="side-card color-logic-card">
+      <span class="logic-title">Color logic</span>
+      <div class="logic-pills" aria-label="Color logic legend">
+        <span class="logic-pill blue">Blue = payer / insurance</span>
+        <span class="logic-pill green">Green = payment / reimbursement</span>
+        <span class="logic-pill purple">Purple = coding / modifiers</span>
+        <span class="logic-pill orange">Orange = denial / appeal</span>
+        <span class="logic-pill red">Red = warning / common error</span>
+      </div>
     </div>
   </aside>
 
   <main>
+    <div id="studentPrintHeader" class="student-print-header"><div class="student-name-line">Student: <span id="studentNameDisplay" class="student-name-value">Name not entered</span></div><div class="batch-line">CBCS Interactive Learning Platform • Batch 1</div></div>
     <section id="welcome" class="section active">
       <div class="hero">
         <div>
@@ -542,10 +683,10 @@ body, p, li, td, th, .card, .question-card, .feedback, .rationale-item, .module-
     </section>
 
   <footer class="site-credit professional-footer">
-    <div><strong>Instructional design by Hilary Homaii.</strong> All rights reserved.</div>
-    <small><em>Practice concepts are adapted for instructional review from CBCS/NHA-style test-prep questions and Quizlet-style review resources. Flashcards, rationales, interaction design, and learning structure were created for classroom review and concept mastery.</em></small>
-    <small><em>With sincere appreciation to my BEOC Spring 2026 Billing and Coding students, whose curiosity, persistence, thoughtful questions, and commitment to learning continue to inspire the design of this course experience.</em></small>
-    <small><em>Special thanks to Manuel Pedraja for his careful review of question functionality and for providing constructive feedback that supports accuracy, clarity, and a stronger learning experience for the class.</em></small>
+    <div class="credit-main"><strong>Instructional design by Hilary Homaii.</strong> All rights reserved.</div>
+    <div class="source-note">Practice concepts adapted for instructional data, classroom review, and concept-mastery development from CBCS/NHA-style question patterns and Quizlet-style review resources. Flashcards, rationales, interaction design, and learning structure were created to support applied reasoning in medical billing and coding.</div>
+    <div class="appreciation-note">With sincere appreciation to my BEOC Spring 2026 Billing and Coding students, who consistently inspire me through their curiosity, persistence, thoughtful questions, and commitment to learning. Their engagement continues to shape and strengthen this course experience.</div>
+    <div class="manuel-note">Special thanks to Manuel Pedraja for carefully reviewing question functionality and offering constructive feedback that supports accuracy, clarity, and a stronger learning experience for the class.</div>
   </footer>
   </main>
 </div>
@@ -2554,6 +2695,11 @@ function $(id){return document.getElementById(id)}
 function shuffle(arr){return [...arr].sort(()=>Math.random()-.5)}
 function safeOptions(q){ if(!q._shuffled){ q._shuffled = shuffle(q.options); } return q._shuffled; }
 function showToast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
+function updateStudentNameDisplay(){
+  const val = $('studentName')?.value?.trim() || state.reflections?.studentName || '';
+  const text = val ? val : 'Name not entered';
+  if($('studentNameDisplay')) $('studentNameDisplay').textContent = text;
+}
 function play(type){
   if(!state.sound) return;
   const ctx = new (window.AudioContext||window.webkitAudioContext)();
@@ -2571,6 +2717,7 @@ function saveState(){
     const el=$(id); if(el) state.reflections[id]=el.value;
   });
   localStorage.setItem('cbcsBatch1State', JSON.stringify(state));
+  updateStudentNameDisplay();
   updateProgress();
 }
 function loadState(){
@@ -2579,6 +2726,7 @@ function loadState(){
   setTimeout(()=>{
     Object.entries(state.reflections||{}).forEach(([id,val])=>{ if($(id)) $(id).value=val; });
     renderAll();
+    updateStudentNameDisplay();
     updateProgress();
   },0);
 }
