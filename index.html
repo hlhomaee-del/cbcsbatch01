@@ -1287,11 +1287,11 @@ const flashcards = [
   front:'A <span class="keyword kw-blue">clean claim</span> has the information needed for the payer to process it. If a private payer acknowledges clean claims but does not reimburse, the issue is usually escalated through the <span class="keyword kw-blue">state insurance commissioner</span>.',
   boxes:[
     ['Definition','A clean claim is complete, accurate, and ready for payer processing.','blue'],
-    ['CBCS clue words','“Private payer,” “clean claims,” “acknowledged,” “not reimbursed.”','blue'],
+    ['When to escalate','If a clean private-payer claim is acknowledged but not paid within the required timeframe, move the issue to the state insurance commissioner rather than treating it as a coding correction.','blue'],
     ['Why it matters','Students must separate payer delay complaints from coding errors.','green'],
-    ['Common trap','Do not send private payer timely payment complaints to HHS or CMS by default.','red']
+    ['Common trap','<u>Do not send private payer timely-payment complaints to HHS or CMS by default.</u> HHS/CMS handle different federal program, privacy, and Medicare/Medicaid responsibilities; private payer payment enforcement is usually a state insurance issue.','red']
   ],
-  back:'The state insurance commissioner oversees many private payer reimbursement and timely payment complaints. HHS is tied to federal health programs and HIPAA; CMS is Medicare/Medicaid administration; a clearinghouse transmits claims but does not regulate payer payment behavior.',
+  back:'The state insurance commissioner is the correct escalation point when the issue is a private payer that has accepted clean claims but failed to reimburse according to timely-payment expectations. <u>Do not default to HHS or CMS.</u> HHS is connected to federal health programs, privacy enforcement, and civil rights issues. CMS administers Medicare and Medicaid rules. A clearinghouse helps transmit and screen claims, but it does not regulate whether a private payer pays on time.',
   memory:'Private payer delay = think state insurance office.',
   check:{stem:'A private insurer acknowledged several clean claims but has not paid within the state-required timeline. Which contact is most appropriate?', options:[
     ['state','State insurance commissioner office'],['cms','CMS regional Medicare contractor'],['clear','Electronic claims clearinghouse'],['hhs','HHS civil rights complaint office']], correct:'state',
@@ -1299,7 +1299,7 @@ const flashcards = [
  },
  {id:'F2', topic:'Coding Logic', title:'ICD-10-CM Specificity and Diagnosis Pointers', color:'purple',
   front:'ICD-10-CM codes report <span class="keyword kw-purple">why</span> the service was performed. CPT/HCPCS codes report <span class="keyword kw-purple">what</span> was done. A <span class="keyword kw-purple">diagnosis pointer</span> links the diagnosis to the procedure on a claim.',
-  boxes:[['Definition','Diagnosis codes support medical necessity for services.','purple'],['Specificity','Use the highest number of characters needed, including laterality or encounter when required.','purple'],['CBCS clue words','“linked codes,” “medical necessity,” “highest specificity.”','orange'],['Common trap','Do not code signs/symptoms when a confirmed diagnosis exists.','red']],
+  boxes:[['Definition','Diagnosis codes support medical necessity for services.','purple'],['Specificity','Use the highest number of characters needed, including laterality or encounter when required.','purple'],['Claim connection','The diagnosis must support the service. If the ICD-10-CM code and CPT/HCPCS code do not logically match, the payer may deny the claim for medical necessity or linkage problems.','orange'],['Common trap','Do not code signs/symptoms when a confirmed diagnosis exists.','red']],
   back:'When the diagnosis and procedure do not logically connect, the payer may deny the claim. Example: appendectomy linked to chronic sinusitis is a diagnosis-procedure mismatch. In the absence of a confirmed diagnosis, signs and symptoms may be coded.',
   memory:'Why + What + Link = diagnosis pointer.',
   check:{stem:'A payer denies an appendectomy because it was linked to chronic frontal sinusitis. What caused the denial?', options:[
@@ -1334,7 +1334,7 @@ const flashcards = [
     rationales:{24:'Correct. Pneumonia is unrelated to the knee surgery and occurs during the postoperative period.',25:'Incorrect. -25 is for separate E/M on the same day as another procedure, not postoperative unrelated E/M.',58:'Incorrect. -58 is for staged or related procedures during the global period.',52:'Incorrect. -52 reports reduced services.'}}
  },
  {id:'F6', topic:'Modifiers', title:'Other High-Yield Modifiers', color:'purple',
-  front:'Some CBCS modifier questions are simple if you identify the clue: <span class="keyword kw-purple">-50 bilateral</span>, <span class="keyword kw-purple">-22 unusual work</span>, <span class="keyword kw-purple">-32 mandated service</span>, <span class="keyword kw-purple">-47 surgeon anesthesia</span>, <span class="keyword kw-purple">-52 reduced service</span>, and digit modifiers like <span class="keyword kw-purple">F1</span>.',
+  front:'Some CBCS modifier questions become manageable when you identify the function of the modifier: <span class="keyword kw-purple">-50 bilateral</span>, <span class="keyword kw-purple">-22 unusual work</span>, <span class="keyword kw-purple">-32 mandated service</span>, <span class="keyword kw-purple">-47 surgeon anesthesia</span>, <span class="keyword kw-purple">-52 reduced service</span>, and digit modifiers like <span class="keyword kw-purple">F1</span>.',
   boxes:[['-50','Bilateral procedure.','purple'],['-22','Increased/prolonged work; usually needs documentation.','orange'],['-32','Mandated service, such as payer-required testing.','blue'],['F1','Left hand, second digit/index finger.','purple']],
   back:'Modifier -47 indicates anesthesia by surgeon. Modifier -52 means a service was partially reduced or eliminated. For -22, an operative report often supports unusual procedural services.',
   memory:'The modifier is the story’s tiny legal footnote.',
@@ -1399,7 +1399,7 @@ const flashcards = [
  {id:'F13', topic:'Referrals & Managed Care', title:'HMO, PCP Gatekeeper, and Referral Types', color:'blue',
   front:'In an <span class="keyword kw-blue">HMO</span>, the primary care provider often functions as a gatekeeper. Some specialty visits require referral before the patient sees an in-network specialist.',
   boxes:[['HMO','Usually requires PCP referral for specialist care.','blue'],['Tertiary referral','Specialist-to-specialist referral for highly specialized care.','purple'],['Direct referral','Provider sends patient directly to another provider.','blue'],['Self-referral','Patient seeks care without provider referral.','red']],
-  back:'If an endocrinologist refers a patient to infectious disease, the clue is specialist-to-specialist. That is tertiary care referral logic. If a patient must see the PCP first for endocrinology, that is HMO gatekeeper logic.',
+  back:'If an endocrinologist refers a patient to infectious disease, the reasoning is specialist-to-specialist. That is tertiary care referral logic. If a patient must see the PCP first for endocrinology, that is HMO gatekeeper logic.',
   memory:'PCP gate = HMO. Specialist to specialist = tertiary.',
   check:{stem:'A patient treated by an endocrinologist is sent to an infectious disease specialist. What referral type best fits?', options:[
     ['tertiary','Tertiary care referral'],['self','Self-referral'],['formal','Formal referral from PCP only'],['direct','Direct access without provider involvement']], correct:'tertiary',
@@ -2252,7 +2252,7 @@ const QUESTIONS = [
    "a": "Correct. Place of service can change reimbursement because facility and nonfacility payment differ.",
    "b": "Incorrect. Missing demographics usually rejects or invalidates a claim before payment.",
    "c": "Incorrect. COB may affect payer order, but the clue asks reduced procedure payment from Medicare.",
-   "d": "Incorrect. Workers’ compensation changes payer responsibility, not a Medicare contracted reduction clue alone."
+   "d": "Incorrect. Workers’ compensation changes payer responsibility, not a Medicare contracted reduction issue by itself."
   },
   "trap": "Place of service can reduce payment even when the code itself is payable."
  },
@@ -2600,9 +2600,9 @@ const QUESTIONS = [
   "correct": "a",
   "rationales": {
    "a": "Correct. The diagnosis does not support the procedure, so the diagnosis pointer/link is medically inconsistent.",
-   "b": "Incorrect. Missing guarantor information is not the clue in this denial.",
+   "b": "Incorrect. Missing guarantor information is not the issue in this denial.",
    "c": "Incorrect. Appendectomy and sinusitis mismatch is not a bilateral modifier issue.",
-   "d": "Incorrect. The denial clue is medical necessity/linkage, not eligibility dates."
+   "d": "Incorrect. The denial issue is medical necessity/linkage, not eligibility dates."
   },
   "trap": "The diagnosis pointer must support the CPT service."
  },
@@ -2814,7 +2814,7 @@ const QUESTIONS = [
    "c": "Incorrect. Modifier -58 is used for staged, related, or more extensive procedures during a postoperative period.",
    "d": "Incorrect. Modifier -26 reports only the professional component of a service, not mandated testing."
   },
-  "trap": "The decisive clue is payer-required bloodwork. Required by a payer or agency means mandated service, which points to modifier -32."
+  "trap": "The decisive detail is payer-required bloodwork. Required by a payer or agency means mandated service, which points to modifier -32."
  },
  {
   "id": "Q39",
@@ -2954,7 +2954,7 @@ const QUESTIONS = [
    "c": "Incorrect. Modifier -25 indicates a separately identifiable E/M service.",
    "d": "Incorrect. Modifier -32 identifies a mandated service."
   },
-  "trap": "Anesthesia by surgeon is a very specific modifier clue."
+  "trap": "Anesthesia by surgeon points to a very specific modifier rule."
  },
  {
   "id": "Q43",
