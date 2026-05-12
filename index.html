@@ -220,10 +220,17 @@ main{padding:28px;max-width:1280px;width:100%;margin:0 auto}
 .test-top{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;margin-bottom:14px}
 .timer{font-size:24px;font-weight:950;color:var(--navy);background:#fff;padding:12px 16px;border-radius:16px}
 .flag{background:#fff7e6;color:#9a5a00;border:0;border-radius:14px;padding:11px 12px;font-weight:900;cursor:pointer}
-.review-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:8px;margin-top:12px}
-.review-dot{border:0;border-radius:12px;padding:9px;background:#fff;cursor:pointer;font-weight:900}
-.review-dot.answered{background:rgba(34,197,94,.16);color:#166534}
-.review-dot.flagged{outline:3px solid var(--orange)}
+.review-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(48px,1fr));gap:10px;margin-top:12px}
+.review-summary{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:10px 0 6px;font-weight:900;color:var(--navy)}
+.review-key{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid rgba(15,23,42,.12);border-radius:999px;padding:6px 10px;box-shadow:0 6px 14px rgba(15,23,42,.08);font-size:12px}
+.key-dot{width:14px;height:14px;border-radius:50%;display:inline-block;box-shadow:inset 0 0 0 2px rgba(255,255,255,.7)}
+.key-dot.pending{background:#bfdbfe}.key-dot.correct{background:#22c55e}.key-dot.wrong{background:#ef4444}.key-dot.current{background:#2563eb}
+.review-dot{border:2px solid rgba(255,255,255,.85);border-radius:14px;padding:10px 8px;background:#bfdbfe;color:#0f2a54;cursor:pointer;font-weight:950;box-shadow:0 8px 18px rgba(37,99,235,.18);transition:transform .18s ease, box-shadow .18s ease, background .18s ease;position:relative}
+.review-dot:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 12px 24px rgba(37,99,235,.26)}
+.review-dot.current{background:#2563eb;color:#fff;outline:3px solid #93c5fd;box-shadow:0 0 0 5px rgba(37,99,235,.16),0 12px 24px rgba(37,99,235,.35)}
+.review-dot.answered-correct{background:#22c55e;color:#fff;box-shadow:0 10px 22px rgba(34,197,94,.28)}
+.review-dot.answered-wrong{background:#ef4444;color:#fff;box-shadow:0 10px 22px rgba(239,68,68,.28)}
+.review-dot.flagged::after{content:'⚑';position:absolute;top:-9px;right:-7px;background:#f59e0b;color:#111827;border-radius:999px;font-size:12px;line-height:1;padding:4px;box-shadow:0 4px 10px rgba(245,158,11,.35)}
 .table-wrap{overflow:auto}
 .smart-table{width:100%;border-collapse:separate;border-spacing:0 9px}
 .smart-table th{text-align:left;font-size:13px;color:#475569;padding:8px}
@@ -548,7 +555,7 @@ body[data-section="welcome"] .compact-credit{display:none!important}
   background:rgba(255,255,255,.16);
   text-shadow:0 1px 2px rgba(0,0,0,.35);
 }
-.module-card .badge, .section-title .badge, .review-dot.answered{
+.module-card .badge, .section-title .badge, .review-dot.answered-correct, .review-dot.answered-wrong{
   color:#ffffff!important;
   text-shadow:0 1px 2px rgba(0,0,0,.28);
 }
@@ -1048,6 +1055,36 @@ main > .compact-credit:last-child{margin-bottom:0!important;}
 .status-row-active td:first-child::after{content:'Open'; background:#fff;}
 @media(max-width:740px){.status-click-banner{font-size:16px;align-items:flex-start}.status-click-banner .tap-icon{flex:0 0 auto}.status-row td:first-child::after{display:block;width:max-content;margin:7px 0 0}}
 
+
+
+/* UPDATED: claim life-cycle adjudication and mini-game sorting boxes */
+.flow-step.flow-adjudication{
+  background:linear-gradient(135deg,#fed7aa 0%,#fb923c 48%,#92400e 100%)!important;
+  color:#fff!important;
+  box-shadow:0 16px 34px rgba(146,64,14,.25), inset 0 1px 0 rgba(255,255,255,.45)!important;
+}
+.flow-step.flow-adjudication p,.flow-step.flow-adjudication b{color:#fff!important;text-shadow:0 1px 2px rgba(0,0,0,.18)}
+.flow-step.flow-adjudication:hover,.flow-step.flow-adjudication.active{outline:4px solid rgba(251,146,60,.42)!important;filter:saturate(1.1) brightness(1.03)}
+.game-card{background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(238,245,255,.92));}
+.mini-title{margin-bottom:6px}
+.game-instruction{background:linear-gradient(135deg,#e0f2fe,#f5d0fe,#ffedd5);border:2px solid rgba(255,255,255,.85);border-radius:18px;padding:13px 15px;color:#061733;font-weight:760;box-shadow:0 8px 20px rgba(15,23,42,.08)}
+.chip-bank{min-height:70px;padding:14px;border-radius:22px;background:rgba(255,255,255,.74);box-shadow:inset 0 0 0 2px rgba(255,255,255,.85),0 10px 24px rgba(15,23,42,.08);margin:14px 0;}
+.game-zones{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:14px;}
+.game-zone{min-height:190px;border:0!important;border-radius:26px!important;padding:18px!important;background:#fff;box-shadow:0 18px 34px rgba(15,23,42,.14),inset 0 1px 0 rgba(255,255,255,.7)!important;position:relative;transition:.18s ease;}
+.game-zone:hover{transform:translateY(-3px);filter:saturate(1.08)}
+.game-zone b{display:block;font-size:17px;color:#061733;margin-bottom:4px}.game-zone small{display:block;color:#061733;font-weight:760;margin-bottom:12px;opacity:.86}
+.coding-zone{background:linear-gradient(135deg,#e9d5ff,#d8b4fe,#c084fc)!important;}
+.payer-zone{background:linear-gradient(135deg,#dbeafe,#93c5fd,#38bdf8)!important;}
+.denial-zone{background:linear-gradient(135deg,#ffedd5,#fdba74,#fb923c)!important;}
+.placed-items{min-height:92px;border-radius:18px;background:rgba(255,255,255,.62);border:2px dashed rgba(6,23,51,.18);padding:10px;display:flex;align-content:flex-start;align-items:flex-start;gap:8px;flex-wrap:wrap;}
+.drag-chip{border:2px solid rgba(255,255,255,.72)!important;color:#061733!important;background:linear-gradient(135deg,#ffffff,#f8fafc)!important;box-shadow:0 8px 18px rgba(15,23,42,.12)!important;user-select:none;}
+.drag-chip.selected{outline:4px solid rgba(37,99,235,.34);background:linear-gradient(135deg,#fff7ed,#e0f2fe)!important;transform:translateY(-2px) scale(1.03)}
+.drag-chip.correct{background:linear-gradient(135deg,#dcfce7,#86efac)!important;border-color:#16a34a!important;color:#052e16!important;animation:correctGlow .8s ease;}
+.drag-chip.incorrect{background:linear-gradient(135deg,#fee2e2,#fca5a5)!important;border-color:#dc2626!important;color:#450a0a!important;animation:shake .35s ease;}
+#sortFeedback.show{background:linear-gradient(135deg,#ffffff,#e0f2fe,#fef3c7);color:#061733;border:2px solid rgba(255,255,255,.88);}
+@media(max-width:900px){.game-zones{grid-template-columns:1fr}.game-zone{min-height:150px}}
+@media print{.game-card .toolbar{display:none!important}.game-zone{break-inside:avoid}}
+
 </style>
 </head>
 <body data-section="welcome">
@@ -1154,15 +1191,21 @@ main > .compact-credit:last-child{margin-bottom:0!important;}
         <div class="table-wrap"><table class="smart-table" id="compareTable" aria-label="Clickable payer and claim status comparison table"></table></div>
         <div id="statusCloud" class="status-cloud" style="display:none"></div>
       </div>
-      <div class="card" style="margin-top:18px">
-        <h3>Mini-Game: Sort the Concept</h3>
-        <p>Click each chip to send it to its best category. Correct placements glow green; incorrect placements shake.</p>
-        <div id="sortChips"></div>
-        <div class="grid cols-3">
-          <div class="drop-zone" data-zone="Coding"><b>Purple: Coding / Modifier</b><div></div></div>
-          <div class="drop-zone" data-zone="Payer"><b>Blue: Payer / Insurance</b><div></div></div>
-          <div class="drop-zone" data-zone="Denial"><b>Orange: Denial / Appeal</b><div></div></div>
+      <div class="card game-card" style="margin-top:18px">
+        <div class="section-title mini-title"><h3>Mini-Game: Sort the Concept</h3><span class="badge green">Submit to check</span></div>
+        <p class="game-instruction">Select a concept chip, then click the best colored box. Place every chip, then press <b>Submit Sort</b>. Correct placements glow green; misplaced chips turn red and can be moved again.</p>
+        <div id="sortChips" class="chip-bank" aria-label="Concept chips to sort"></div>
+        <div class="game-zones">
+          <div class="drop-zone game-zone coding-zone" data-zone="Coding" role="button" tabindex="0" onclick="placeSelectedChip('Coding')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();placeSelectedChip('Coding')}"><b>Coding / Modifier</b><small>codes, modifiers, pointers, coding edits</small><div class="placed-items"></div></div>
+          <div class="drop-zone game-zone payer-zone" data-zone="Payer" role="button" tabindex="0" onclick="placeSelectedChip('Payer')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();placeSelectedChip('Payer')}"><b>Payer / Insurance</b><small>coverage, COB, plan rules, government payers</small><div class="placed-items"></div></div>
+          <div class="drop-zone game-zone denial-zone" data-zone="Denial" role="button" tabindex="0" onclick="placeSelectedChip('Denial')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();placeSelectedChip('Denial')}"><b>Denial / Appeal</b><small>rejections, appeals, medical necessity, claim follow-up</small><div class="placed-items"></div></div>
         </div>
+        <div class="toolbar no-print">
+          <button class="btn good" onclick="submitSortGame()">Submit Sort</button>
+          <button class="btn secondary" onclick="revealSortAnswers()">Reveal Answers</button>
+          <button class="btn secondary" onclick="resetSortGame()">Reset Game</button>
+        </div>
+        <div id="sortFeedback" class="feedback"></div>
       </div>
     </section>
 
@@ -3394,12 +3437,12 @@ function goFlash(i){state.currentFlash=i;state.flipped=false;showSection('flashc
 function markUnderstood(){state.understood[flashcards[state.currentFlash].id]=true; showToast('Flashcard marked understood.'); nextFlash();}
 function renderDiagrams(){
  const flow=$('flow');
- flow.innerHTML=flowSteps.map((s,i)=>`<div class="flow-step" onclick="explainFlow(${i}, this)"><b>${i+1}. ${s[0]}</b><p>Click to reveal</p></div>${i<flowSteps.length-1?'<div class="flow-arrow">→</div>':''}`).join('');
+ flow.innerHTML=flowSteps.map((s,i)=>{ const slug=s[0].toLowerCase().replace(/[^a-z0-9]+/g,'-'); return `<div class="flow-step flow-${slug}" onclick="explainFlow(${i}, this)"><b>${i+1}. ${s[0]}</b><p>Click to reveal</p></div>${i<flowSteps.length-1?'<div class="flow-arrow">→</div>':''}`; }).join('');
  $('compareTable').innerHTML='<tr><th>Term</th><th>Meaning</th><th>Best action / trap</th></tr>'+compareRows.map((r,i)=>{
    const key=r[0].toLowerCase().replace(/\s+/g,'-');
    return `<tr class="status-row status-${key}" role="button" tabindex="0" title="Click to read more about ${r[0]}" onclick="showStatusCloud('${r[0]}', this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showStatusCloud('${r[0]}', this)}"><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`;
  }).join('');
- $('sortChips').innerHTML=sortItems.map((it,i)=>`<span class="drag-chip" onclick="sortChip(this,'${it[1]}')">${it[0]}</span>`).join('');
+ renderSortGame();
 }
 function showStatusCloud(term, row){
  const cloud=$('statusCloud');
@@ -3434,16 +3477,74 @@ function closeStatusCloud(e){
 }
 function explainFlow(i, el){
  document.querySelectorAll('.flow-step').forEach(x=>x.classList.remove('active')); el.classList.add('active');
- const pal=FLASH_PALETTE[i % FLASH_PALETTE.length];
+ const pal=flowSteps[i][0]==='Adjudication' ? ['#fb923c','#92400e'] : FLASH_PALETTE[i % FLASH_PALETTE.length];
  const box=$('flowExplain');
  box.style.background=`linear-gradient(135deg, ${pal[0]}55, ${pal[1]}88), rgba(255,255,255,.72)`;
  box.style.border='2px solid rgba(255,255,255,.9)';
  box.innerHTML=`<b>${flowSteps[i][0]}</b><br>${flowSteps[i][1]}`; play('click');
 }
-function sortChip(chip, zone){
- const zones=document.querySelectorAll('.drop-zone');
- const target=[...zones].find(z=>z.dataset.zone===zone).querySelector('div');
- target.appendChild(chip); chip.classList.add('correct'); play('correct');
+let selectedSortChip = null;
+function renderSortGame(){
+ const bank=$('sortChips');
+ if(!bank) return;
+ document.querySelectorAll('.placed-items').forEach(z=>z.innerHTML='');
+ bank.innerHTML=sortItems.map((it,i)=>`<span class="drag-chip" data-term="${it[0]}" data-correct="${it[1]}" role="button" tabindex="0" onclick="selectSortChip(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectSortChip(this)}">${it[0]}</span>`).join('');
+ const feed=$('sortFeedback'); if(feed){feed.className='feedback'; feed.innerHTML='';}
+}
+function selectSortChip(chip){
+ document.querySelectorAll('.drag-chip').forEach(c=>c.classList.remove('selected'));
+ selectedSortChip=chip;
+ chip.classList.add('selected');
+ play('click');
+}
+function placeSelectedChip(zone){
+ if(!selectedSortChip){showToast('Select a concept chip first.'); return;}
+ const target=[...document.querySelectorAll('.game-zone')].find(z=>z.dataset.zone===zone)?.querySelector('.placed-items');
+ if(!target) return;
+ selectedSortChip.classList.remove('selected','correct','incorrect');
+ target.appendChild(selectedSortChip);
+ selectedSortChip=null;
+ play('click');
+}
+function submitSortGame(){
+ const chips=[...document.querySelectorAll('.drag-chip')];
+ if(!chips.length) return;
+ let placed=0, correct=0;
+ chips.forEach(chip=>{
+   const zone=chip.closest('.game-zone')?.dataset.zone;
+   chip.classList.remove('correct','incorrect','selected');
+   if(zone){
+     placed++;
+     if(zone===chip.dataset.correct){ chip.classList.add('correct'); correct++; }
+     else chip.classList.add('incorrect');
+   }
+ });
+ const feed=$('sortFeedback');
+ feed.classList.add('show');
+ if(placed<chips.length){
+   feed.innerHTML=`<b>Place every chip before final review.</b><br>You placed ${placed} of ${chips.length}. Move the remaining chips into the colored boxes, then submit again.`;
+   play('wrong');
+   return;
+ }
+ feed.innerHTML=`<b>${correct} of ${chips.length} placements are correct.</b><br>Green chips are in the best category. Red chips are misplaced; select each red chip and move it to a better box, then submit again.`;
+ play(correct===chips.length?'correct':'wrong');
+ if(correct===chips.length) showToast('Mini-game complete. Strong sorting.');
+}
+function revealSortAnswers(){
+ document.querySelectorAll('.drag-chip').forEach(chip=>{
+   const correctZone=chip.dataset.correct;
+   const target=[...document.querySelectorAll('.game-zone')].find(z=>z.dataset.zone===correctZone)?.querySelector('.placed-items');
+   if(target){ chip.classList.remove('selected','incorrect'); chip.classList.add('correct'); target.appendChild(chip); }
+ });
+ const feed=$('sortFeedback');
+ feed.classList.add('show');
+ feed.innerHTML='<b>Answers revealed.</b><br>Notice the pattern: coding/modifier items go in purple, payer/coverage items go in blue, and denial/appeal/follow-up items go in orange.';
+ play('done');
+}
+function resetSortGame(){
+ selectedSortChip=null;
+ renderSortGame();
+ play('click');
 }
 function startPractice(count=null, topic=null){
  let pool=topic?QUESTIONS.filter(q=>q.topic===topic):QUESTIONS;
@@ -3519,12 +3620,27 @@ function renderChallenge(){
  area.innerHTML=`<div class="test-top"><div><b>Question ${challengeIndex+1} of ${state.challengeSet.length}</b><div class="progress-wrap"><div class="progress-fill" style="width:${((challengeIndex+1)/state.challengeSet.length)*100}%"></div></div></div><div class="timer" id="testTimer">00:00</div><button class="flag" onclick="toggleFlag('${id}')">${state.flags[id]?'⚑ Flagged':'⚐ Flag'}</button></div>
  ${renderQuestion(q,'challenge',challengeIndex+1,false)}
  <div class="toolbar"><button class="btn secondary" onclick="prevChallenge()">Back</button><button class="btn" onclick="nextChallenge()">Next</button><button class="btn warn" onclick="submitChallenge()">Submit Test</button></div>
- <div class="card"><b>Answer Review Panel</b><div id="challengeNav" class="review-grid"></div></div>`;
+ <div class="card"><b>Answer Review Map</b><p style="margin:6px 0;color:var(--navy);font-weight:800">Use the map to jump between questions. Light blue means not answered yet; green means correct; red means incorrect.</p><div id="challengeNavSummary" class="review-summary"></div><div id="challengeNav" class="review-grid" aria-label="Test question review map"></div></div>`;
  updateTimer(); renderChallengeNav();
 }
 function renderChallengeNav(){
  const nav=$('challengeNav'); if(!nav) return;
- nav.innerHTML=state.challengeSet.map((id,i)=>`<button class="review-dot ${state.challengeAnswers[id]?'answered':''} ${state.flags[id]?'flagged':''}" onclick="challengeIndex=${i};renderChallenge()">${i+1}</button>`).join('');
+ const answered=state.challengeSet.filter(id=>state.challengeAnswers[id]).length;
+ const correct=state.challengeSet.filter(id=>state.challengeAnswers[id]?.correct).length;
+ const wrong=state.challengeSet.filter(id=>state.challengeAnswers[id] && !state.challengeAnswers[id].correct).length;
+ const summary=$('challengeNavSummary');
+ if(summary){
+   summary.innerHTML=`<span>${answered} of ${state.challengeSet.length} answered</span><span class="review-key"><i class="key-dot pending"></i>Not answered</span><span class="review-key"><i class="key-dot correct"></i>Correct ${correct}</span><span class="review-key"><i class="key-dot wrong"></i>Incorrect ${wrong}</span><span class="review-key"><i class="key-dot current"></i>Current</span>`;
+ }
+ nav.innerHTML=state.challengeSet.map((id,i)=>{
+   const ans=state.challengeAnswers[id];
+   let cls='review-dot';
+   if(ans) cls += ans.correct ? ' answered-correct' : ' answered-wrong';
+   if(i===challengeIndex) cls += ' current';
+   if(state.flags[id]) cls += ' flagged';
+   const label=ans ? (ans.correct?'correct':'incorrect') : 'not answered';
+   return `<button class="${cls}" title="Question ${i+1}: ${label}" aria-label="Question ${i+1}: ${label}" onclick="challengeIndex=${i};renderChallenge()">${i+1}</button>`;
+ }).join('');
 }
 function nextChallenge(){challengeIndex=Math.min(challengeIndex+1,state.challengeSet.length-1);renderChallenge();}
 function prevChallenge(){challengeIndex=Math.max(challengeIndex-1,0);renderChallenge();}
